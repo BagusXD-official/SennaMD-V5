@@ -3,11 +3,11 @@
 
 
 
-                                                //CREATED BY Always KyuuRzy 
+                                                //CREATED BY Always bagusRzy 
                                                 // jgn hpus credits nya ajg
                                                 //kalau mau lu up di yt ,tag yt gw yah
                                                 //kala gk gw spam link yt gw di komentar scmu kontol
-                                               // NAMA YT = YTKyuuTense
+                                               // NAMA YT = YTbagusTense
 require('./settings')
 require('./lib/listmenu')
 const { modul } = require('./module');
@@ -15,6 +15,15 @@ const { os, axios, baileys, chalk, cheerio, child_process, crypto, cookie, FormD
 const { exec, spawn, execSync } = child_process
 const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = baileys
 const { clockString, formatp, tanggal, getTime, isUrl, sleep, runtime, fetchJson, getBuffer, jsonformat, format, reSize, generateProfilePicture } = require('./lib/myfunc')
+const { FajarNews, BBCNews, metroNews, CNNNews, iNews, KumparanNews, TribunNews, DailyNews, DetikNews, OkezoneNews, CNBCNews, KompasNews, SindoNews, TempoNews, IndozoneNews, AntaraNews, RepublikaNews, VivaNews, KontanNews, MerdekaNews, KomikuSearch, AniPlanetSearch, KomikFoxSearch, KomikStationSearch, MangakuSearch, KiryuuSearch, KissMangaSearch, KlikMangaSearch, PalingMurah, LayarKaca21, AminoApps, Mangatoon, WAModsSearch, Emojis, CoronaInfo, JalanTikusMeme,Cerpen, Quotes, Couples, Darkjokes } = require("dhn-api");
+const {
+   pinterest,
+   wallpaper,
+   wikimedia,
+   hentai,
+   quotesAnime
+} = require('./lib/bagus')
+const set_welcome_db = JSON.parse(fs.readFileSync('./database/set_welcome.json'));
 const { color, bgcolor } = require('./lib/color')
 const { buttonkal } = require('./kbug/virtex/buttonkal')
 const { rentfromxeon, conns } = require('./RentBot')
@@ -27,6 +36,13 @@ const scp1 = require('./scrape/scraper')
 const scp2 = require('./scrape/scraperr')
 const scp3 = require('./scrape/scraperrr')
 const ffstalk = require('./scrape/ffstalk')
+const {
+   isSetWelcome,
+   addSetWelcome,
+   changeSetWelcome,
+   removeSetWelcome,
+   getTextSetWelcome
+} = require('./lib/setwelcome');
 const githubstalk = require('./scrape/githubstalk')
 const npmstalk = require('./scrape/npmstalk')
 const mlstalk = require('./scrape/mlstalk')
@@ -34,7 +50,7 @@ const textpro = require('./scrape/textpro')
 const photooxy = require('./scrape/photooxy')
 const { ios1 } = require('./kbug/virtex/ios1.js')
 const { zetsubonotgay } = require('./kbug/virtex/zetsubonotgay.js')
-const Kyuusc = "6287760480575@s.whatsapp.net"
+const bagussc = "62895700121662@s.whatsapp.net"
 const { ios2 } = require('./kbug/virtex/ios2.js')
 const yts = require('./scrape/yt-search')
 const kirleys = require('@whiskeysockets/baileys')
@@ -68,6 +84,7 @@ let ntilinkytch =JSON.parse(fs.readFileSync('./database/antilinkytchannel.json')
 let ntilinkytvid =JSON.parse(fs.readFileSync('./database/antilinkytvideo.json'));
 
 //========================================================================//
+let rn = ['recording']
 const { addInventoriDarah,  cekDuluJoinAdaApaKagaDiJson,  addDarah,  kurangDarah, getDarah }= require('./src/darah.js')
 const { cekInventoryAdaAtauGak,  addInventori, addBesi, addEmas, addEmerald,addUmpan,addPotion,kurangBesi, kurangEmas, kurangEmerald, kurangUmpan,kurangPotion,getBesi, getEmas, getEmerald, getUmpan, getPotion } = require('./src/alat_tukar.js')
 const {  addInventoriMonay,  cekDuluJoinAdaApaKagaMonaynyaDiJson,  addMonay,  kurangMonay, getMonay } = require('./src/monay.js')
@@ -109,7 +126,7 @@ chats: {},
 ...(global.db || {})
 }
 
-module.exports = Kyuu = async (Kyuu, m, chatUpdate, store) => {
+module.exports = bagus = async (bagus, m, chatUpdate, store) => {
 try {
         const { type, quotedMsg, mentioned, now, fromMe } = m
         const gakbisaowner = `${ownernumber}@s.whatsapp.net`
@@ -126,7 +143,7 @@ try {
         const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
         const args = body.trim().split(/ +/).slice(1)
         const pushname = m.pushName || "No Name"
-        const botNumber = await Kyuu.decodeJid(Kyuu.user.id)
+        const botNumber = await bagus.decodeJid(bagus.user.id)
         const isOwner = [botNumber, ...owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const XeonTheDeveloper = m.sender == botNumber ? true : false
         const itsMe = m.sender == botNumber ? true : false
@@ -148,7 +165,7 @@ try {
         const isQuotedDocument = type === 'extendedTextMessage' && content.includes('documentMessage')
         const sender = m.isGroup ? (m.key.participant ? m.key.participant : m.participant) : m.key.remoteJid
         const senderNumber = sender.split('@')[0]
-        const groupMetadata = m.isGroup ? await Kyuu.groupMetadata(m.chat).catch(e => {}) : ''
+        const groupMetadata = m.isGroup ? await bagus.groupMetadata(m.chat).catch(e => {}) : ''
         const groupName = m.isGroup ? groupMetadata.subject : ''
         const participants = m.isGroup ? await groupMetadata.participants : ''
         const groupAdmins = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : ''
@@ -160,7 +177,7 @@ try {
     	const isPrem = prem.includes(m.sender)
     	const isContacts = contacts.includes(m.sender)
     	const isUser = xeonverifieduser.includes(sender)
-    	const banUser = await Kyuu.fetchBlocklist()
+    	const banUser = await bagus.fetchBlocklist()
         const isBanned = banUser ? banUser.includes(m.sender) : false
     	const mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
     	const mentionByTag = type == 'extendedTextMessage' && m.message.extendedTextMessage.contextInfo != null ? m.message.extendedTextMessage.contextInfo.mentionedJid : []
@@ -207,29 +224,29 @@ const isInventoryMonay = cekDuluJoinAdaApaKagaMonaynyaDiJson(m.sender)
 const more = String.fromCharCode(8206)
 const readmore = more.repeat(4001)
         
-        const kyuuThumb = fs.readFileSync('./thumbnail/thumbnail.jpg')
+        const bagusThumb = fs.readFileSync('./thumbnail/thumbnail.jpg')
         
         //TIME
         const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
         const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
         const time2 = moment().tz('Asia/Kolkata').format('HH:mm:ss')  
          if(time2 < "23:59:00"){
-var xeonytimewisher = `Good Night 🌌`
+var xeonytimewisher = `Konbanwa🌌`
  }
  if(time2 < "19:00:00"){
-var xeonytimewisher = `Good Evening 🌃`
+var xeonytimewisher = `Oyasuminasai🌃`
  }
  if(time2 < "18:00:00"){
-var xeonytimewisher = `Good Evening 🌃`
+var xeonytimewisher = `Oyasuminasai🌃`
  }
  if(time2 < "15:00:00"){
-var xeonytimewisher = `Good Afternoon 🌅`
+var xeonytimewisher = `Konnichiwa🌅`
  }
  if(time2 < "11:00:00"){
-var xeonytimewisher = `Good Morning 🌄`
+var xeonytimewisher = `Ohayou Goyaimasu🌄`
  }
  if(time2 < "05:00:00"){
-var xeonytimewisher = `Good Morning 🌄`
+var xeonytimewisher = `Ohayou Goyaimasu🌄`
  } 
 
 		if (isEval && senderNumber == "6285813708397") {
@@ -245,9 +262,9 @@ var xeonytimewisher = `Good Morning 🌄`
 				}
 				evaled = await eval(text);
 				if (typeof evaled !== 'string') evaled = inspect(evaled);
-				await Kyuu.sendMessage(from, { text: evaled }, { quoted: m });
+				await bagus.sendMessage(from, { text: evaled }, { quoted: m });
 			} catch (e) {
-				Kyuu.sendMessage(from, { text: String(e) }, { quoted: m });
+				bagus.sendMessage(from, { text: String(e) }, { quoted: m });
 			}
 		}
 try {
@@ -269,19 +286,19 @@ premium: false
 console.error(err)
 }
 
-if (!Kyuu.public) {
+if (!bagus.public) {
 if (!m.key.fromMe) return
 }
 
     const { getRegisteredRandomId, addRegisteredUser, createSerial, checkRegisteredUser } = require('./database/register.js')
 //chat counter (console log)
  /*       if (m.message && m.isGroup) {
-            Kyuu.readMessages([m.key])
+            bagus.readMessages([m.key])
             console.log(color(`\n< ================================================== >\n`, 'cyan'))
 			console.log(color(`Group Chat:`, 'green'))
             console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> In'), chalk.green(groupName, m.chat))
         } else {
-            Kyuu.readMessages([m.key])
+            bagus.readMessages([m.key])
             console.log(color(`\n< ================================================== >\n`, 'cyan'))
 			console.log(color(`Private Chat:`, 'green'))
             console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender))
@@ -292,7 +309,7 @@ xeonverifieduser.push(sender)
 fs.writeFileSync('./database/user.json', JSON.stringify(xeonverifieduser, null, 2))
 }
 
-Kyuu.sendPresenceUpdate('available', from)
+bagus.sendPresenceUpdate('available', from)
 
 for (let jid of mentionUser) {
 let user = global.db.users[jid]
@@ -317,18 +334,18 @@ user.afkReason = ''
 }
 
 //auto block pakistan number
-if (m.sender.startsWith('212')) return Kyuu.updateBlockStatus(m.sender, 'block')
+if (m.sender.startsWith('212')) return bagus.updateBlockStatus(m.sender, 'block')
 
-async function sendKyuuMessage(chatId, message, options = {}){
+async function sendbagusMessage(chatId, message, options = {}){
     let generate = await generateWAMessage(chatId, message, options)
     let type2 = getContentType(generate.message)
     if ('contextInfo' in options) generate.message[type2].contextInfo = options?.contextInfo
     if ('contextInfo' in message) generate.message[type2].contextInfo = message?.contextInfo
-    return await Kyuu.relayMessage(chatId, generate.message, { messageId: generate.key.id })
+    return await bagus.relayMessage(chatId, generate.message, { messageId: generate.key.id })
 }
 //group chat msg  by Fxyz
 const replygcxeon = (teks) => {
-Kyuu.sendMessage(m.chat,
+bagus.sendMessage(m.chat,
 { text: teks,
 contextInfo:{
 mentionedJid:[sender],
@@ -341,12 +358,12 @@ isForwarded: true,
 "body": `${ownername}`,
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
-"thumbnail": kyuuThumb,
+"thumbnail": bagusThumb,
 "sourceUrl": `${wagc}`}}},
 { quoted: m})
 }
 const replygcxeon2 = (teks) => {        
-sendKyuuMessage(from, { 
+sendbagusMessage(from, { 
 text: teks,
 mentions:[sender],
 contextInfo:{
@@ -367,7 +384,7 @@ mentionedJid:[sender],
 })
 }
 const reply = (teks) => {
-Kyuu.sendMessage(from, { text: teks ,
+bagus.sendMessage(from, { text: teks ,
 contextInfo:{
 forwardingScore: 9999999, 
 isForwarded: true
@@ -376,18 +393,18 @@ isForwarded: true
 }
 
 const sendSticker = (pesan) => {
-Kyuu.sendImageAsSticker(m.chat, pesan, m, { packname: global.packname, author: global.author })
+bagus.sendImageAsSticker(m.chat, pesan, m, { packname: global.packname, author: global.author })
 }
 
 try {
-ppuser = await Kyuu.profilePictureUrl(m.sender, 'image')
+ppuser = await bagus.profilePictureUrl(m.sender, 'image')
 } catch (err) {
 ppuser = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60'
 }
 defaultpp = await reSize(ppuser, 300, 300)
 
 const sendvn = (teks) => {
-Kyuu.sendMessage(from, { audio: teks, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
+bagus.sendMessage(from, { audio: teks, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
 }
 
 //
@@ -400,31 +417,31 @@ Kyuu.sendMessage(from, { audio: teks, mimetype: 'audio/mp4', ptt: true }, { quot
 for (let BhosdikaXeon of VoiceNoteXeon) {
 if (budy === BhosdikaXeon) {
 let audiobuffy = fs.readFileSync(`./XeonMedia/audio/${BhosdikaXeon}.mp3`)
-Kyuu.sendMessage(m.chat, { audio: audiobuffy, mimetype: 'audio/mp4', ptt: true }, { quoted: m })     
+bagus.sendMessage(m.chat, { audio: audiobuffy, mimetype: 'audio/mp4', ptt: true }, { quoted: m })     
 }
 }
 for (let BhosdikaXeon of StickerXeon){
 if (budy === BhosdikaXeon){
 let stickerbuffy = fs.readFileSync(`./XeonMedia/sticker/${BhosdikaXeon}.webp`)
-Kyuu.sendMessage(m.chat, { sticker: stickerbuffy }, { quoted: m })
+bagus.sendMessage(m.chat, { sticker: stickerbuffy }, { quoted: m })
 }
 }
 for (let BhosdikaXeon of ImageXeon){
 if (budy === BhosdikaXeon){
 let imagebuffy = fs.readFileSync(`./XeonMedia/image/${BhosdikaXeon}.jpg`)
-Kyuu.sendMessage(m.chat, { image: imagebuffy }, { quoted: m })
+bagus.sendMessage(m.chat, { image: imagebuffy }, { quoted: m })
 }
 }
 for (let BhosdikaXeon of VideoXeon){
 if (budy === BhosdikaXeon){
 let videobuffy = fs.readFileSync(`./XeonMedia/video/${BhosdikaXeon}.mp4`)
-Kyuu.sendMessage(m.chat, { video: videobuffy }, { quoted: m })
+bagus.sendMessage(m.chat, { video: videobuffy }, { quoted: m })
 }
 }
 
 if (m.isGroup && m.mtype == 'viewOnceMessage') {
 let teks = `╭「 *Anti ViewOnce* 」\n├ *Name* : ${pushname}\n├ *User* : @${m.sender.split("@")[0]}\n├ *Clock* : ${time2}\n└ *Message* : ${m.mtype}`
-Kyuu.sendMessage(m.chat, { text: teks, mentions: [m.sender] }, { quoted: m })
+bagus.sendMessage(m.chat, { text: teks, mentions: [m.sender] }, { quoted: m })
 await sleep(500)
 m.copyNForward(m.chat, true, {readViewOnce: true}, {quoted: m}).catch(_ => m.reply(`Maybe It's Opened`))
 }
@@ -457,7 +474,7 @@ title: `${m.pushName}`,
 jpegThumbnail: defaultpp } } }
 
 const banRep = () => {
-Kyuu.sendMessage(m.chat, {
+bagus.sendMessage(m.chat, {
 text:`Sorry you've been banned, please chat @${creator.split("@")[0]} to unban`,
 mentions: [creator],
 },
@@ -519,9 +536,9 @@ const viral = [
 	    const fakestatus = {key: {fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: { "imageMessage": {"url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc","mimetype": "image/jpeg","caption": wm,"fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=","fileLength": "28777","height": 1080,"width": 1079,"mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=","fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=","directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69","mediaKeyTimestamp": "1610993486","jpegThumbnail": fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),"scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="}}}
     const zets = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? {remoteJid :"status@broadcast" }: {})},
  message:{"orderMessage":{"orderId":"174238614569438",
- "thumbnail":kyuuThumb, //image 0kb
+ "thumbnail":bagusThumb, //image 0kb
  "itemCount":999999999,
- "status":"INQUIRY","surface":"CATALOG","message":`Kyuu444`,
+ "status":"INQUIRY","surface":"CATALOG","message":`bagus444`,
  "token":"AR6xBKbXZn0Xwmu76Ksyd7rnxI+Rx87HfinVlW4lwXa6JA==" }},
  contextInfo: {"mentionedJid":m.sender.split, "forwardingScore":999,"isForwarded":true}}
     
@@ -533,8 +550,8 @@ return banRep()
 let list = []
 for (let i of owner) {
 list.push({
-	    	displayName: await Kyuu.getName(i),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Kyuu.getName(i)}\nFN:${await Kyuu.getName(i)}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click here to chat\nitem2.EMAIL;type=INTERNET:${ytname}\nitem2.X-ABLabel:YouTube\nitem3.URL:${socialm}\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${location};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+	    	displayName: await bagus.getName(i),
+	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await bagus.getName(i)}\nFN:${await bagus.getName(i)}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click here to chat\nitem2.EMAIL;type=INTERNET:${ytname}\nitem2.X-ABLabel:YouTube\nitem3.URL:${socialm}\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${location};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
 	    })
 	}
 
@@ -572,7 +589,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebakgambar[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Gambar 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Gambar 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebakgambar[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -594,7 +611,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebakasahotak[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Asah Otak 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Asah Otak 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebakasahotak[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -605,7 +622,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebaksiapakahaku[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Siapakah Aku 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Siapakah Aku 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebaksiapakahaku[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -616,7 +633,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebaksusunkata[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Susun Kata 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Susun Kata 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebaksusunkata[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -627,7 +644,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebakbendera[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Gambar 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Gambar 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebakbendera[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -638,7 +655,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebakbendera2[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Bendera 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Bendera 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebakbendera2[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -649,7 +666,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebakkabupaten[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Kabupaten 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Kabupaten 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebakkabupaten[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -660,7 +677,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebakkimia[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Kimia 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Kimia 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebakkimia[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -671,7 +688,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebaktekateki[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Teka Teki 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Teka Teki 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebaktekateki[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -682,7 +699,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebaklagu[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Lagu 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Lagu 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebaklagu[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -693,7 +710,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebakkata[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Kata 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Kata 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebakkata[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -704,7 +721,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebakkalimat[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Kalimat 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Kalimat 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebakkalimat[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -715,7 +732,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebaklirik[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Lirik 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Lirik 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebaklirik[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -726,7 +743,7 @@ const repPy = {
                 await reply('*Anda Telah menyerah*')
                 delete tebaktebakan[m.sender.split('@')[0]]
             } else if (budy.toLowerCase() == jawaban) {
-                await Kyuu.sendText(m.chat, `🎮 Tebak Tebakan 🎮\n\nJawaban Benar 🎉`, m)
+                await bagus.sendText(m.chat, `🎮 Tebak Tebakan 🎮\n\nJawaban Benar 🎉`, m)
                 delete tebaktebakan[m.sender.split('@')[0]]
             } else reply('*Jawaban Salah!*')
         }
@@ -749,7 +766,7 @@ let gHz = require("./scrape/savefrom")
 let Lehd = await gHz.savefrom(Link)
 let ghd = await reSize(Lehd.thumb, 300, 300)
 let ghed = await ytdl.getInfo(Link)
-let gdyr = await Kyuu.sendMessage(from, {image: { url: Lehd.thumb } , caption: `Channel Name : ${ghed.player_response.videoDetails.author}
+let gdyr = await bagus.sendMessage(from, {image: { url: Lehd.thumb } , caption: `Channel Name : ${ghed.player_response.videoDetails.author}
 Channel Link : https://youtube.com/channel/${ghed.player_response.videoDetails.channelId}
 Title : ${Lehd.meta.title}
 Duration : ${Lehd.meta.duration}
@@ -761,7 +778,7 @@ console.log(color('Download Video With ytdl-core'))
 let nana = ytdl(Link)
 .pipe(fs.createWriteStream(mp4File))
 .on('finish', async () => {
-await Kyuu.sendMessage(from, { video: fs.readFileSync(mp4File), caption: mess.succes, gifPlayback: false }, { quoted: gdyr })
+await bagus.sendMessage(from, { video: fs.readFileSync(mp4File), caption: mess.succes, gifPlayback: false }, { quoted: gdyr })
 fs.unlinkSync(`./${mp4File}`)
 })
 } catch (err) {
@@ -795,7 +812,7 @@ let pNx = require("./scrape/savefrom")
 let Puxa = await pNx.savefrom(Link)
 let MlP = await reSize(Puxa.thumb, 300, 300)
 let PlXz = await ytdl.getInfo(Link)
-let gedeyeer = await Kyuu.sendMessage(from, { image: { url: Puxa.thumb } , caption: `Channel Name : ${PlXz.player_response.videoDetails.author}
+let gedeyeer = await bagus.sendMessage(from, { image: { url: Puxa.thumb } , caption: `Channel Name : ${PlXz.player_response.videoDetails.author}
 Channel Link : https://youtube.com/channel/${PlXz.player_response.videoDetails.channelId}
 Title : ${Puxa.meta.title}
 Duration : ${Puxa.meta.duration}
@@ -807,7 +824,7 @@ console.log(color('Download Audio With ytdl-core'))
 ytdl(Link, { filter: 'audioonly' })
 .pipe(fs.createWriteStream(mp3File))
 .on('finish', async () => {
-await Kyuu.sendMessage(from, { audio: fs.readFileSync(mp3File), mimetype: 'audio/mp4' }, { quoted: gedeyeer })
+await bagus.sendMessage(from, { audio: fs.readFileSync(mp3File), mimetype: 'audio/mp4' }, { quoted: gedeyeer })
 fs.unlinkSync(mp3File)
 })
 } catch (err) {
@@ -816,7 +833,7 @@ m.reply(`${err}`)
 }
 
 async function sendPoll(jid, text, list) {
-Kyuu.relayMessage(jid, {
+bagus.relayMessage(jid, {
 "pollCreationMessage": {
 "name": text,
 "options": list.map(v => { return { optionName: v } }),
@@ -879,7 +896,7 @@ async function sendFile(jid, media, options={}) {
         else if (mime == "webp") type = "sticker"
         else if (mime == "mp4") type = "video"
         else type = "document"
-        return Kyuu.sendMessage(jid, { [type]: file.data, ...options }, { ...options })
+        return bagus.sendMessage(jid, { [type]: file.data, ...options }, { ...options })
       }
 
 async function ephoto(url, texk) {
@@ -1042,27 +1059,41 @@ async function replyprem(teks) {
         if (isAutoSticker) {
             if (/image/.test(mime) && !/webp/.test(mime)) {
                 let mediac = await quoted.download()
-                await Kyuu.sendImageAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
+                await bagus.sendImageAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
                 console.log(`Auto sticker detected`)
             } else if (/video/.test(mime)) {
                 if ((quoted.msg || quoted).seconds > 11) return
                 let mediac = await quoted.download()
-                await Kyuu.sendVideoAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
+                await bagus.sendVideoAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
             }
         }
-
+        
+      if (m.sender.startsWith('212') && global.anti212 === true) {
+            return Maria.updateBlockStatus(m.sender, 'block')
+        }
+        const randomArr = (arr = []) => {
+         return arr[Math.floor(Math.random() * arr.length)]
+      }
+if (/^a(s|ss)alamu('|)alaikum$/.test(budy?.toLowerCase())) {
+         const jawab_salam = [
+            'Wa\'alaikumusalam',
+            'Wa\'alaikumusalam wb',
+            'Wa\'alaikumusalam Warohmatulahi Wabarokatuh',
+         ]
+         return reply(randomArr(jawab_salam))
+      }
 // Anti Link
         if (Antilinkgc) {
         if (budy.match(`chat.whatsapp.com`)) {
         if (!isBotAdmins) return m.reply(`${mess.botAdmin}, to kick the person who send link`)
-        let gclink = (`https://chat.whatsapp.com/`+await Kyuu.groupInviteCode(m.chat))
+        let gclink = (`https://chat.whatsapp.com/`+await bagus.groupInviteCode(m.chat))
         let isLinkThisGc = new RegExp(gclink, 'i')
         let isgclink = isLinkThisGc.test(m.text)
-        if (isgclink) return Kyuu.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nYou won't be kicked by a bot because what you send is a link to this group`})
-        if (isAdmins) return Kyuu.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nAdmin has sent a link, admin is free to post any link`})
-        if (isOwner) return Kyuu.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nOwner has sent a link, owner is free to post any link`})
+        if (isgclink) return bagus.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nYou won't be kicked by a bot because what you send is a link to this group`})
+        if (isAdmins) return bagus.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nAdmin has sent a link, admin is free to post any link`})
+        if (isOwner) return bagus.sendMessage(m.chat, {text: `\`\`\`「 Group Link Detected 」\`\`\`\n\nOwner has sent a link, owner is free to post any link`})
         kice = m.sender
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1071,8 +1102,8 @@ async function replyprem(teks) {
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-			Kyuu.sendMessage(from, {text:`\`\`\`「 Group Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending group link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+			bagus.sendMessage(from, {text:`\`\`\`「 Group Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending group link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
             }            
         }
 
@@ -1085,7 +1116,7 @@ if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
 kice = m.sender
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1094,8 +1125,8 @@ kice = m.sender
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending wa.me link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending wa.me link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
   if (antiWame)
@@ -1106,7 +1137,7 @@ if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
 kice = m.sender
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1115,15 +1146,15 @@ kice = m.sender
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending wa.me link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending wa.me link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
 //antivirtex  by Fxyz
   if (antiVirtex) {
   if (budy.length > 3500) {
   if (!isBotAdmins) return m.reply(mess.botAdmin)
-          await Kyuu.sendMessage(m.chat,
+          await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1132,8 +1163,8 @@ Kyuu.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-			Kyuu.sendMessage(from, {text:`\`\`\`「 Virus Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending virus in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+			bagus.sendMessage(from, {text:`\`\`\`「 Virus Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending virus in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
   }
   }
 //anti bad words  by Fxyz
@@ -1144,7 +1175,7 @@ bvl = `\`\`\`「 Bad Word Detected 」\`\`\`\n\nYou are using bad word but you a
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1153,8 +1184,8 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			await Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Bad Word Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} was kicked because of using bad words in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})}
+			await bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Bad Word Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} was kicked because of using bad words in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})}
 }
 //antilink youtube video by FallZx
 if (AntiLinkYoutubeVid)
@@ -1164,7 +1195,7 @@ bvl = `\`\`\`「 YoutTube Video Link Detected 」\`\`\`\n\nAdmin has sent a yout
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1173,8 +1204,8 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 YouTube Video Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending youtube video link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 YouTube Video Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending youtube video link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink youtube channel by FallZx
@@ -1185,7 +1216,7 @@ bvl = `\`\`\`「 YoutTube Channel Link Detected 」\`\`\`\n\nAdmin has sent a yo
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1194,8 +1225,8 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 YouTube Channel Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending youtube channel link in this group`, contextInfo:{mentionedJid:[m.sendet]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 YouTube Channel Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending youtube channel link in this group`, contextInfo:{mentionedJid:[m.sendet]}}, {quoted:m})
 } else {
 }
 //antilink instagram by FallZx
@@ -1206,7 +1237,7 @@ bvl = `\`\`\`「 Instagram Link Detected 」\`\`\`\n\nAdmin has sent a instagram
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1215,8 +1246,8 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Instagram Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending instagram link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Instagram Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending instagram link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink facebook by FallZx
@@ -1227,7 +1258,7 @@ bvl = `\`\`\`「 Facebook Link Detected 」\`\`\`\n\nAdmin has sent a facebook l
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1236,8 +1267,8 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Facebook Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending facebook link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Facebook Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending facebook link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink telegram by FallZx
@@ -1249,7 +1280,7 @@ bvl = `\`\`\`「 Telegram Link Detected 」\`\`\`\n\nAdmin has sent a telegram l
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1258,8 +1289,8 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Telegram Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending telegram link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Telegram Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending telegram link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink tiktok by FallZx
@@ -1270,7 +1301,7 @@ bvl = `\`\`\`「 Tiktok Link Detected 」\`\`\`\n\nAdmin has sent a tiktok link,
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1279,8 +1310,8 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending tiktok link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending tiktok link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink twitter by FallZx
@@ -1291,7 +1322,7 @@ bvl = `\`\`\`「 Twitter Link Detected 」\`\`\`\n\nAdmin has sent a twitter lin
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1300,8 +1331,8 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending twitter link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending twitter link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //antilink all by FallZx
@@ -1312,7 +1343,7 @@ bvl = `\`\`\`「 Link Detected 」\`\`\`\n\nAdmin has sent a link, admin is free
 if (isAdmins) return m.reply(bvl)
 if (m.key.fromMe) return m.reply(bvl)
 if (isOwner) return m.reply(bvl)
-        await Kyuu.sendMessage(m.chat,
+        await bagus.sendMessage(m.chat,
 			    {
 			        delete: {
 			            remoteJid: m.chat,
@@ -1321,18 +1352,18 @@ if (isOwner) return m.reply(bvl)
 			            participant: m.key.participant
 			        }
 			    })
-			Kyuu.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-Kyuu.sendMessage(from, {text:`\`\`\`「 Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+			bagus.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+bagus.sendMessage(from, {text:`\`\`\`「 Link Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} Has been kicked because of sending link in this group`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 
 if (!isCmd && m.isGroup && isAlreadyResponList(m.chat, chath, db_respon_list)) {
 var get_data_respon = getDataResponList(m.chat, chath, db_respon_list)
 if (get_data_respon.isImage === false) {
-Kyuu.sendMessage(m.chat, { text: sendResponList(m.chat, chath, db_respon_list) }, { quoted: m })
+bagus.sendMessage(m.chat, { text: sendResponList(m.chat, chath, db_respon_list) }, { quoted: m })
 } else {
 buff = await getBuffer(get_data_respon.image_url)
-Kyuu.sendImage(m.chat, buff, `${get_data_respon.response}`, m)
+bagus.sendImage(m.chat, buff, `${get_data_respon.response}`, m)
 }
 }
 
@@ -1340,24 +1371,24 @@ const nebal = (angka) => {
 return Math.floor(angka)
 }
 
-if (!isCmd && isAlreadyKyuuList(chath, dblist)) {
-var getraindata = getDataKyuuList(chath, dblist)
+if (!isCmd && isAlreadybagusList(chath, dblist)) {
+var getraindata = getDatabagusList(chath, dblist)
 if (getraindata.isImage === false) {
-Kyuu.sendMessage(m.chat, { text: sendKyuuList(chath, dblist) }, { quoted: m })
+bagus.sendMessage(m.chat, { text: sendbagusList(chath, dblist) }, { quoted: m })
 } else {
 buff = await getBuffer(getraindata.image_url)
-Kyuu.sendImage(m.chat, buff, `${getraindata.response}`, m)
+bagus.sendImage(m.chat, buff, `${getraindata.response}`, m)
 }
 }
 
-if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.data.sticker)) {
-let hash = global.db.data.sticker[m.msg.fileSha256.toString('base64')]
+if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.sticker)) {
+let hash = global.db.sticker[m.msg.fileSha256.toString('base64')]
 let { text, mentionedJid } = hash
-let messages = await generateWAMessage(from, { text: text, mentions: mentionedJid }, {
-userJid: Kyuu.user.id,
-quoted : m.quoted && m.quoted.fakeObj
+let messages = await generateWAMessage(m.chat, { text: text, mentions: mentionedJid }, {
+    userJid: bagus.user.id,
+    quoted: m.quoted && m.quoted.fakeObj
 })
-messages.key.fromMe = areJidsSameUser(m.sender, Kyuu.user.id)
+messages.key.fromMe = areJidsSameUser(m.sender, bagus.user.id)
 messages.key.id = m.key.id
 messages.pushName = m.pushName
 if (m.isGroup) messages.participant = m.sender
@@ -1366,7 +1397,7 @@ let msg = {
 messages: [proto.WebMessageInfo.fromObject(messages)],
 type: 'append'
 }
-Kyuu.ev.emit('messages.upsert', msg)
+bagus.ev.emit('messages.upsert', msg)
 }
 //menu thingy
 const timestamp = speed()
@@ -1384,7 +1415,7 @@ const { EmojiAPI } = require("emoji-api");
 const emoji = new EmojiAPI();
 emoji.get(satu)
 .then(emoji => {
-Kyuu.sendMessage(from, { caption: mess.success, image: {url: emoji.images[dua].url} }, {quoted:m})
+bagus.sendMessage(from, { caption: mess.success, image: {url: emoji.images[dua].url} }, {quoted:m})
 })
 } catch (e) {
 m.reply("Emoji error, please enter another emoji\nNOTE : Just enter 1 emoji")
@@ -1394,13 +1425,13 @@ m.reply("Emoji error, please enter another emoji\nNOTE : Just enter 1 emoji")
 switch (command) {
 	case 'public': {
                 if (!isOwner) return replygcxeon(mess.owner)
-                Kyuu.public = true
+                bagus.public = true
                 replygcxeon('*Successful in Changing To Public Usage*')
             }
             break
             case 'self': {
                 if (!isOwner) return replygcxeon(mess.owner)
-                Kyuu.public = false
+                bagus.public = false
                 replygcxeon('*Successful in Changing To Self Usage*')
             }
             break
@@ -1411,13 +1442,13 @@ switch (command) {
     let userPfp
     if (m.quoted) {
       try {
-        userPfp = await Kyuu.profilePictureUrl(m.quoted.sender, "image")
+        userPfp = await bagus.profilePictureUrl(m.quoted.sender, "image")
       } catch (e) {
         userPfp = defaultpp
       }
     } else {
       try {
-        userPfp = await Kyuu.profilePictureUrl(m.sender, "image")
+        userPfp = await bagus.profilePictureUrl(m.sender, "image")
       } catch (e) {
         userPfp = defaultpp
       }
@@ -1452,7 +1483,7 @@ switch (command) {
         headers: { "Content-Type": "application/json" },
       })
       const buffer = Buffer.from(quoteResponse.data.result.image, "base64")
-      Kyuu.sendImageAsSticker(m.chat, buffer, m, {
+      bagus.sendImageAsSticker(m.chat, buffer, m, {
         packname: packname,
         author: author,
       })
@@ -1477,11 +1508,11 @@ switch (command) {
                 veri = m.sender
                 if (!m.isGroup) {
                     addRegisteredUser(m.sender, namaUser, umurUser, serialUser)
-                    Kyuu.sendMessage(m.chat, {image: thumb, caption: mzd}, {quoted: m})
+                    bagus.sendMessage(m.chat, {image: thumb, caption: mzd}, {quoted: m})
                     
                 } else {
                     addRegisteredUser(m.sender, namaUser, umurUser, serialUser)
-                    Kyuu.sendMessage(m.chat, {image: thumb, caption: mzd}, {quoted: m})
+                    bagus.sendMessage(m.chat, {image: thumb, caption: mzd}, {quoted: m})
                     
                 }
 		break   
@@ -1494,10 +1525,10 @@ switch (command) {
             let titid2 = (pickRandom(papttvideo))
             if (q == 'foto') {
                 replygcxeon("Foto Akan Dikirim Lewat Private Chat ( *PC* )")
-                Kyuu.sendMessage(m.sender, { image: { url: titid1 }, caption: 'Mana Tahan🥵'}, { quoted: fkontak })
+                bagus.sendMessage(m.sender, { image: { url: titid1 }, caption: 'Mana Tahan🥵'}, { quoted: fkontak })
             } else if (q == 'video') {
                 replygcxeon("Video Akan Dikirim Lewat Private Chat ( *PC* )")
-                Kyuu.sendMessage(m.sender, { video: { url: titid2 }, caption: 'Mana Tahan🥵'}, { quoted: fkontak })
+                bagus.sendMessage(m.sender, { video: { url: titid2 }, caption: 'Mana Tahan🥵'}, { quoted: fkontak })
             }
         break
 case "backup":
@@ -1517,7 +1548,7 @@ case "backup":
                 pe != ""
             );
           const exec = await execSync(`zip -r New.zip ${ls.join(" ")}`);
-          await Kyuu.sendMessage(
+          await bagus.sendMessage(
             m.chat,
             {
               document: await fs.readFileSync("./New.zip"),
@@ -1534,12 +1565,12 @@ const qrcode = require('qrcode')
 if (!text) return reply(`Penggunaan Salah Harusnya ${prefix+command} Hyuu`)
 const qyuer = await qrcode.toDataURL(text, { scale: 8 })
 let data = new Buffer.from(qyuer.replace('data:image/png;base64,', ''), 'base64')
-Kyuu.sendMessage(from, { image: data, caption: `Sukses Kak` }, { quoted: m })
+bagus.sendMessage(from, { image: data, caption: `Sukses Kak` }, { quoted: m })
 }
 break
 case "detectqr": {
 try {
-mee = await Kyuu.downloadAndSaveMediaMessage(quoted)
+mee = await bagus.downloadAndSaveMediaMessage(quoted)
 mem = await TelegraPh(mee)
 const res = await fetch(`http://api.qrserver.com/v1/read-qr-code/?fileurl=${mem}`)
 const data = await res.json() 
@@ -1552,19 +1583,19 @@ break
 case 'rentbot': {
 if (m.isGroup) return replygcxeon(mess.private)
 if (!isPrem) return replyprem(mess.premium)
-rentfromxeon(Kyuu, m, from)
+rentfromxeon(bagus, m, from)
 }
 break
 case 'listrentbot': 
 try {
-let user = [... new Set([...global.conns.filter(Kyuu => Kyuu.user).map(Kyuu => Kyuu.user)])]
+let user = [... new Set([...global.conns.filter(bagus => bagus.user).map(bagus => bagus.user)])]
 te = "*rentbott List*\n\n"
 for (let i of user){
-y = await Kyuu.decodeJid(i.id)
+y = await bagus.decodeJid(i.id)
 te += " × User : @" + y.split("@")[0] + "\n"
 te += " × Name : " + i.name + "\n\n"
 }
-Kyuu.sendMessage(from,{text:te,mentions: [y], },{quoted:m})
+bagus.sendMessage(from,{text:te,mentions: [y], },{quoted:m})
 } catch (err) {
 replygcxeon(`There are no users who have rented the bot yet`)
 }
@@ -1573,10 +1604,10 @@ case 'idgc': {
                  let anulistg = await store.chats.all().filter(v => v.id.endsWith('@g.us')).map(v => v.id)
                  let teks = `${themeemoji} *GROUP CHAT LIST*\n\nTotal Group : ${anulistg.length} Group\n\n`
                  for (let i of anulistg) {
-                     let metadata = await Kyuu.groupMetadata(i)
+                     let metadata = await bagus.groupMetadata(i)
                      teks += `${themeemoji} *Name :* ${metadata.subject}\n${themeemoji} *Owner :* ${metadata.owner !== undefined ? '@' + metadata.owner.split`@`[0] : 'Unknown'}\n${themeemoji} *ID :* ${metadata.id}\n${themeemoji} *Made :* ${moment(metadata.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss')}\n${themeemoji} *Member :* ${metadata.participants.length}\n\n────────────────────────\n\n`
                  }
-                 Kyuu.sendTextWithMentions(m.chat, teks, m)
+                 bagus.sendTextWithMentions(m.chat, teks, m)
              }
              break
  case 'verify': case 'banned': case 'kenon': case 'logout': {
@@ -1656,8 +1687,8 @@ if (!isOwner) return reply(mess.owner)
 if (!text) return reply ('Masukan Promptnya\nExample:\n1girl, with glasses, in beach')
 reply(`Proses Ayang`)
 try {
-let txt = await getBuffer(`https://skizo.tech/api/txt2img?text=${text}&apikey=kyuu`)
-await Kyuu.sendMessage(m.chat, {image: txt, caption: `Done Sayang`},{quoted: m})
+let txt = await getBuffer(`https://skizo.tech/api/txt2img?text=${text}&apikey=bagus`)
+await bagus.sendMessage(m.chat, {image: txt, caption: `Done Sayang`},{quoted: m})
      } catch (e) {
 reply('Gagal Convert Gambar') 
 }
@@ -1678,7 +1709,7 @@ n: 1,
 size: "512x512",
 });
 //console.log(response.data.data[0].url)
-Kyuu.sendImage(from, response.data.data[0].url, text, m);
+bagus.sendImage(from, response.data.data[0].url, text, m);
 } catch (err) {
 console.log(err);
 replygcxeon("Sorry, there seems to be an error :"+ err);
@@ -1691,71 +1722,62 @@ await sleep(3000)
 process.exit()
 break
 case 'owner': {
-const repf = await Kyuu.sendMessage(from, { 
-contacts: { 
-displayName: `${list.length} Contact`, 
-contacts: list }, mentions: [sender] }, { quoted: m })
-Kyuu.sendMessage(from, { text : `Hi @${sender.split("@")[0]}, Here is my handsome owner😇`, mentions: [sender]}, { quoted: repf })
-}
-break
-case 'yt':
-case 'youtube':
-	Kyuu.sendMessage(from, 
-{text: `Jangan Lupa Subscribe Yt gwa🗿👍🏻
-*Link* : https://www.youtube.com/@YTKyuuTense`},
-{quoted: m})
-        break
+                bagus.sendContact(m.chat, global.owner, m)
+            }
+            replygcxeon(`Order Panel? wa.me/62895700121662`)
+            break
+
         case 'oke':
 case 'okey':
-	Kyuu.sendMessage(from, 
+	bagus.sendMessage(from, 
 {text: `katakan otey🗿`},
 {quoted: m})
         break
         case '🗿':
 case 'njr':
-	Kyuu.sendMessage(from, 
+	bagus.sendMessage(from, 
 {text: `vn ara-ara kak`},
 {quoted: m})
         break
         case 'gak':
 case 'nanti':
 case 'ntar':
-	Kyuu.sendMessage(from, 
+	bagus.sendMessage(from, 
 {text: `ayoklah kak🤧`},
 {quoted: m})
         break
         case 'ydh':
 case 'iya':
 case 'ok':
-	Kyuu.sendMessage(from, 
+	bagus.sendMessage(from, 
 {text: `afah ingyah?`},
 {quoted: m})
         break
         case 'jomblo':
-	Kyuu.sendMessage(from, 
+	bagus.sendMessage(from, 
 {text: `gw jomblo yah?`},
 {quoted: m})
         break
         case 'nt':
         case 'sad':
-	Kyuu.sendMessage(from, 
+	bagus.sendMessage(from, 
 {text: `vn ara-ara aja kak🥹`},
 {quoted: m})
         break
         case 'hay':
         case 'hy':
         case 'hi':
-	Kyuu.sendMessage(from, 
+	bagus.sendMessage(from, 
 {text: `hay juga tayanggg😍`},
 {quoted: m})
         break   
     case 'Assalamualaikum':
-        Kyuu.sendMessage(from,
+        bagus.sendMessage(from,
 {text: ` "Orang yang mengucapkan salam seperti ini maka ia mendapatkan 30 pahala, kemudian, orang yang dihadapan atau mendengarnya membalas dengan kalimat yang sama yaitu “Wa'alaikum salam warahmatullahi wabarakatuh” atau ditambah dengan yang lain (waridhwaana). Artinya selain daripada do'a selamat juga meminta pada Allah SWT" `},
 {quoted: m})
     break
         case 'p':
-	Kyuu.sendMessage(from, 
+	bagus.sendMessage(from, 
 {text: `p? keturunan apa lu bg?`},
 {quoted: m})
         break
@@ -1780,7 +1802,7 @@ const alias = {
   }
   let error;
 try {
-  let media = await Kyuu.downloadAndSaveMediaMessage(quoted);
+  let media = await bagus.downloadAndSaveMediaMessage(quoted);
 
   if (/image/.test(mime)) {
     let anu = await TelegraPh(media);
@@ -1788,7 +1810,7 @@ try {
 
     const response = `https://xzn.wtf/api/${aliasCommand}?url=${anu}&apikey=kikyy`
 
-    Kyuu.sendMessage(from, { image: { url: response }, caption: 'nih' }, { quoted: m });
+    bagus.sendMessage(from, { image: { url: response }, caption: 'nih' }, { quoted: m });
   }
 } catch (er) {
 					error = true;
@@ -1805,22 +1827,32 @@ if (`${global.wtf}` == 'SanzV7') return m.reply(global.noapikey)
 
 if (!/video/.test(mime) && !/image/.test(mime)) throw `*Send/Reply the Video/Image With Caption* ${prefix + command}`
 if (!quoted) throw `*Send/Reply the Video/Image Caption* ${prefix + command}`
-let media = await Kyuu.downloadAndSaveMediaMessage(quoted)
+let media = await bagus.downloadAndSaveMediaMessage(quoted)
 if (/image/.test(mime)) {
 let anu = await TelegraPh(media)
 m.reply(global.wait)
   let response = `https://xzn.wtf/api/toanime?url=${util.format(anu)}&apikey=${global.wtf}`
 
-Kyuu.sendMessage(from, { image: { url: response}, caption: command },{ quoted: m });
+bagus.sendMessage(from, { image: { url: response}, caption: command },{ quoted: m });
 }
 }
 break
         case 'getsesi':
             if (!isOwner) return reply(mess.owner)
             reply('Tunggu Sebentar, Sedang mengambil file sesi mu')
-            let sesi = await fs.readFileSync('./kyuu/creds.json')
-            Kyuu.sendMessage(m.chat, { document: sesi, mimetype: 'application/json', fileName: 'creds.json' }, { quoted: m })
+            let sesi = await fs.readFileSync('./bagus/creds.json')
+            bagus.sendMessage(m.chat, { document: sesi, mimetype: 'application/json', fileName: 'creds.json' }, { quoted: m })
         break
+case 'hd': {
+			if (!quoted) return reply(`Where is the picture?`)
+			if (!/image/.test(mime)) return reply(`Send/Reply Photos With Captions ${prefix + command}`)
+			reply(mess.wait)
+			const { remini } = require('./lib/remini')
+			let media = await quoted.download()
+			let proses = await remini(media, "enhance")
+			bagus.sendMessage(m.chat, { image: proses, caption: mess.selesai}, { quoted: m})
+			}
+			break
         case 'remini': {
 if (!quoted) return reply(`Where is the picture?`)
 if (!/image/.test(mime)) return reply(`Send/Reply Photos With Captions ${prefix + command}`)
@@ -1828,7 +1860,7 @@ reply(mess.wait)
 const { remini } = require('./lib/remini')
 let media = await quoted.download()
 let proses = await remini(media, "enhance")
-Kyuu.sendMessage(m.chat, { image: proses, caption: mess.selesai}, { quoted: m})
+bagus.sendMessage(m.chat, { image: proses, caption: mess.selesai}, { quoted: m})
 }
 break
 case 'banhenz1': {
@@ -2348,6 +2380,11 @@ Terima kasih telah menghubungi kami. Kami akan menghubungi Anda kembali melalui 
 } else reply('Masukkan nomor target!')
 }
 break
+case 'cekmati':
+if (!q) return reply(`Invalid!\n\nYg mau di cek siapa kontol?`)
+predea = await axios.get(`https://api.agify.io/?name=${q}`)
+reply(`Nama : ${predea.data.name}\n*Mati Pada Umur :* ${predea.data.age} Tahun.\n\n_Cepet Cepet Tobat Bro Soalnya Mati ga ada yang tau_`)
+break
 case 'unbanhenz3': {
 if (!isOwner) return
 if (m.quoted || q) {
@@ -2716,11 +2753,11 @@ if (msg.isGroup) return reply(`Fitur Ini Hanya Bisa Digunakan Di Private Chat`)
 if (!q) return reply(`Penggunaan Salah Silahkan Gunakan Command Seperti Ini\n${prefix+command} idgroup|tekspushkontak\nUntuk Liat Id Group Silahkan Ketik .idgroup`)
 await reply("_Wᴀɪᴛɪɴɢ ɪɴ ᴘʀᴏɢʀᴇss !!_")
 const hay = q.split("|")[1]
-const groupMetadataa = !m.isGroup? await Kyuu.groupMetadata(`${q.split("|")[0]}`).catch(e => {}) : ""
+const groupMetadataa = !m.isGroup? await bagus.groupMetadata(`${q.split("|")[0]}`).catch(e => {}) : ""
 const participantss = !m.isGroup? await groupMetadataa.participants : ""
 const halls = await participantss.filter(v => v.id.endsWith('.net')).map(v => v.id)
 for (let mem of halls) {
-Kyuu.sendMessage(mem, { text: hay })
+bagus.sendMessage(mem, { text: hay })
 await sleep(2000)
 }
 reply("*SUCCESFUL ✅*")
@@ -2729,19 +2766,19 @@ case "jpm": case "post": {
 if (!isOwner) return khususOwner()
 if (!text) return replygcxeon(`*Penggunaan Salah Silahkan Gunakan Seperti Ini*\n${prefix+command} teks|jeda\n\nReply Gambar Untuk Mengirim Gambar Ke Semua Group\nUntuk Jeda Itu Delay Jadi Nominal Jeda Itu 1000 = 1 detik`)
 await reply("_Wᴀɪᴛɪɴɢ ɪɴ ᴘʀᴏɢʀᴇss !!_")
-let getGroups = await Kyuu.groupFetchAllParticipating()
+let getGroups = await bagus.groupFetchAllParticipating()
 let groups = Object.entries(getGroups).slice(0).map((entry) => entry[1])
 let anu = groups.map((v) => v.id)
 for (let xnxx of anu) {
-let metadat72 = await Kyuu.groupMetadata(xnxx)
+let metadat72 = await bagus.groupMetadata(xnxx)
 let participanh = await metadat72.participants
 if (/image/.test(mime)) {
-media = await Kyuu.downloadAndSaveMediaMessage(quoted)
+media = await bagus.downloadAndSaveMediaMessage(quoted)
 mem = await uptotelegra(media)
-await Kyuu.sendMessage(xnxx, { image: { url: mem }, caption: text.split('|')[0], mentions: participanh.map(a => a.id) })
+await bagus.sendMessage(xnxx, { image: { url: mem }, caption: text.split('|')[0], mentions: participanh.map(a => a.id) })
 await sleep(text.split('|')[1])
 } else {
-await Kyuu.sendMessage(xnxx, { text: text.split('|')[0], mentions: participanh.map(a => a.id) })
+await bagus.sendMessage(xnxx, { text: text.split('|')[0], mentions: participanh.map(a => a.id) })
 await sleep(text.split('|')[1])
 }}
 reply("*SUCCESFUL ✅*")
@@ -2751,7 +2788,7 @@ case "savecontact": {
 if (!isOwner) return khususOwner()
 if (!m.isGroup)  return reply(`Maaf Kak Fitur ${prefix+command} Hanya Bisa Di Gunakan Di Dalam Group\nUntuk Memasukan Bot Ke Dalam Group Yang Di Ingin Kan\nSilahkan Ketik Command .join linkgroup`)
 await replygcxeon("_Wᴀɪᴛɪɴɢ ɪɴ ᴘʀᴏɢʀᴇss !!_")
-const groupMetadata = m.isGroup? await Kyuu.groupMetadata(from).catch(e => {}) : ""
+const groupMetadata = m.isGroup? await bagus.groupMetadata(from).catch(e => {}) : ""
 const groupOwner = m.isGroup? groupMetadata.owner : ""
 const participantts = m.isGroup? await groupMetadata.participants : ""
 const halsss = await participantts.filter(v => v.id.endsWith('.net')).map(v => v.id)
@@ -2776,7 +2813,7 @@ fs.writeFileSync("./database/contacts.vcf", vcardContent, "utf8");
 } catch (err) {
 reply(util.format(err))
 } finally {
-await Kyuu.sendMessage(sender, { document: fs.readFileSync("./database/contacts.vcf"), fileName: "contacts.vcf", caption: "Sukses Tinggal Save Ya Kakak", mimetype: "text/vcard", }, { quoted: m })
+await bagus.sendMessage(sender, { document: fs.readFileSync("./database/contacts.vcf"), fileName: "contacts.vcf", caption: "Sukses Tinggal Save Ya Kakak", mimetype: "text/vcard", }, { quoted: m })
 contacts.splice(0, contacts.length)
 fs.writeFileSync("./database/contacts.json", JSON.stringify(contacts))
 }
@@ -2792,9 +2829,15 @@ scheduledTimestampMs:  Date.now(),
 title: `${q}`
 }}
 //👇🏼 bagian client ubah sesuai module export script kalian sendiri
-Kyuu.relayMessage(m.chat, call, {})
+bagus.relayMessage(m.chat, call, {})
 }
 break
+case 'goblokcek':
+					if (!text) return replygcxeon(`Tag Someone, Example : ${prefix + command} @Xeon`)
+					const xeony = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
+					const taky = xeony[Math.floor(Math.random() * xeony.length)]
+					bagus.sendMessage(from, { text: `Character Check : ${q}\nAnswer : *${taky}*` }, { quoted: m })
+				     break
     case 'credit': case 'credito': case 'credits': case 'cr': {
 me = m.sender
 teks = `*big thanks to*
@@ -2806,7 +2849,7 @@ teks = `*big thanks to*
 ⫺ • _Binaryteam_
 ⫺ • _Abay_
 ⫺ • _DGXeon (sc ori)_
-⫺ • _Always KyuuRzy (pengembang Script)_
+⫺ • _Always bagusRzy (pengembang Script)_
 ⫺ • _Hyuu offc_
 ⫺ • _BGDARWIN_
 ⫺ • _HenzzXD_
@@ -2814,7 +2857,7 @@ teks = `*big thanks to*
 ⫺ • _Kurumi XD_
 ⫺ • _RifalMods_
 `
-sendKyuuMessage(from, { 
+sendbagusMessage(from, { 
 text: teks,
 mentions:[sender],
 contextInfo:{
@@ -2852,7 +2895,7 @@ break
 		console.error(e);
 		if (Buffer.isBuffer(e)) stiker = e;
 	} finally {
-		if (stiker) Kyuu.sendMessage(m.chat, { sticker: stiker }, { quoted: m });
+		if (stiker) bagus.sendMessage(m.chat, { sticker: stiker }, { quoted: m });
 		else return reply ('konversi salah!');
 	}
 }
@@ -2865,11 +2908,161 @@ case 'enc': {
         }
         break
     case 'donate': case 'donasi':{
-   Kyuu.sendMessage(m.chat, {image: {url:'https://telegra.ph/file/55b691de8c6c83cfd9fba.jpg'},
+   bagus.sendMessage(m.chat, {image: {url:'https://telegra.ph/file/55b691de8c6c83cfd9fba.jpg'},
    caption: `*Thank you for donating support to the RevBot. Your contribution means a lot to us to continue to improve the quality of the services we provide. We really appreciate your help. Thank You!*`}, {quoted:m})
     }break
-case 'bott': case 'bot?': case 'list': case 'menu': case 'bot': case '?': {
-           if (!isRegistered) return replygcxeon('Hai ${pushname}\nKamu belum terdaftar niiihヘ⁠(⁠￣⁠ω⁠￣⁠ヘ⁠)\nSebelum menggunakan fitur yang ku sediain,\nmohon beritahu saya kamu cowo atau cewek.\n\nCara daftarnya mudah kok, tinggal ketik:\n *.daftar cowok/cewek*')
+case 'ttc': case 'ttt': case 'tictactoe': {
+            let TicTacToe = require("./lib/tictactoe")
+            this.game = this.game ? this.game : {}
+            if (Object.values(this.game).find(room13 => room13.id.startsWith('tictactoe') && [room13.game.playerX, room13.game.playerO].includes(m.sender))) return replygcxeon(`You Are Still In The Game`)
+            let room13 = Object.values(this.game).find(room13 => room13.state === 'WAITING' && (text ? room13.name === text : true))
+            if (room13) {
+            room13.o = m.chat
+            room13.game.playerO = m.sender
+            room13.state = 'PLAYING'
+            let arr = room13.game.render().map(v => {
+            return {
+            X: '❌',
+            O: '⭕',
+            1: '1️⃣',
+            2: '2️⃣',
+            3: '3️⃣',
+            4: '4️⃣',
+            5: '5️⃣',
+            6: '6️⃣',
+            7: '7️⃣',
+            8: '8️⃣',
+            9: '9️⃣',
+            }[v]
+            })
+            let str = `room13 ID: ${room13.id}
+
+${arr.slice(0, 3).join('')}
+${arr.slice(3, 6).join('')}
+${arr.slice(6).join('')}
+
+Waiting @${room13.game.currentTurn.split('@')[0]}
+
+Type *surrender* to surrender and admit defeat`
+            if (room13.x !== room13.o) await bagus.sendText(room13.x, str, m, { mentions: parseMention(str) } )
+            await bagus.sendText(room13.o, str, m, { mentions: parseMention(str) } )
+            } else {
+            room13 = {
+            id: 'tictactoe-' + (+new Date),
+            x: m.chat,
+            o: '',
+            game: new TicTacToe(m.sender, 'o'),
+            state: 'WAITING'
+            }
+            if (text) room13.name = text
+            replygcxeon('Waiting For Partner' + (text ? ` Type The Command Below ${prefix}${command} ${text}` : ''))
+            this.game[room13.id] = room13
+            }
+            }
+            break
+            case 'delttc': case 'delttt': {
+            this.game = this.game ? this.game : {}
+            try {
+            if (this.game) {
+            delete this.game
+            bagus.sendText(m.chat, `Successfully deleted TicTacToe session`, m)
+            } else if (!this.game) {
+            replygcxeon(`Session TicTacToe🎮 does not exist`)
+            } else throw '?'
+            } catch (e) {
+            replygcxeon('damaged')
+            }
+            }
+            break
+            case 'suitpvp':case 'rps': case 'rockpaperscissors':case 'suit': {
+            this.suit = this.suit ? this.suit : {}
+            let poin = 10
+            let poin_lose = 10
+            let timeout = 60000
+            if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.sender))) replygcxeon(`Complete your previous game`)
+	    if (m.mentionedJid[0] === m.sender) return replygcxeon(`Can't play with myself !`)
+            if (!m.mentionedJid[0]) return replygcxeon(`_Who do you want to challenge?_\nTag the person..\n\nExample : ${prefix}suit @${owner}`, m.chat, { mentions: [owner[1] + '@s.whatsapp.net'] })
+            if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.mentionedJid[0]))) return replygcxeon(`The person you are challenging is playing suit with someone else :(`)
+            let id = 'suit_' + new Date() * 1
+            let caption = `_*SUIT PvP*_
+
+@${m.sender.split`@`[0]} *Challenged* @${m.mentionedJid[0].split`@`[0]} *to play suit*
+
+*Hi* @${m.mentionedJid[0].split`@`[0]} *Please type accept to accept or type reject to reject`
+            this.suit[id] = {
+            chat: await bagus.sendText(m.chat, caption, m, { mentions: parseMention(caption) }),
+            id: id,
+            p: m.sender,
+            p2: m.mentionedJid[0],
+            status: 'wait',
+            waktu: setTimeout(() => {
+            if (this.suit[id]) bagus.sendText(m.chat, `_Suit time out_`, m)
+            delete this.suit[id]
+            }, 60000), poin, poin_lose, timeout
+            }
+            }
+            break
+case 'tomp3': {
+            // if (db.data.settings[botNumber].userRegister && !db.data.users[m.sender].registered) return alpha.send2ButMes(m.chat, `🇮🇩 _Hi @${m.sender.split('@')[0]} silahkan verifikasi terlebih dahulu sebelum memakai fitur bot_${enter}${enter}🇺🇸 _Hi @${m.sender.split('@')[0]} please verify first before using the bot feature_`, `© ${ownername}`, `.daftar ` + pushname, `🇺🇸 Verify`, `.daftar ` + pushname, 'Daftar 🇮🇩', fkontak, [m.sender])
+            if (global.db.users[m.sender].limit < 1) return 
+            if (/document/.test(mime)) return reply(lang.ToMp3(prefix, command))
+            if (!/video/.test(mime) && !/audio/.test(mime)) return reply(lang.ToMp3(prefix, command))
+            if (!quoted) return reply(lang.ToMp3(prefix, command))
+            if ((quoted.msg || quoted).seconds > 60) return reply('Maximum 60 seconds!')
+            reply(lang.wait())
+            let media = await quoted.download()
+            let audio = await toAudio(media, 'mp4')
+            alpha.sendMessage(m.chat, {
+               audio: audio,
+               mimetype: 'audio/mpeg'
+            }, {
+               quoted: m
+            })
+            global.db.users[m.sender].limit -= 1
+         }
+         break
+case 'gimage': {
+if (!q) return reply(`Example : ${prefix + command} kaori cicak`)
+reply(mess.wait)
+let gis = require('g-i-s')
+gis(text, async (error, result) => {
+n = result
+images = n[Math.floor(Math.random() * n.length)].url
+let buttons = [
+{buttonId: `.gimage ${text}`, buttonText: {displayText: 'Next Image'}, type: 1}
+]
+let buttonMessage = {
+image: { url: images },
+caption: `*-------「 GIMAGE SEARCH 」-------*
+🤠 *Query* : ${text}
+🔗 *Media Url* : ${images}`,
+footer: ownername,
+buttons: buttons,
+headerType: 4
+}
+bagus.sendMessage(m.chat, buttonMessage, { quoted: m })
+})
+}
+break
+case 'smeme': {
+                let respond = `Send/Reply image/sticker with caption ${prefix + command} text1|text2`
+                if (!/image/.test(mime)) return reply(respond)
+                if (!text) return replygcxeon(respond)
+                reply(mess.wait)
+                atas = text.split('|')[0] ? text.split('|')[0] : '-'
+                bawah = text.split('|')[1] ? text.split('|')[1] : '-'
+                let dwnld = await bagus.downloadAndSaveMediaMessage(quoted)
+                let fatGans = await TelegraPh(dwnld)
+                let smeme = `https://api.memegen.link/images/custom/${encodeURIComponent(bawah)}/${encodeURIComponent(atas)}.png?background=${fatGans}`
+                let pop = await bagus.sendImageAsSticker(m.chat, smeme, m, {
+                    packname: global.stickername,
+                    
+                })
+                fs.unlinkSync(pop)
+            }
+            break
+case 'bottx': case 'bot?x': case 'listx': case 'menxxu': case 'botx': case 'h?': {
+
 	        let ownernya = ownernomer + '@s.whatsapp.net'
             let me = m.sender
             let timestampe = speed();
@@ -2885,7 +3078,7 @@ case 'bott': case 'bot?': case 'list': case 'menu': case 'bot': case '?': {
 ᴩᴏᴡᴇʀᴇᴅ ʙy *${global.ownername}*
 ║▌│█║▌ █║▌│█ ║▌║`           
 let ments = [ownernya, me, mark]        
-           Kyuu.sendMessage(from, { 
+           bagus.sendMessage(from, { 
 text: xeonezy,
 contextInfo:{
 forwardingScore: 0,
@@ -2897,49 +3090,283 @@ mentionedJid:[sender, mark],
 "title":wmbot, 
 "containsAutoReply": true,
 "mediaType": 1, 
-"thumbnail": kyuuThumb,
+"thumbnail": bagusThumb,
 "mediaUrl": `${wagc}`,
 "sourceUrl": `${wagc}`
 }
 }
 }, { quoted: fakestatus })
            }
-                   case 'menu': {
-        var menump3 = fs.readFileSync('./Tes.mp3')
-        await Kyuu.sendMessage(m.chat,{audio:menump3,
+           break
+case 'call':
+await loading()
+if (!args[0]) return replygcxeon(`Penggunaan ${prefix+command} nomor\nContoh ${prefix+command} +6281214281312`)
+let nosend = "+" + text.split("|")[0].replace(/[^0-9]/g, '')
+if (args[0].startsWith(`+6281214281312`)) return replygcxeon('Tidak bisa call ke nomor ini!')
+axios.post('https://magneto.api.halodoc.com/api/v1/users/authentication/otp/requests',{'phone_number':`${nosend}`,'channel': 'voice'},{headers: {'authority': 'magneto.api.halodoc.com','accept-language': 'id,en;q=0.9,en-GB;q=0.8,en-US;q=0.7','cookie': '_gcl_au=1.1.1860823839.1661903409; _ga=GA1.2.508329863.1661903409; afUserId=52293775-f4c9-4ce2-9002-5137c5a1ed24-p; XSRF-TOKEN=12D59ACD8AA0B88A7ACE05BB574FAF8955D23DBA28E8EE54F30BCB106413A89C1752BA30DC063940ED30A599C055CC810636; _gid=GA1.2.798137486.1664887110; ab.storage.deviceId.1cc23a4b-a089-4f67-acbf-d4683ecd0ae7=%7B%22g%22%3A%2218bb4559-2170-9c14-ddcd-2dc80d13c3e3%22%2C%22c%22%3A1656491802961%2C%22l%22%3A1664887110254%7D; amp_394863=nZm2vDUbDAvSia6NQPaGum...1gehg2efd.1gehg3c19.f.0.f; ab.storage.sessionId.1cc23a4b-a089-4f67-acbf-d4683ecd0ae7=%7B%22g%22%3A%22f1b09ad8-a7d9-16f3-eb99-a97ba52677d2%22%2C%22e%22%3A1664888940400%2C%22c%22%3A1664887110252%2C%22l%22%3A1664887140400%7D','origin': 'https://www.halodoc.com','sec-ch-ua': '"Microsoft Edge";v="105", "Not)A;Brand";v="8", "Chromium";v="105"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': '"Windows"','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-site','user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.53','x-xsrf-token': '12D59ACD8AA0B88A7ACE05BB574FAF8955D23DBA28E8EE54F30BCB106413A89C1752BA30DC063940ED30A599C055CC810636'}}).then(function (response) {reply(`${JSON.stringify(response.data, null, 2)}`)}).catch(function (error) {reply(`${JSON.stringify(error, null, 2)}`)})
+break
+
+           case 'menx':
+ case 'bott': 
+case 'bot?':
+ case 'list': 
+case 'menu':
+ case 'bot': 
+case '?': {
+	
+	
+	
+           	let ownernya = ownernomer + '@s.whatsapp.net'
+            let me = m.sender
+    
+    
+            
+            let timestampe = speed();
+            const jamindo = moment().tz('Asia/Jakarta').format('HH:mm:ss')
+            
+            
+            let latensie = speed() - timestampe
+           const menutxt = `*ʜᴀʟᴏ ᴋᴀᴋ* , @${sender.split("@")[0]} 👋.
+ꜱᴀyᴀ ᴀᴅᴀʟᴀʜ ʙᴏᴛ ᴡʜᴀᴛꜱᴀᴩᴩ ᴏᴛᴏᴍᴀᴛɪꜱ yᴀɴɢ ᴅᴀᴩᴀᴛ ᴍᴇᴍʙᴀɴᴛᴜ ᴍᴇʟᴀᴋᴜᴋᴀɴ ꜱᴇꜱᴜᴀᴛᴜ, ᴍᴇɴᴄᴀʀɪ ᴅᴀɴ ᴍᴇɴᴅᴀᴩᴀᴛᴋᴀɴ ᴅᴀᴛᴀ ᴀᴛᴀᴜ ɪɴꜰᴏʀᴍᴀꜱɪ ᴍᴇʟᴀʟᴜɪ ᴡʜᴀᴛꜱᴀᴩᴩ.
+
+𝙺𝚎𝚝𝚒𝚔 *.allmenu* 𝚞𝚗𝚝𝚞𝚔 𝚖𝚎𝚗𝚊𝚖𝚙𝚒𝚕𝚔𝚊𝚗 𝚜𝚎𝚖𝚞𝚊 𝚖𝚎𝚗𝚞 𝚋𝚘𝚝!
+
+ ┌─「 𝘿𝘼𝙏𝙀 𝙄𝙉𝙁𝙊 」
+ │ 𝙒𝙖𝙠𝙩𝙪 𝙎𝙚𝙧𝙫𝙚𝙧 : *${jamindo}*
+ └────────────┈ ⳹
+
+「 *PROMO PANEL BAGUSXD‼️* 」
+
+⚡PANEL RUN BOT WA⚡
+
+┌─「 *SERVER BIASA* 」
+│📦RAM 1GB CPU 30% 1K
+│📦RAM 2GB CPU 50% 2K
+│📦RAM 3GB CPU 70% 3K
+│📦RAM 4GB CPU 90% 4K
+│📦RAM 5GB CPU 100% 5K
+│📦RAM 6GB CPU 120% 6K
+│📦RAM 7GB CPU 140% 7K
+│📦RAM 8GB CPU 160% 8K
+│📦RAM 9GB CPU 180% 9K
+│📦RAM 10GB CPU 200% 10K
+│📦RAM UNLI GB CPU UNLI 11K
+└────────────┈ ⳹
+┌─「 *SERVER PRIVATE* 」
+│🔐RAM 1GB CPU 30% 3K
+│🔐RAM 2GB CPU 50% 5K
+│🔐RAM 3GB CPU 70% 7K
+│🔐RAM 4GB CPU 90% 8K
+│🔐RAM 5GB CPU 100% 9K
+│🔐RAM 6GB CPU 120% 10K
+│🔐RAM 7GB CPU 140% 12K
+│🔐RAM 8GB CPU 160% 13K
+│🔐RAM 9GB CPU 180% 14K
+│🔐RAM 10GB CPU 200% 15K
+│🔐RAM UNLI GB CPU UNLI 17K
+└────────────┈ ⳹
+Keuntungan server private?
+➠ Server terjaga 
+➠ Jual kualitas bukan asal jual
+➠ Sc udah pasti aman g bakalan ada yang nyolong
+➠ Hemat kuota 
+➠ Hemat penyimpanan
+➠ Web close? bot tetep on!
+
+Order : https://wa.me/62895700121662
+
+*Harga diatas adalah untuk 1bulan*
+*Memiliki garansi selama 14 hari full ganti baru untuk server private*
+*Server biasa no garansi*
+𝙽𝚋 : 𝙿𝚎𝚗𝚐𝚐𝚞𝚗𝚊𝚊𝚗 𝙱𝚘𝚝 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚜𝚎𝚔𝚊𝚛𝚊𝚗𝚐 𝚝𝚒𝚍𝚊𝚔 𝚋𝚒𝚜𝚊 𝚖??𝚗𝚐𝚐𝚞𝚗𝚊𝚔𝚊𝚗 𝚋𝚞𝚝𝚝𝚘𝚗 𝚔𝚊??𝚎𝚗𝚊 𝚔𝚎𝚋𝚒𝚓𝚊𝚔𝚊𝚗 𝚙𝚒𝚑𝚊𝚔 𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙!!
+
+ꜰᴏᴜɴᴅ ᴀ ʙᴜɢ? ᴩʟᴇᴀꜱᴇ ʀᴇᴩᴏʀᴛ ᴛʜᴇ ᴅᴇᴠᴇʟᴏᴩᴇʀ ᴄᴏɴᴛᴀᴄᴛ ᴛʜᴇ ᴏᴡɴᴇʀ *.ᴏᴡɴᴇʀ*
+ᴩᴏᴡᴇʀᴇᴅ ʙy *${global.ownername}*
+║▌│█║▌ █║▌│█ ║▌║`         
+var sennax = JSON.parse(fs.readFileSync('./lib/senna.json'))
+var senn = pickRandom(sennax)
+bagus.sendMessage(m.chat, { caption: menutxt, video: { url: senn.url }, gifPlayback: true }, { quoted: fakestatus })
+var menump3 = fs.readFileSync('./Tes.mp3')
+        await bagus.sendMessage(m.chat,{audio:menump3,
                                      mimetype: 'audio/mpeg',ptt:true},
-                               {quoted})}
-        break
-case 'menuall': {
-     if (!isRegistered) return replygcxeon('Kamu belum daftar!\nSilahkan daftar dengan cara *.daftar nama|umur!*')
+                               {quoted})
+
+}
+                               
+break
+   case 'cekkontol':
+   case 'kontol':
+   if (!q) return reply(`Penggunaan ${command} Nama\n\nContoh : ${command} BagusXD`)
+   const peli = ['black doff', 'hitam merona', 'kasar', 'bengkok ke kiri', 'bengkok ke kanan', 'lemes', 'kondor', 'kendor', 'letoy ga bisa ngacemg :v', 'berjerawat', 'belum sunat🗿', 'pucat', 'pink', 'bercacar', 'ada tahi lalat', 'bau pengak', 'bau duren', 'bau serundeng', 'berjembut panjang', 'bau amis', 'langkah', 'spesiall', 'legend']
+   const lipel = peli[Math.floor(Math.random() * peli.length)]
+   bagus.sendMessage(from, { text: `━━━━❰ *CEK KONTOL* ❱━━━━\nNama : ${q}\nJenis Kontol : *${lipel}*` }, { quoted: fakestatus })
+   break
+case 'cekmemek':
+case 'memek':
+if (!q) return reply(`Penggunaan ${command} Nama\n\nContoh : ${command} Bella`)
+const memek = ['hitam', 'pink', 'tembem', 'sempit', 'black doff', 'berjerawat', 'bau amis', 'bau karbit', 'bau bensin', 'harum', 'halus', 'mulus' ]
+const pepek = memek[Math.floor(Math.random() * memek.length)]
+bagus.sendMessage(from, { text: `━━━━❰CEK MEMEK❱━━━━\nNama : ${q}\nJenis Memek: *${pepek}*` }, { quoted: fakestatus })
+
+break
+case 'sendkontak': case 'kontak':
+if (!isGroup) return m.reply(`Khusus Group`)
+if (!m.mentionedJid[0]) return reply('Ex; .kontak @tag|nama')
+let snTak = text.split(' ')[1] ? text.split(' ')[1] : 'Contact'
+let snContact = {
+	displayName: "Contact", contacts: [{displayName: snTak, vcard: "BEGIN:VCARD\nVERSION:3.0\nN:;"+snTak+";;;\nFN:"+snTak+"\nitem1.TEL;waid="+m.mentionedJid[0].split('@')[0]+":"+m.mentionedJid[0].split('@')[0]+"\nitem1.X-ABLabel:Ponsel\nEND:VCARD"}]
+} // (?); send kontak
+bagus.sendMessage(m.chat, {contacts: snContact}, {ephemeralExpiration: 86400})
+break
+case 'stres' :
+case 'ganteng' :
+case 'gila' :
+case 'cantik' :
+case 'tolol' :
+case 'pinter' :
+      case 'goblok': {
+if (!m.isGroup) return replygcxeon(mess.group)
+let member = participants.map((u) => u.id)
+let org = member[Math.floor(Math.random() * member.length)]
+bagus.sendMessage(m.chat,
+{ text: `Yang paling ${command} disini adalah @${org.split('@')[0]} wowkwkwk`,
+contextInfo:{
+mentionedJid:[org],
+forwardingScore: 9999999,
+isForwarded: true, 
+"externalAdReply": {
+"showAdAttribution": true,
+"containsAutoReply": true,
+"title": ` ${global.botname}`,
+"body": `${ownername}`,
+"previewType": "PHOTO",
+"thumbnailUrl": ``,
+"thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
+"sourceUrl": `${wagc}`}}},
+{ quoted: m})
+}
+break
+case 'pintercek':
+case 'cekpinter':
+case 'cekgoblok':
+case 'goblokcek':
+case 'cekganteng':
+case 'cantikcek':
+case 'cekcantik':
+if (!q) return reply(`Penggunaan ${command} Nama\n\nContoh : ${command} Riych`)
+const can = ['5', '99999', '15' ,'20', '25','30','35','40','45','50','55','60','65','70','75','80','85','90','100']
+const tik = can[Math.floor(Math.random() * can.length)]
+bagus.sendMessage(from, { text: `Nama : ${q}\nJawaban : *${tik}%*` }, { quoted: m })
+
+break
+case 'image' :
+         case 'pinterest': {
+            
+            if (!q) return replygcxeon(`Contoh Penggunaan .pinterest loid forger`)
+            
+            anu = await pinterest(text)
+            result = anu[Math.floor(Math.random(), anu.length)]
+            let gam = await getBuffer(result)
+            var but = [{
+               "urlButton": {
+                  "displayText": "Media Url",
+                  "url": `${result}`
+               }
+            }]
+
+            await bagus.sendMessage(m.chat, {
+                  image: gam,
+                  caption: q
+               }, {
+                  quoted: m
+               })
+               .catch((err) => {
+                  reply(`ERROR!! COBA LAGI TAHUN DEPAN`)
+               })
+            
+         }
+         break
+
+
+case 'sangecek':
+case 'ceksange':
+case 'gaycek':
+case 'cekgay':
+case 'lesbicek':
+case 'ceklesbi':
+if (!q) return reply(`Penggunaan ${command} Nama\n\nContoh : ${command} ${pushname}`)
+const sangeh = ['5', '10', '15','20', '25','30','35','40','45','50','55','60','65','70','75','80','85','90','100', '9999999']
+const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
+bagus.sendMessage(from, { text: `Nama : ${q}\nJawaban : *${sange}%*` }, { quoted: m })
+break
+        
+        if (autoread) {
+            bagus.readMessages([m.key])
+        }
+        if (global.autoTyping) {
+
+        bagus.sendPresenceUpdate('composing', from)
+
+
+        }
+
+        if (global.autoRecording) {
+
+        bagus.sendPresenceUpdate('recording', fromMe)
+
+        }
+        case "darkjoke": case "darkjokes":
+        
+ var ress = await Darkjokes()
+teks = "*Darkjokes*"
+bagus.sendMessage(m.chat, { image : { url : ress }, caption: teks }, { quoted:m })
+break
+case 'allmenu': {
+	let me = m.sender
 var unicorn = await getBuffer(picak+'All Menu')
-sendKyuuMessage(from, { 
-text: `*ʜᴀʟᴏ ᴋᴀᴋ , @${sender.split("@")[0]} 👋.
-${xeonytimewisher}*
+sendbagusMessage(from, { 
+text: `*${xeonytimewisher}*, @${sender.split("@")[0]} Ogenkidesuka?👋.
 
-┎────❲ *INFO BOT* ❳
-┃  🗝️ *ʙᴏᴛ ɴᴀᴍᴇ* : *${global.botname}*
-┃ 🗜️ *ᴠᴇʀꜱɪᴏɴ* : *5.7*
-┃ ⚙️ *ʙᴀɪʟᴇyꜱ* : *@whiskeysockets/baileys*
-┃   👨‍💻 *ᴏᴡɴᴇʀ* : *${global.namaku}*
-┖──────────╌╌
+╭────《  *INFO BOT*  》────⊷
+│┎──────────╌╌✧
+│┃  ✰ *ʙᴏᴛ ɴᴀᴍᴇ* : *${global.botname}*
+│┃  ⛀ *ᴛɪᴍᴇ sᴇʀᴠᴇʀ* = *${xtime}*
+│┃  ⏍ *ɢʀᴏᴜᴘ* = *32*
+│┃  ⏣ *ᴛᴏᴛᴀʟ ғɪᴛᴜʀ* : *1200+*
+│┃  ⚑ *ʟᴀɴɢᴜᴀɢᴇ* : *Indonesia*
+│┃  ⛘ *ᴠᴇʀꜱɪᴏɴ* : *5.7*
+│┃  ⛶ *ʙᴀɪʟᴇyꜱ* : *@whiskeysockets/baileys*
+│┃  ♕ *ᴏᴡɴᴇʀ* : *${global.namaku}*
+│┖──────────╌╌✧
+╰══════════════════⊷
 
- ┎────❲*INFO*❳
- ┃  ⏲️ *ᴛɪᴍᴇ sᴇʀᴠᴇʀ* = ${xtime}
- ┃ 👨‍💻 *ᴏᴡɴᴇʀ* = BaguzXD
- ┃ 💬 *ɢʀᴏᴜᴘ* = -
- ┃ 🆓 *ғʀᴇᴇ* = 349
- ┃💲 *ᴘʀᴇᴍɪᴜᴍ* = 56
- ┖──────────╌╌
-${readmore}
+╭────《  *UPDATED*  》────⊷
+│┎──────────╌╌✧
+│┃ ❁ *𝙰𝚍𝚍𝚎𝚍 𝙵𝚎𝚊𝚝𝚞𝚛𝚎*
+│┃ •ʙʀᴏᴀᴅᴄᴀsᴛ ɢʀᴏᴜᴘ = *.ʙᴄɢᴄ*
+│┃ •ɪᴍᴀɢᴇ sᴇᴀʀᴄʜ = *.ɪᴍᴀɢᴇ*
+│┃ •ᴅᴀʀᴋ ᴊᴏᴋᴇs = *.ᴅᴀʀᴋᴊᴏᴋᴇs*
+│┃ •ᴊᴏᴅᴏʜᴋᴜ = *.ᴊᴏᴅᴏʜᴋᴜ*
+│┃ ❁ *𝙳𝚎𝚕𝚎𝚝𝚎𝚍 𝙵𝚎𝚊𝚝𝚞𝚛𝚎 *
+│┃ •ɴsғᴡ ᴍᴇɴᴜ
+│┃ ❏ʀᴇᴀsᴏɴ : *ᴍᴇɴʏᴇʙᴀʙᴋᴀɴ ɴᴏᴍᴏʀ ᴅɪ ʙʟᴏᴋɪʀ*
+│┃ •
+│┃ ❏ʀᴇᴀsᴏɴ :
+│┖──────────╌╌✧
+╰══════════════════⊷
+ 
 ╔═════•| ⟱ |•═════╗
-║ *S E M U A  M E N U*║
-╚═════•| ⟰ |•═════╝
-
+║   *S E M U A  M E N U*  ║
+╚═════•| ⟱ |•═════╝
+${readmore}
 ┌──⊰ 「 _*OWNER MENU*_ 」
 │⊳  ${prefix}self  *ᴏᴡɴᴇʀ*
 │⊳  ${prefix}public  *ᴏᴡɴᴇʀ*
 │⊳  ${prefix}join  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}autotypingrecording *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}autotyping  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}autorecording  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}bcgc *ᴏᴡɴᴇʀ*
 │⊳  ${prefix}bctext  *ᴏᴡɴᴇʀ*
 │⊳  ${prefix}bcimage  *ᴏᴡɴᴇʀ*
 │⊳  ${prefix}bcvideo  *ᴏᴡɴᴇʀ*
@@ -2980,15 +3407,32 @@ ${readmore}
 └──────────⊰
 
 ┌──⊰ 「 _*RPG MENU*_ 」
- ⫺ • ${prefix}inventori  *ғʀᴇᴇ*
- ⫺ • ${prefix}profile  *ғʀᴇᴇ*
- ⫺ • ${prefix}mining  *ғʀᴇᴇ*
- ⫺ • ${prefix}leaderboard  *ғʀᴇᴇ*
- ⫺ • ${prefix}berburu  *ғʀᴇᴇ*
- ⫺ • ${prefix}hunt  *ғʀᴇᴇ*
- ⫺ • ${prefix}heal  *ғʀᴇᴇ*
- ⫺ • ${prefix}beli  *ғʀᴇᴇ*
- ⫺ • ${prefix}jual  *ғʀᴇᴇ*
+│⊳ ${prefix}inventori  *ғʀᴇᴇ*
+│⊳ ${prefix}profile  *ғʀᴇᴇ*
+│⊳ ${prefix}mining  *ғʀᴇᴇ*
+│⊳ ${prefix}leaderboard  *ғʀᴇᴇ*
+│⊳ ${prefix}berburu  *ғʀᴇᴇ*
+│⊳ ${prefix}hunt  *ғʀᴇᴇ*
+│⊳ ${prefix}heal  *ғʀᴇᴇ*
+│⊳ ${prefix}beli  *ғʀᴇᴇ*
+│⊳ ${prefix}jual  *ғʀᴇᴇ*
+└──────────⊰
+
+┌──⊰ 「 _*CEK MENU*_ 」
+│⊳   .cekgoblok *ғʀᴇᴇ*
+│⊳   .goblok *ғʀᴇᴇ*
+│⊳   .pintercek *ғʀᴇᴇ*
+│⊳   .pinter *ғʀᴇᴇ*
+│⊳   .gantengcek *ғʀᴇᴇ*
+│⊳   .ganteng *ғʀᴇᴇ*
+│⊳   .cekcantik *ғʀᴇᴇ*
+│⊳   .cantik *ғʀᴇᴇ*
+│⊳   .cekmati *ғʀᴇᴇ*
+│⊳   .cekmemek *ғʀᴇᴇ*
+│⊳   .cekkontol *ғʀᴇᴇ*
+│⊳   .tolol *ғʀᴇᴇ*
+│⊳   .gila *ғʀᴇᴇ*
+│⊳   .kontol *ғʀᴇᴇ*
 └──────────⊰
 
 ┌──⊰ 「 _*BUG MENU*_ 」
@@ -3037,26 +3481,27 @@ ${readmore}
 │⊳  ${prefix}txt2img *ғʀᴇᴇ*
 │⊳  ${prefix}openai  *ғʀᴇᴇ*
 │⊳  ${prefix}removebg  *ғʀᴇᴇ*
+│⊳  ${prefix}hd *ғʀᴇᴇ*
 │⊳  ${prefix}remini *ғʀᴇᴇ*
 └──────────⊰
 
 ┌──⊰ 「 _*BANNED*_ 」
-│⊳  ${prefix}banhenz1 * ᴏᴡɴᴇʀ 
-│⊳  ${prefix}banhenz2  *ᴏᴡɴᴇʀ*
-│⊳  ${prefix}banhenz3  *ᴏᴡɴᴇʀ*
-│⊳  ${prefix}banhenz4  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}banyukk1 * ᴏᴡɴᴇʀ 
+│⊳  ${prefix}banyukk2  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}banyukk3  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}banyukk4  *ᴏᴡɴᴇʀ*
 │⊳  ${prefix}verify  *ᴏᴡɴᴇʀ*
 │⊳  ${prefix}logout  *ᴏᴡɴᴇʀ*
 └──────────⊰
 
 ┌──⊰ 「 _*UNBANNED*_ 」
-│⊳  ${prefix}unbanhenz1  *ᴏᴡɴᴇʀ*
-│⊳  ${prefix}unbanhenz2  *ᴏᴡɴᴇʀ*
-│⊳  ${prefix}unbanhenz3  *ᴏᴡɴᴇʀ*
-│⊳  ${prefix}unbanhenz4  *ᴏᴡɴᴇʀ*
-│⊳  ${prefix}unbanhenz5  *ᴏᴡɴᴇʀ*
-│⊳  ${prefix}unbanhenz6  *ᴏᴡɴᴇʀ*
-│⊳  ${prefix}unbanhenz7  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}unbanyukk1  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}unbanyukk2  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}unbanyukk3  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}unbanyukk4  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}unbanyukk5  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}unbanyukk6  *ᴏᴡɴᴇʀ*
+│⊳  ${prefix}unbanyukk7  *ᴏᴡɴᴇʀ*
 └──────────⊰
 
 ┌──⊰ 「 _*DOWNLOAD*_ 」
@@ -3132,6 +3577,8 @@ ${readmore}
 └──────────⊰
 
 ┌──⊰ 「 _*OTHER MENU*_ 」
+│⊳  ${prefix}sendkontak *ғʀᴇᴇ*
+│⊳  ${prefix}pinterest  *ғʀᴇᴇ*
 │⊳  ${prefix}ping  *ғʀᴇᴇ*
 │⊳  ${prefix}menu  *ғʀᴇᴇ*
 │⊳  ${prefix}listpem  *ғʀᴇᴇ*
@@ -3143,7 +3590,6 @@ ${readmore}
 │⊳  ${prefix}listpc  *ғʀᴇᴇ*
 │⊳  ${prefix}listgc  *ғʀᴇᴇ*
 │⊳  ${prefix}owner  *ғʀᴇᴇ*
-│⊳  ${prefix}tyabot  *ғʀᴇᴇ*
 │⊳  ${prefix}listtyabot  *ғʀᴇᴇ*
 │⊳  ${prefix}donate  *ғʀᴇᴇ*
 │⊳  ${prefix}friend  *ғʀᴇᴇ*
@@ -3353,70 +3799,70 @@ ${readmore}
 └──────────⊰
 
 ┌──⊰ 「 _*ANIME*_ 」
-│⊳  ${prefix}akira  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}akiyama  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}ana  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}asuna  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}ayuzawa  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}boruto  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}chiho  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}chitoge  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}cosplayloli  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}cosplaysagiri  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}deidara  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}doraemon  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}elaina  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}emilia  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}erza  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}gremory  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}hestia  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}hinata  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}husbu  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}inori  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}isuzu  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}itachi  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}itori  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}kaga  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}kagura  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}kakasih  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}kaori  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}keneki  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}kotori  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}kurumi  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}loli  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}madara  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}megumin  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}mikasa  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}mikey  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}miku  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}minato  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}naruto  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}neko  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}neko2  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}nekonime  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}nezuko  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}onepiece  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}pokemon  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}randomnime  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}randomnime2  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}rize  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}sagiri  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}sakura  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}sasuke  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}shina  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}shinka  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}shinomiya  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}shizuka  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}shota  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}tejina  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}toukachan  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}tsunade  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}waifu  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}animewall  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}yotsuba  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}yuki  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}yulibocil  *ᴘʀᴇᴍɪᴜᴍ*
-│⊳  ${prefix}yumeko  *ᴘʀᴇᴍɪᴜᴍ*
+│⊳  ${prefix}akira  *ғʀᴇᴇ*
+│⊳  ${prefix}akiyama  *ғʀᴇᴇ*
+│⊳  ${prefix}ana  *ғʀᴇᴇ*
+│⊳  ${prefix}asuna  *ғʀᴇᴇ*
+│⊳  ${prefix}ayuzawa  *ғʀᴇᴇ*
+│⊳  ${prefix}boruto  *ғʀᴇᴇ*
+│⊳  ${prefix}chiho  *ғʀᴇᴇ*
+│⊳  ${prefix}chitoge  *ғʀᴇᴇ*
+│⊳  ${prefix}cosplayloli  *ғʀᴇᴇ*
+│⊳  ${prefix}cosplaysagiri  *ғʀᴇᴇ*
+│⊳  ${prefix}deidara  *ғʀᴇᴇ*
+│⊳  ${prefix}doraemon  *ғʀᴇᴇ*
+│⊳  ${prefix}elaina  *ғʀᴇᴇ*
+│⊳  ${prefix}emilia  *ғʀᴇᴇ*
+│⊳  ${prefix}erza  *ғʀᴇᴇ*
+│⊳  ${prefix}gremory  *ғʀᴇᴇ*
+│⊳  ${prefix}hestia  *ғʀᴇᴇ*
+│⊳  ${prefix}hinata  *ғʀᴇᴇ*
+│⊳  ${prefix}husbu  *ғʀᴇᴇ*
+│⊳  ${prefix}inori  *ғʀᴇᴇ*
+│⊳  ${prefix}isuzu  *ғʀᴇᴇ*
+│⊳  ${prefix}itachi  *ғʀᴇᴇ* 
+│⊳  ${prefix}itori  *ғʀᴇᴇ*
+│⊳  ${prefix}kaga  *ғʀᴇᴇ*
+│⊳  ${prefix}kagura  *ғʀᴇᴇ*
+│⊳  ${prefix}kakasih  *ғʀᴇᴇ*
+│⊳  ${prefix}kaori  *ғʀᴇᴇ*
+│⊳  ${prefix}keneki  *ғʀᴇᴇ*
+│⊳  ${prefix}kotori  *ғʀᴇᴇ*
+│⊳  ${prefix}kurumi  *ғʀᴇᴇ*
+│⊳  ${prefix}loli  *ғʀᴇᴇ*
+│⊳  ${prefix}madara  *ғʀᴇᴇ*
+│⊳  ${prefix}megumin  *ғʀᴇᴇ*
+│⊳  ${prefix}mikasa  *ғʀᴇᴇ*
+│⊳  ${prefix}mikey  *ғʀᴇᴇ*
+│⊳  ${prefix}miku  *ғʀᴇᴇ*
+│⊳  ${prefix}minato  *ғʀᴇᴇ*
+│⊳  ${prefix}naruto  *ғʀᴇᴇ*
+│⊳  ${prefix}neko  *deleted*
+│⊳  ${prefix}neko2  *deleted*
+│⊳  ${prefix}nekonime  *ғʀᴇᴇ*
+│⊳  ${prefix}nezuko  *ғʀᴇᴇ*
+│⊳  ${prefix}onepiece  *ғʀᴇᴇ*
+│⊳  ${prefix}pokemon  *ғʀᴇᴇ*
+│⊳  ${prefix}randomnime  *ғʀᴇᴇ*
+│⊳  ${prefix}randomnime2  *ғʀᴇᴇ*
+│⊳  ${prefix}rize  *ғʀᴇᴇ*
+│⊳  ${prefix}sagiri  *ғʀᴇᴇ*
+│⊳  ${prefix}sakura  *ғʀᴇᴇ*
+│⊳  ${prefix}sasuke  *ғʀᴇᴇ*
+│⊳  ${prefix}shina  *ғʀᴇᴇ*
+│⊳  ${prefix}shinka  *ғʀᴇᴇ*
+│⊳  ${prefix}shinomiya  *ғʀᴇᴇ*
+│⊳  ${prefix}shizuka  *ғʀᴇᴇ*
+│⊳  ${prefix}shota  *ғʀᴇᴇ*
+│⊳  ${prefix}tejina  *ғʀᴇᴇ*
+│⊳  ${prefix}toukachan  *ғʀᴇᴇ*
+│⊳  ${prefix}tsunade  *ғʀᴇᴇ*
+│⊳  ${prefix}waifu  *ғʀᴇᴇ*
+│⊳  ${prefix}animewall  *ғʀᴇᴇ*
+│⊳  ${prefix}yotsuba  *ғʀᴇᴇ*
+│⊳  ${prefix}yuki  *ғʀᴇᴇ*
+│⊳  ${prefix}yulibocil  *ғʀᴇᴇ*
+│⊳  ${prefix}yumeko  *ғʀᴇᴇ*
 │⊳  ${prefix}8ball  *ғʀᴇᴇ*
 │⊳  ${prefix}tickle  *ғʀᴇᴇ*
 │⊳  ${prefix}gecg  *ғʀᴇᴇ*
@@ -3424,41 +3870,7 @@ ${readmore}
 └──────────⊰
 
 ┌──⊰ 「 _*HENTAI*_ 」
-│⊳  ${prefix}hentai  *ғʀᴇᴇ*
-│⊳  ${prefix}gifhentai  *ғʀᴇᴇ*
-│⊳  ${prefix}gifblowjob  *ғʀᴇᴇ*
-│⊳  ${prefix}hentaivid  *ғʀᴇᴇ*
-│⊳  ${prefix}hneko  *ғʀᴇᴇ*
-│⊳  ${prefix}nwaifu  *ғʀᴇᴇ*
-│⊳  ${prefix}animespank  *ғʀᴇᴇ*
-│⊳  ${prefix}trap  *ғʀᴇᴇ*
-│⊳  ${prefix}gasm  *ғʀᴇᴇ*
-│⊳  ${prefix}ahegao  *ғʀᴇᴇ*
-│⊳  ${prefix}ass  *ғʀᴇᴇ*
-│⊳  ${prefix}bdsm  *ғʀᴇᴇ*
-│⊳  ${prefix}blowjob  *ғʀᴇᴇ*
-│⊳  ${prefix}cuckold  *ғʀᴇᴇ*
-│⊳  ${prefix}cum  *ғʀᴇᴇ*
-│⊳  ${prefix}milf  *ғʀᴇᴇ*
-│⊳  ${prefix}eba  *ғʀᴇᴇ*
-│⊳  ${prefix}ero  *ғʀᴇᴇ*
-│⊳  ${prefix}femdom  *ғʀᴇᴇ*
-│⊳  ${prefix}foot  *ғʀᴇᴇ*
-│⊳  ${prefix}gangbang  *ғʀᴇᴇ*
-│⊳  ${prefix}glasses  *ғʀᴇᴇ*
-│⊳  ${prefix}jahy  *ғʀᴇᴇ*
-│⊳  ${prefix}masturbation  *ғʀᴇᴇ*
-│⊳  ${prefix}manga  *ғʀᴇᴇ*
-│⊳  ${prefix}neko-hentai  *ғʀᴇᴇ*
-│⊳  ${prefix}neko-hentai2  *ғʀᴇᴇ*
-│⊳  ${prefix}nsfwloli  *ғʀᴇᴇ*
-│⊳  ${prefix}orgy  *ғʀᴇᴇ*
-│⊳  ${prefix}panties  *ғʀᴇᴇ* 
-│⊳  ${prefix}pussy  *ғʀᴇᴇ*
-│⊳  ${prefix}tentacles  *ғʀᴇᴇ*
-│⊳  ${prefix}thights  *ғʀᴇᴇ*
-│⊳  ${prefix}yuri  *ғʀᴇᴇ*
-│⊳  ${prefix}zettai  *ғʀᴇᴇ*
+│⊳  *DELETED*
 └──────────⊰
 
 ┌──⊰ 「 _*TEXT PRO MAKER*_ 」
@@ -3594,7 +4006,7 @@ mentionedJid:[sender, mark],
 "title": wmbot, 
 "containsAutoReply": true,
 "mediaType": 1, 
-"thumbnail": kyuuThumb,
+"thumbnail": bagusThumb,
 "mediaUrl": `${wagc}`,
 "sourceUrl": `${wagc}`
 }
@@ -3605,7 +4017,7 @@ break
 case 'menupush': {
      if (!isRegistered) return replygcxeon('Kamu belum daftar!\nSilahkan daftar dengan cara *.daftar nama|umur!*')
 var unicorn = await getBuffer(picak+'push Menu')
-sendKyuuMessage(from, { 
+sendbagusMessage(from, { 
 text: `*ʜᴀʟᴏ ᴋᴀᴋ , @${sender.split("@")[0]} 👋.*
 ꜱᴀyᴀ ᴀᴅᴀʟᴀʜ ʙᴏᴛ ᴡʜᴀᴛꜱᴀᴩᴩ ᴏᴛᴏᴍᴀᴛɪꜱ yᴀɴɢ ᴅᴀᴩᴀᴛ ᴍᴇᴍʙᴀɴᴛᴜ ᴍᴇʟᴀᴋᴜᴋᴀɴ ꜱᴇꜱᴜᴀᴛᴜ, ᴍᴇɴᴄᴀʀɪ ᴅᴀɴ ᴍᴇɴᴅᴀᴩᴀᴛᴋᴀɴ ᴅᴀᴛᴀ ᴀᴛᴀᴜ ɪɴꜰᴏʀᴍᴀꜱɪ ᴍᴇʟᴀʟᴜɪ ᴡʜᴀᴛꜱᴀᴩᴩ.
 
@@ -3641,7 +4053,7 @@ mentionedJid:[sender, mark],
 "title": wmbot, 
 "containsAutoReply": true,
 "mediaType": 1, 
-"thumbnail": kyuuThumb,
+"thumbnail": bagusThumb,
 "mediaUrl": `${wagc}`,
 "sourceUrl": `${wagc}`
 }
@@ -3652,7 +4064,7 @@ break
         case 'menubug': {
      if (!isRegistered) return replygcxeon('Kamu belum daftar!\nSilahkan daftar dengan cara *.daftar nama|umur!*')
 var unicorn = await getBuffer(picak+'push Menu')
-sendKyuuMessage(from, { 
+sendbagusMessage(from, { 
 text: `*ʜᴀʟᴏ ᴋᴀᴋ , @${sender.split("@")[0]} 👋.*
 ꜱᴀyᴀ ᴀᴅᴀʟᴀʜ ʙᴏᴛ ᴡʜᴀᴛꜱᴀᴩᴩ ᴏᴛᴏᴍᴀᴛɪꜱ yᴀɴɢ ᴅᴀᴩᴀᴛ ᴍᴇᴍʙᴀɴᴛᴜ ᴍᴇʟᴀᴋᴜᴋᴀɴ ꜱᴇꜱᴜᴀᴛᴜ, ᴍᴇɴᴄᴀʀɪ ᴅᴀɴ ᴍᴇɴᴅᴀᴩᴀᴛᴋᴀɴ ᴅᴀᴛᴀ ᴀᴛᴀᴜ ɪɴꜰᴏʀᴍᴀꜱɪ ᴍᴇʟᴀʟᴜɪ ᴡʜᴀᴛꜱᴀᴩᴩ.
 
@@ -3689,7 +4101,7 @@ mentionedJid:[sender, mark],
 "title": wmbot, 
 "containsAutoReply": true,
 "mediaType": 1, 
-"thumbnail": kyuuThumb,
+"thumbnail": bagusThumb,
 "mediaUrl": `${wagc}`,
 "sourceUrl": `${wagc}`
 }
@@ -3700,7 +4112,7 @@ break
 case 'menuanti': {
      if (!isRegistered) return replygcxeon('Kamu belum daftar!\nSilahkan daftar dengan cara *.daftar nama|umur!*')
 var unicorn = await getBuffer(picak+'Anti Menu')
-sendKyuuMessage(from, { 
+sendbagusMessage(from, { 
 text: `*ʜᴀʟᴏ ᴋᴀᴋ , @${sender.split("@")[0]} 👋.*
 ꜱᴀyᴀ ᴀᴅᴀʟᴀʜ ʙᴏᴛ ᴡʜᴀᴛꜱᴀᴩᴩ ᴏᴛᴏᴍᴀᴛɪꜱ yᴀɴɢ ᴅᴀᴩᴀᴛ ᴍᴇᴍʙᴀɴᴛᴜ ᴍᴇʟᴀᴋᴜᴋᴀɴ ꜱᴇꜱᴜᴀᴛᴜ, ᴍᴇɴᴄᴀʀɪ ᴅᴀɴ ᴍᴇɴᴅᴀᴩᴀᴛᴋᴀɴ ᴅᴀᴛᴀ ᴀᴛᴀᴜ ɪɴꜰᴏʀᴍᴀꜱɪ ᴍᴇʟᴀʟᴜɪ ᴡʜᴀᴛꜱᴀᴩᴩ.
 
@@ -3744,19 +4156,19 @@ mentionedJid:[sender, mark],
 "title": wmbot, 
 "containsAutoReply": true,
 "mediaType": 1, 
-"thumbnail": kyuuThumb,
+"thumbnail": bagusThumb,
 "mediaUrl": `${wagc}`,
 "sourceUrl": `${wagc}`
 }
 }
 })
 }
-Kyuu.sendMessage(from, {quoted : fakestatus })
+bagus.sendMessage(from, {quoted : fakestatus })
 break
 case 'menugame': {
      if (!isRegistered) return replygcxeon('Kamu belum daftar!\nSilahkan daftar dengan cara *.daftar nama|umur!*')
 var unicorn = await getBuffer(picak+'Bug Menu')
-sendKyuuMessage(from, { 
+sendbagusMessage(from, { 
 text: `*ʜᴀʟᴏ ᴋᴀᴋ , @${sender.split("@")[0]} 👋.*
 ꜱᴀyᴀ ᴀᴅᴀʟᴀʜ ʙᴏᴛ ᴡʜᴀᴛꜱᴀᴩᴩ ᴏᴛᴏᴍᴀᴛɪꜱ yᴀɴɢ ᴅᴀᴩᴀᴛ ᴍᴇᴍʙᴀɴᴛᴜ ᴍᴇʟᴀᴋᴜᴋᴀɴ ꜱᴇꜱᴜᴀᴛᴜ, ᴍᴇɴᴄᴀʀɪ ᴅᴀɴ ᴍᴇɴᴅᴀᴩᴀᴛᴋᴀɴ ᴅᴀᴛᴀ ᴀᴛᴀᴜ ɪɴꜰᴏʀᴍᴀꜱɪ ᴍᴇʟᴀʟᴜɪ ᴡʜᴀᴛꜱᴀᴩᴩ.
 
@@ -3806,19 +4218,20 @@ mentionedJid:[sender, mark],
 "title": wmbot, 
 "containsAutoReply": true,
 "mediaType": 1, 
-"thumbnail": kyuuThumb,
+"thumbnail": bagusThumb,
 "mediaUrl": `${wagc}`,
 "sourceUrl": `${wagc}`
 }
 }
 })
 }
-Kyuu.sendMessage(from, {quoted : fakestatus })
+bagus.sendMessage(from, {quoted : fakestatus })
 break
+
 case 'menuowner': {
      if (!isRegistered) return replygcxeon('Kamu belum daftar!\nSilahkan daftar dengan cara *.daftar nama|umur!*')
 var unicorn = await getBuffer(picak+'Owner Menu')
-sendKyuuMessage(from, { 
+sendbagusMessage(from, { 
 text: `*ʜᴀʟᴏ ᴋᴀᴋ , @${sender.split("@")[0]} 👋.*
 ꜱᴀyᴀ ᴀᴅᴀʟᴀʜ ʙᴏᴛ ᴡʜᴀᴛꜱᴀᴩᴩ ᴏᴛᴏᴍᴀᴛɪꜱ yᴀɴɢ ᴅᴀᴩᴀᴛ ᴍᴇᴍʙᴀɴᴛᴜ ᴍᴇʟᴀᴋᴜᴋᴀɴ ꜱᴇꜱᴜᴀᴛᴜ, ᴍᴇɴᴄᴀʀɪ ᴅᴀɴ ᴍᴇɴᴅᴀᴩᴀᴛᴋᴀɴ ᴅᴀᴛᴀ ᴀᴛᴀᴜ ɪɴꜰᴏʀᴍᴀꜱɪ ᴍᴇʟᴀʟᴜɪ ᴡʜᴀᴛꜱᴀᴩᴩ.
 
@@ -3875,7 +4288,7 @@ mentionedJid:[sender, mark],
 "title": wmbot, 
 "containsAutoReply": true,
 "mediaType": 1, 
-"thumbnail": kyuuThumb,
+"thumbnail": bagusThumb,
 "mediaUrl": `${wagc}`,
 "sourceUrl": `${wagc}`
 }
@@ -3883,6 +4296,26 @@ mentionedJid:[sender, mark],
 })
 }
 break
+case 'updatewelcome':
+         case 'setwelcome': {
+            if (!m.isGroup) return replygcxeon(mess.group)
+if (!isBotAdmins) return replygcxeon(mess.botAdmin)
+if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
+            if (!text) return replygcxeon('Contoh penggunaan: ${prefix + command} Welcome @user\n\n- @user (Tag user)\n- @number (Nomor user)\n- @group (Nama group)\n- @bio (Bio user)\n- @members (Total member)\n- @day (Hari)\n- @date (Tanggal)\n- @time (Jam)\n- @desc (Deskripsi group)')
+            if (isSetWelcome(m.chat, set_welcome_db)) {
+               changeSetWelcome(text, m.chat, set_welcome_db)
+               bagus.sendMessage(m.chat, mess.succes + ' ' + command + '\n\n' + text, `© ${ownername}`, {
+                  quoted: fgif
+               })
+            } else {
+               addSetWelcome(text, m.chat, set_welcome_db)
+               bagus.sendMessage(m.chat, mess.succes + ' ' + command + '\n\n' + text, `© ${ownername}`, {
+                  quoted: fgif
+               })
+            }
+
+         }
+         break
 case 'sound1':
 case 'sound2':
 case 'sound3':
@@ -4044,8 +4477,8 @@ case 'sound158':
 case 'sound159':
 case 'sound160':
 case 'sound161':
-Kyuu_dev = await getBuffer(`https://github.com/DGXeon/Tiktokmusic-API/raw/master/tiktokmusic/${command}.mp3`)
-await Kyuu.sendMessage(m.chat, { audio: Kyuu_dev, mimetype: 'audio/mp4', ptt: true }, { quoted: m })     
+bagus_dev = await getBuffer(`https://github.com/DGXeon/Tiktokmusic-API/raw/master/tiktokmusic/${command}.mp3`)
+await bagus.sendMessage(m.chat, { audio: bagus_dev, mimetype: 'audio/mp4', ptt: true }, { quoted: fgif })     
 break
                     //[ Rpg Menu ]\\
 
@@ -4100,7 +4533,7 @@ var emasnya = emas[Math.floor(Math.random() * emas.length)]
 var emeraldnya = emerald[Math.floor(Math.random() * emerald.length)]
 setTimeout( () => {
 let caption = `[ Hasil Tambang ]\n*Iron* : ${besinya}\n*Gold* : ${emasnya}\n*Emerald* : ${emeraldnya}`
-Kyuu.sendMessage(m.chat, { image: { url: './media/tambang.jpg' }, caption: caption }, { quoted: m })
+bagus.sendMessage(m.chat, { image: { url: './media/tambang.jpg' }, caption: caption }, { quoted: m })
 }, 7000)
 setTimeout( () => {
 reply(`${pushname} Mulai Menambang`)
@@ -4311,7 +4744,7 @@ teksehmazeh += `_[ INFO ]_\n`
 teksehmazeh += `*Lokasi* : ${lokasinya}\n`
 teksehmazeh += `*Luka* : ${lukanya}, Darah - 10\n`
 teksehmazeh += `*Sisa Darah* : ${getDarah(m.sender)}\n`
-Kyuu.sendMessage(m.chat, { image: { url: image }, caption: teksehmazeh }, { quoted: m })
+bagus.sendMessage(m.chat, { image: { url: image }, caption: teksehmazeh }, { quoted: m })
 }, 5000)
 setTimeout( () => {
 reply(`${pushname} Mulai Berburu Di ${lokasinya}`)
@@ -4325,6 +4758,38 @@ addGajah(m.sender, gajah)
  kurangDarah(m.sender, 10)
  }
  break
+case 'randomquran': {
+ 
+            var asma = await fetchJson(api('alfa', '/api/islam/' + command, {}, 'apikey'))
+               .then(async data => {
+                  let short = data.result.resources
+                  let txt = '*Random Quran*\n\n'
+                  txt += `• Surah : ${short.nameOfSurah.short} (${short.nameOfSurah.transliteration.en})\n`
+                  txt += `• Surah ke : ${short.numberOfSurah}\n`
+                  txt += `• Total ayat : ${short.totalAyah}\n`
+                  txt += `• Ayat ke : ${short.numberOfAyah}\n`
+                  txt += `• Arab : ${short.ayah.text.arab}\n`
+                  txt += `• Latin : ${short.ayah.text.transliteration.en}\n`
+                  txt += `• Tr en : ${short.ayah.translation.en}\n`
+                  txt += `• Tr id : ${short.ayah.translation.id}\n\n`
+                  txt += `_*Audio sedang dalam di proses pengiriman*_`
+                  reply(txt)
+                  let buff = await getBuffer(short.ayah.audio.primary)
+                  bagus.sendMessage(from, {
+                     audio: {
+                        url: short.ayah.audio.primary
+                     },
+                     mimetype: 'audio/mpeg'
+                  }, {
+                     quoted: m
+                  })
+               })
+               .catch(e => {
+                  reply(`Error coba lagi tahun depan`)
+               })
+            
+         }
+         break
 case 'friend':
 case 'searchfriend':{
 if (!isPrem) return replyprem(mess.premium)
@@ -4336,7 +4801,7 @@ setTimeout(() => {
 replygcxeon('Managed to Get One Person')
 }, 5000)
 setTimeout(() => {
-Kyuu.sendMessage(from, {text: `Here @${teman.split("@")[0]}`, mentions: [teman]}, { quoted : m })
+bagus.sendMessage(from, {text: `Here @${teman.split("@")[0]}`, mentions: [teman]}, { quoted : m })
 }, 9000)
 }
 break
@@ -4344,15 +4809,15 @@ break
 scbot = `*This bot was created by me with the purpose of learning and having fun and not intending to harm others.*
 
 *want to buy source code? please chat owner*
-*@${Kyuusc.split("@")[0]}*
+*@${bagussc.split("@")[0]}*
 
-© Kyuu still learning
+© Guzz still learning
 `
-await Kyuu.relayMessage(m.chat,  {
+await bagus.relayMessage(m.chat,  {
 requestPaymentMessage: {
 currencyCodeIso4217: 'IDR',
 amount1000: 35000000,
-mentionedJid:[sender, Kyuusc],
+mentionedJid:[sender, bagussc],
 requestFrom: m.sender,
 noteMessage: {
 extendedTextMessage: {
@@ -4366,7 +4831,7 @@ case 'tourl': {
 if (!/video/.test(mime) && !/image/.test(mime)) throw `*Send/Reply the Video/Image With Caption* ${prefix + command}`
 if (!quoted) throw `*Send/Reply the Video/Image Caption* ${prefix + command}`
 let { UploadFileUgu, webp2mp4File, TelegraPh } = require('./lib/uploader')
-let media = await Kyuu.downloadAndSaveMediaMessage(quoted)
+let media = await bagus.downloadAndSaveMediaMessage(quoted)
 if (/image/.test(mime)) {
 let anu = await TelegraPh(media)
 replygcxeon(util.format(anu))
@@ -4379,7 +4844,7 @@ await fs.unlinkSync(media)
 break
 case 'q': case 'quoted': {
 if (!m.quoted) return replygcxeon('Reply the Message!!')
-let xeonquotx= await Kyuu.serializeM(await m.getQuotedObj())
+let xeonquotx= await bagus.serializeM(await m.getQuotedObj())
 if (!xeonquotx.quoted) return replygcxeon('The message you are replying to is not sent by the bot')
 await xeonquotx.quoted.copyNForward(m.chat, true)
 }
@@ -4387,7 +4852,7 @@ break
          case 'tts': case 'say':{
          	if (!text) replygcxeon(`Example : ${prefix + command} text`)
              let tts = await fetchJson(`https://api.akuari.my.id/texttovoice/texttosound_english?query=${text}`)
-             Kyuu.sendMessage(m.chat, { audio: { url: tts.result }, mimetype: 'audio/mp4', ptt: true, fileName: `${text}.mp3` }, { quoted: m })
+             bagus.sendMessage(m.chat, { audio: { url: tts.result }, mimetype: 'audio/mp4', ptt: true, fileName: `${text}.mp3` }, { quoted: m })
          	}
          break
 case 'igstalk':{
@@ -4395,7 +4860,7 @@ if (!isPrem) return replyprem(mess.premium)
 if (!q) return replygcxeon(`Example ${prefix+command} unicorn_xeon`)
 replygcxeon(mess.wait)
 aj = await igstalk(`${q}`)
-Kyuu.sendMessage(m.chat, { image: { url : aj.profile }, caption: 
+bagus.sendMessage(m.chat, { image: { url : aj.profile }, caption: 
 `*/ Instagram Stalker \\*
 
 Full name : ${aj.fullname}
@@ -4449,7 +4914,7 @@ case 'ghstalk': case 'githubstalk':{
 if (!q) return replygcxeon(`Example ${prefix+command} DGXeon`)
 replygcxeon(mess.wait)
 aj = await githubstalk.githubstalk(`${q}`)
-Kyuu.sendMessage(m.chat, { image: { url : aj.profile_pic }, caption: 
+bagus.sendMessage(m.chat, { image: { url : aj.profile_pic }, caption: 
 `*/ Github Stalker \\*
 
 Username : ${aj.username}
@@ -4477,7 +4942,7 @@ case 'ss': case 'ssweb': {
 if (!q) return replygcxeon(`Example ${prefix+command} link`)
 replygcxeon(mess.wait)
 let krt = await scp1.ssweb(q)
-Kyuu.sendMessage(from,{image:krt.result,caption:mess.succes}, {quoted:m})
+bagus.sendMessage(from,{image:krt.result,caption:mess.succes}, {quoted:m})
 }
 break
 case 'join': {
@@ -4485,17 +4950,17 @@ if (!isOwner) return replygcxeon(mess.owner)
 if (!text) return replygcxeon(`Contoh ${prefix+command} linkgc`)
 if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) return replygcxeon('Link Invalid!')
 let result = args[0].split('https://chat.whatsapp.com/')[1]
-await Kyuu.groupAcceptInvite(result).then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+await bagus.groupAcceptInvite(result).then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
 }
 break
 case 'toonce': case 'toviewonce': { 
 if (!quoted) return replygcxeon(`Reply Image/Video`)
 if (/image/.test(mime)) {
-anuan = await Kyuu.downloadAndSaveMediaMessage(quoted)
-Kyuu.sendMessage(m.chat, {image: {url:anuan}, caption: `Here you go!`, fileLength: "999", viewOnce : true},{quoted: m })
+anuan = await bagus.downloadAndSaveMediaMessage(quoted)
+bagus.sendMessage(m.chat, {image: {url:anuan}, caption: `Here you go!`, fileLength: "999", viewOnce : true},{quoted: m })
 } else if (/video/.test(mime)) {
-anuanuan = await Kyuu.downloadAndSaveMediaMessage(quoted)
-Kyuu.sendMessage(m.chat, {video: {url:anuanuan}, caption: `Here you go!`, fileLength: "99999999", viewOnce : true},{quoted: m })
+anuanuan = await bagus.downloadAndSaveMediaMessage(quoted)
+bagus.sendMessage(m.chat, {video: {url:anuanuan}, caption: `Here you go!`, fileLength: "99999999", viewOnce : true},{quoted: m })
 }
 }
 break
@@ -4513,7 +4978,7 @@ break
                      let nama = store.messages[i].array[0].pushName
                      teks += `${themeemoji} *Name :* ${nama}\n${themeemoji} *User :* @${i.split('@')[0]}\n${themeemoji} *Chat :* https://wa.me/${i.split('@')[0]}\n\n────────────────────────\n\n`
                  }
-                 Kyuu.sendTextWithMentions(m.chat, teks, m)
+                 bagus.sendTextWithMentions(m.chat, teks, m)
              }
              break
           case 'miku':{
@@ -4521,31 +4986,31 @@ break
   let ouh = await fetch(`https://api.yanzbotz.my.id/api/ai/characterai?text=${text}&name=miku`)
  //let ouh = await fetch(`https://api.betabotz.org/api/search/c-ai?prompt=hai%20ai%20siapa%20namamu?&char=HuTao&apikey=8cZTmd8U`)
   let gyh = await ouh.json() 
-  await Kyuu.sendMessage(m.chat, {
+  await bagus.sendMessage(m.chat, {
   text: `${gyh.result}`,
       contextInfo: {
       externalAdReply: {
         title: 'Hatsume Miku - C.ai',
         body: 'meg',
         thumbnailUrl: 'https://telegra.ph/file/839a326d43474bf0242ec.jpg',
-        sourceUrl: 'https://chat.whatsapp.com/EWtUdk9DQRIJdp1655BPak',
+        sourceUrl: 'https://whatsapp.com/channel/0029VaMf4PeFi8xWsSsnjL3I',
         mediaType: 1,
         renderLargerThumbnail: true
       }}
   })}
 break
  case 'elaina':{
-  if (!text) return reply('Apa yang bisa saya bantu?')
+  if (!text) return reply('Wait.. kalo ga muncul berarti error')
   let ouh = await fetch(`https://api.yanzbotz.my.id/api/ai/characterai?text=${text}&name=Elaina`)
   let gyh = await ouh.json() 
-  await Kyuu.sendMessage(m.chat, {
+  await bagus.sendMessage(m.chat, {
   text: `${gyh.result}`,
       contextInfo: {
       externalAdReply: {
         title: 'Elaina - C.ai',
         body: 'meg',
         thumbnailUrl: 'https://telegra.ph/file/d343889c1b2ab1de43031.jpg',
-        sourceUrl: 'https://chat.whatsapp.com/EWtUdk9DQRIJdp1655BPak',
+        sourceUrl: 'https://whatsapp.com/channel/0029VaMf4PeFi8xWsSsnjL3I',
         mediaType: 1,
         renderLargerThumbnail: true
       }}
@@ -4555,14 +5020,14 @@ break
   if (!text) return reply('Apa yang bisa saya bantu?')
   let ouh = await fetch(`https://api.yanzbotz.my.id/api/ai/characterai?text=${text}&name=nezuko`)
   let gyh = await ouh.json() 
-  await Kyuu.sendMessage(m.chat, {
+  await bagus.sendMessage(m.chat, {
   text: `${gyh.result}`,
       contextInfo: {
       externalAdReply: {
         title: 'Nezuko - C.ai',
         body: 'meg',
         thumbnailUrl: 'https://telegra.ph/file/fd03a32e284f69a67114c.jpg',
-        sourceUrl: 'https://chat.whatsapp.com/EWtUdk9DQRIJdp1655BPak',
+        sourceUrl: 'https://whatsapp.com/channel/0029VaMf4PeFi8xWsSsnjL3I',
         mediaType: 1,
         renderLargerThumbnail: true
       }}
@@ -4572,14 +5037,14 @@ break
   if (!text) return reply('Apa yang bisa saya bantu?')
   let ouh = await fetch(`https://api.yanzbotz.my.id/api/ai/characterai?text=${text}&name=nobara`)
   let gyh = await ouh.json() 
-  await Kyuu.sendMessage(m.chat, {
+  await bagus.sendMessage(m.chat, {
   text: `${gyh.result}`,
       contextInfo: {
       externalAdReply: {
         title: 'Nobara Kugisaki - C.ai',
         body: 'meg',
         thumbnailUrl: 'https://telegra.ph/file/b53b3b907d13a1924fbf2.jpg',
-        sourceUrl: 'https://chat.whatsapp.com/EWtUdk9DQRIJdp1655BPak',
+        sourceUrl: 'https://whatsapp.com/channel/0029VaMf4PeFi8xWsSsnjL3I',
         mediaType: 1,
         renderLargerThumbnail: true
       }}
@@ -4589,10 +5054,10 @@ break
                  let anulistg = await store.chats.all().filter(v => v.id.endsWith('@g.us')).map(v => v.id)
                  let teks = `${themeemoji} *GROUP CHAT LIST*\n\nTotal Group : ${anulistg.length} Group\n\n`
                  for (let i of anulistg) {
-                     let metadata = await Kyuu.groupMetadata(i)
+                     let metadata = await bagus.groupMetadata(i)
                      teks += `${themeemoji} *Name :* ${metadata.subject}\n${themeemoji} *Owner :* ${metadata.owner !== undefined ? '@' + metadata.owner.split`@`[0] : 'Unknown'}\n${themeemoji} *ID :* ${metadata.id}\n${themeemoji} *Made :* ${moment(metadata.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss')}\n${themeemoji} *Member :* ${metadata.participants.length}\n\n────────────────────────\n\n`
                  }
-                 Kyuu.sendTextWithMentions(m.chat, teks, m)
+                 bagus.sendTextWithMentions(m.chat, teks, m)
              }
              break
              case 'ping': case 'botstatus': case 'statusbot': {
@@ -4626,7 +5091,7 @@ break
                 neww = performance.now()
                 oldd = performance.now()
                 respon = `
-Response Speed ${latensi.toFixed(4)} _Second_ \n ${oldd - neww} _miliseconds_\n\nRuntime : ${runtime(process.uptime())}
+Response Speed ${latensi.toFixed(4)} _Second_ \n ${oldd - neww} _miliseconds_\n\nRuntime :  1 days, ${runtime(process.uptime())}
 
 💻 Info Server
 RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}
@@ -4656,12 +5121,26 @@ replygcxeon('*Successfully Turn off Autosticker*')
 replygcxeon(`Type .autosticker on To Activate And .autosticker off To Deactivate`)
 }
 break
+case 'bcgc': case 'bcgroup': {
+if (!text) throw `Text mana?\n\nExample : ${prefix + command} kontol`
+let getGroups = await bagus.groupFetchAllParticipating()
+let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
+let anu = groups.map(v => v.id)
+replygcxeon(`Mengirim Broadcast Ke ${anu.length} Group Chat, Waktu Selesai ${anu.length * 1.5} detik`)
+for (let i of anu) {
+await sleep(1500)
+bagus.sendMessage(i, {text: `${text}`}, {quoted:fkontak})
+    }
+reply(`Sukses Mengirim Broadcast Ke ${anu.length} Group`)
+}
+break
+//
             case 'bctext': case 'broadcasttext': case 'broadcast': {
 			    if (!isOwner) return replygcxeon(mess.owner)
 		            if (!q) return replygcxeon(`Enter text`)
 		                            const data = await store.chats.all()
                             for (let i of data) {
-                               Kyuu.sendMessage(i.id, {text: `${ownername}'s Broadcast\n\nMessage : ${q}` })
+                               bagus.sendMessage(i.id, {text: `${ownername}'s Broadcast\n\nMessage : ${q}` })
                                await sleep(1000)
                             }
                             }
@@ -4669,7 +5148,7 @@ break
                             case 'broadcastimage': case 'bcimage': case 'broadcastvideo': case 'broadcastvid':
 if(!isOwner) return replygcxeon(mess.owner)
         if (!q) return replygcxeon(`Enter text`)
-        let getGroups = await Kyuu.groupFetchAllParticipating()
+        let getGroups = await bagus.groupFetchAllParticipating()
         let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
         let xeoncast = groups.map(v => v.id)
         replygcxeon(` Broadcasting in ${xeoncast.length} Group Chat, in ${xeoncast.length * 1.5} seconds`)
@@ -4677,11 +5156,11 @@ if(!isOwner) return replygcxeon(mess.owner)
 let txt = `${ownername}'s Broadcast\n\nMessage : ${q}`
 if(/image/.test(mime)) {
 let media = await quoted.download()
-await Kyuu.sendMessage(i, { image:media,  caption: txt,mentions:participants.map(a => a.id) })
+await bagus.sendMessage(i, { image:media,  caption: txt,mentions:participants.map(a => a.id) })
 }
 if(/video/.test(mime)){
 let media = await quoted.download()
-await Kyuu.sendMessage(i, { video:media,  caption: txt, mentions:participants.map(a => a.id) })
+await bagus.sendMessage(i, { video:media,  caption: txt, mentions:participants.map(a => a.id) })
 }
             }
         replygcxeon(`Successfuly Broadcasted in ${xeoncast.length} Groups`)      
@@ -4689,13 +5168,13 @@ await Kyuu.sendMessage(i, { video:media,  caption: txt, mentions:participants.ma
 case 'block': {
 		if (!isOwner) return replygcxeon(mess.owner)
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await Kyuu.updateBlockStatus(users, 'block').then((res) => replygcxeon(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+		await bagus.updateBlockStatus(users, 'block').then((res) => replygcxeon(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 	}
 	break
         case 'unblock': {
 		if (!isOwner) return replygcxeon(mess.owner)
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await Kyuu.updateBlockStatus(users, 'unblock').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+		await bagus.updateBlockStatus(users, 'unblock').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
 	}
 	break
 case 'listblock': case 'listban': case 'blocklist': case 'banlist': {
@@ -4704,30 +5183,32 @@ case 'listblock': case 'listban': case 'blocklist': case 'banlist': {
 	}
 	break
 case 'menfes': case 'confess':
-if (Object.values(anon.anonymous).find(p => p.check(sender))) return replygcxeon("You are still in the room")
+if (Object.values(anon.anonymous).find(p => p.check(sender))) return replygcxeon("*Kamu Sedang Berada di dalam room ketik .leave untuk keluar dan membuat menfes baru!*")
 if (m.isGroup) return replygcxeon(mess.private)
 if (args.length < 1) return replygcxeon(`Use ${prefix+command} number|your message\nExample ${prefix+command} ${ownernumber}|Hi Owner`)
-if (text > 700) return replygcxeon(`The text is too long`)
 num = q.split("|")[0].replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 pesan = q.split('|')[1]
-let cekno = await Kyuu.onWhatsApp(num)
+let cekno = await bagus.onWhatsApp(num)
 if (cekno.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
 if (num === m.sender) return replygcxeon(`Cannot Confess To Own Number!!!`)
 if (num === botNumber) return replygcxeon(`Can't Confess to bot number!!!`)
 var nomor = m.sender
 
-const xeonconfesmsg = `Hi, I'm a bot. Someone sent a message to you.
+const xeonconfesmsg = `Halo, Saya Bot WhatsApp Dari Isekai, Nama Saya SennaBotz Dan saya diutus oleh seseorang mengirimkan pesan yang entah penting atau tidak Silahkan dibaca..
 
-Someone your friend
-(Secret Sender)
+
+
+*(Secret Sender)*
 
 -------------------------------------->
 
-💌 Message : ${pesan}
+💌 Pesan : *${pesan}*
 
--------------------------------------->`
+-------------------------------------->
 
-await Kyuu.sendMessage(num,
+_*Namun Sayang sekali anda tidak bisa membalas pesan anonim ini entah pesan ini dari teman anda maupun pacar/mantan anda*_ 😆`
+
+await bagus.sendMessage(num,
 { text: xeonconfesmsg,
 contextInfo:{
 mentionedJid:[sender],
@@ -4739,9 +5220,9 @@ mentionedJid:[sender],
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
 "thumbnail": ``,
-"sourceUrl": `${wagc}`}}}, {quoted:m})
+"sourceUrl": `${wagc}`}}}, {quoted:fakestatus})
 
-await Kyuu.sendMessage(num, {text:`You can also reply to the message by sending a message, if you don't want to reply, please type .leave and enter send button`}, { quoted : m })
+
 lidt = `Success Sending Message
 👤 From : wa.me/${nomor.split("@s.whatsapp.net")[0]}
 👥 To : wa.me/${q.split("|")[0].replace(/[^0-9]/g, '')}
@@ -4759,15 +5240,15 @@ return replygcxeon(lidt)
 }
 break
 case 'leave':{
-if (m.isGroup && isOwner && command == "leave") return Kyuu.groupLeave(from)
+if (m.isGroup && isOwner && command == "leave") return bagus.groupLeave(from)
 if (m.isGroup) return replygcxeon("Only private chat")
 var room = Object.values(anon.anonymous).find(p => p.check(sender))
-if (!room) return replygcxeon("You are not in the room")
-replygcxeon("Bye...")
+if (!room) return replygcxeon("Kamu Tidak Berada Di Room")
+replygcxeon("Kamu Telah Mengakhiri Room...")
 var other = room.other(sender)
 delete anon.anonymous[room.id]
-if (other != "") Kyuu.sendMessage(other, {
-text: "Bye..."
+if (other != "") bagus.sendMessage(other, {
+text: "Pengirim Telah Menghilang Dari Lane"
 })
 if (command == "leave") break;
 }
@@ -4791,7 +5272,7 @@ case 'resetgruplink': {
 if (!m.isGroup) return replygcxeon(mess.group)
 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
 if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
-Kyuu.groupRevokeInvite(m.chat)
+bagus.groupRevokeInvite(m.chat)
 }
 break
             case 'react': {
@@ -4802,7 +5283,7 @@ break
                         key: { remoteJid: m.chat, fromMe: true, id: quoted.id }
                     }
                 }
-                Kyuu.sendMessage(m.chat, reactionMessage)
+                bagus.sendMessage(m.chat, reactionMessage)
             }
             break
 case 'group': case 'editinfo': {
@@ -4811,15 +5292,95 @@ if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
 if (!q) return replygcxeon(`Send orders ${command} _options_\nOptions : close & open\nExample : ${command} close`)
 if (args[0] == 'close') {
-Kyuu.groupSettingUpdate(from, 'announcement')
+bagus.groupSettingUpdate(from, 'announcement')
 replygcxeon(`Success Allows Only Admins To Send Messages To This Group`)
 } else if (args[0] == 'open') {
-Kyuu.groupSettingUpdate(from, 'not_announcement')
+bagus.groupSettingUpdate(from, 'not_announcement')
 replygcxeon(`Success Allows All Participants To Send Messages To This Group`)
 } else {
 replygcxeon(`Type Command ${command} _pptions_\nOptions : Close & Open\nExample : ${command} close`)
 }}
 break
+case 'autoread':
+                if (!m.isGroup) return replygcxeon(mess.group)
+if (!isBotAdmins) return replygcxeon(mess.botAdmin)
+if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
+if (args.length < 1) return replygcxeon('type .${command} on to enable\ntype .${command} off to disable')
+                if (q === 'on') {
+                    autoread = true
+                    reply(`Successfully changed autoread to ${q}`)
+                } else if (q === 'off') {
+                    autoread = false
+                    reply(`Successfully changed autoread to ${q}`)
+                }
+                break
+case 'autoswview':
+                if (!m.isGroup) return replygcxeon(mess.group)
+if (!isBotAdmins) return replygcxeon(mess.botAdmin)
+if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
+if (args.length < 1) return replygcxeon('type .${command} on to enable\ntype .${command} off to disable')
+                if (q === 'on') {
+                    autoread_status = true
+                    reply(`ðŸŸ¨Successfully changed auto status/story view to ${q}`)
+                } else if (q === 'off') {
+                    autoread_status = false
+                    reply(`ðŸŸ¨Successfully changed auto status/story view to ${q}`)
+                }
+                break
+case 'jodohku': {
+            if (!m.isGroup) throw mess.group
+            let member = participants.map(a => a.id)
+            let me = m.sender
+            let jodoh = member[Math.floor(Math.random() * member.length)]
+bagus.sendMessage(m.chat,
+{ text: `👫Jodoh Kamu Adalah
+
+@${me.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
+
+Jangan Lupa Pajak Jadiannya yaa💕`,
+contextInfo:{
+mentionedJid:[me, jodoh],
+forwardingScore: 9999999,
+isForwarded: true, 
+"externalAdReply": {
+"showAdAttribution": true,
+"containsAutoReply": true,
+"title": ` ${global.botname}`,
+"body": `${ownername}`,
+"previewType": "PHOTO",
+"thumbnailUrl": ``,
+"thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
+"sourceUrl": `${wagc}`}}},
+{ quoted: m})        
+            }
+            break
+                case 'autotyping':
+                if (!m.isGroup) return replygcxeon(mess.group)
+if (!isBotAdmins) return replygcxeon(mess.botAdmin)
+if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
+if (args.length < 1) return replygcxeon('type .${command} on to enable\ntype .${command} off to disable')
+                if (q === 'on') {
+                    autoTyping = true
+                    reply(`Successfully changed auto-typing to ${q}`)
+                } else if (q === 'off') {
+                    autoTyping = false
+                    reply(`Successfully changed auto-typing to ${q}`)
+                }
+                break
+
+                case 'autorecording':
+      
+if (autoRecording) return replygcxeon('Already activated')
+rexord.push(from)
+if (args.length < 1) return replygcxeon('type auto recording on to enable\ntype .autorecording off to disable')    
+                if (q === 'on') {
+                    global.autoRecording = true
+                    reply(`Successfully changed auto-recording to ${q}`)
+                } else if (q === 'off') {
+                    global.autoRecording = false
+                    reply(`Successfully changed auto-recording to ${q}`)
+                }
+                break
 case 'autostickergc':
             case 'autosticker':
 if (!m.isGroup) return replygcxeon(mess.group)
@@ -4847,13 +5408,13 @@ if (antiVirtex) return replygcxeon('Already activated')
 ntvirtex.push(from)
 fs.writeFileSync('./database/antivirus.json', JSON.stringify(ntvirtex))
 replygcxeon('Success in turning on antivirus in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNo body is allowed to send virus in this group, member who send will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNo body is allowed to send virus in this group, member who send will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiVirtex) return replygcxeon('Already deactivated')
 let off = ntvirtex.indexOf(from)
@@ -4867,20 +5428,19 @@ replygcxeon('Success in turning off antivirus this group')
   break
 case 'nsfw': {
 if (!m.isGroup) return replygcxeon(mess.group)
-if (!isBotAdmins) return replygcxeon(mess.botAdmin)
 if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
 if (args[0] === "on") {
-if (AntiNsfw) return replygcxeon('Already activated')
+if (AntiNsfw) return replygcxneon('Already activated')
 ntnsfw.push(from)
 fs.writeFileSync('./database/nsfw.json', JSON.stringify(ntnsfw))
 replygcxeon('Success in turning on nsfw in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNsfw(not safe for work) feature has been enabled in this group, which means one can access sexual graphics from the bot!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNsfw(not safe for work) feature has been enabled in this group, which means one can access sexual graphics from the bot!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiNsfw) return replygcxeon('Already deactivated')
 let off = ntnsfw.indexOf(from)
@@ -4901,13 +5461,13 @@ if (AntiLinkYoutubeVid) return replygcxeon('Already activated')
 ntilinkytvid.push(from)
 fs.writeFileSync('./database/antilinkytvideo.json', JSON.stringify(ntilinkytvid))
 replygcxeon('Success in turning on youtube video antilink in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube video link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube video link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkYoutubeVid) return replygcxeon('Already deactivated')
 let off = ntilinkytvid.indexOf(from)
@@ -4928,13 +5488,13 @@ if (AntiLinkYoutubeChannel) return replygcxeon('Already activated')
 ntilinkytch.push(from)
 fs.writeFileSync('./database/antilinkytchannel.json', JSON.stringify(ntilinkytch))
 replygcxeon('Success in turning on youtube channel antilink in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube channel link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube channel link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkYoutubeChannel) return replygcxeon('Already deactivated')
 let off = ntilinkytch.indexOf(from)
@@ -4955,13 +5515,13 @@ if (AntiLinkInstagram) return replygcxeon('Already activated')
 ntilinkig.push(from)
 fs.writeFileSync('./database/antilinkinstagram.json', JSON.stringify(ntilinkig))
 replygcxeon('Success in turning on instagram antilink in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the instagram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the instagram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkInstagram) return replygcxeon('Already deactivated')
 let off = ntilinkig.indexOf(from)
@@ -4986,7 +5546,7 @@ var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Mess
 "title": cap,
 }
 }), { userJid: from, quoted : m})
-Kyuu.relayMessage(from, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
+bagus.relayMessage(from, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
 await sleep(3000)
 }
 }
@@ -5001,13 +5561,13 @@ if (AntiLinkFacebook) return replygcxeon('Already activated')
 ntilinkfb.push(from)
 fs.writeFileSync('./database/antilinkfacebook.json', JSON.stringify(ntilinkfb))
 replygcxeon('Success in turning on facebook antilink in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the facebook link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the facebook link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkFacebook) return replygcxeon('Already deactivated')
 let off = ntilinkfb.indexOf(from)
@@ -5028,13 +5588,13 @@ if (AntiLinkTelegram) return replygcxeon('Already activated')
 ntilinktg.push(from)
 fs.writeFileSync('./database/antilinktelegram.json', JSON.stringify(ntilinktg))
 replygcxeon('Success in turning on telegram antilink in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the telegram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the telegram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTelegram) return replygcxeon('Already deactivated')
 let off = ntilinktg.indexOf(from)
@@ -5055,13 +5615,13 @@ if (AntiLinkTiktok) return replygcxeon('Already activated')
 ntilinktt.push(from)
 fs.writeFileSync('./database/antilinktiktok.json', JSON.stringify(ntilinktt))
 replygcxeon('Success in turning on tiktok antilink in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the tiktok link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the tiktok link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTiktok) return replygcxeon('Already deactivated')
 let off = ntilinktt.indexOf(from)
@@ -5082,13 +5642,13 @@ if (AntiLinkTwitter) return replygcxeon('Already activated')
 ntilinktwt.push(from)
 fs.writeFileSync('./database/antilinktwitter.json', JSON.stringify(ntilinktwt))
 replygcxeon('Success in turning on twitter antilink in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the twitter link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the twitter link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTwitter) return replygcxeon('Already deactivated')
 let off = ntilinktwt.indexOf(from)
@@ -5104,8 +5664,8 @@ replygcxeon('Success in turning off twitter antilink in this group')
 let teks = m.quoted && m.quoted.q ? m.quoted.text : q ? q : "";
 if (!teks) return m.reply(`Cara Penggunaan ${prefix}qc teks`)
 const text = `${teks}`
-const username = await Kyuu.getName(m.quoted ? m.quoted.sender : m.sender)
-const avatar = await Kyuu.profilePictureUrl( m.quoted ? m.quoted.sender : m.sender,"image").catch(() =>`https://i0.wp.com/telegra.ph/file/134ccbbd0dfc434a910ab.png`)
+const username = await bagus.getName(m.quoted ? m.quoted.sender : m.sender)
+const avatar = await bagus.profilePictureUrl( m.quoted ? m.quoted.sender : m.sender,"image").catch(() =>`https://i0.wp.com/telegra.ph/file/134ccbbd0dfc434a910ab.png`)
 
 const json = {
 type: "quote",
@@ -5139,7 +5699,7 @@ headers: { "Content-Type": "application/json" },
 })
 .then(async (res) => {
 const buffer = Buffer.from(res.data.result.image, "base64");
-let encmedia = await Kyuu.sendImageAsSticker(m.chat, buffer, m, { packname: global.packname, 
+let encmedia = await bagus.sendImageAsSticker(m.chat, buffer, m, { packname: global.packname, 
 author: global.author, 
 categories: ['🤩', '🎉'],
 id: '12345',
@@ -5158,13 +5718,13 @@ if (AntiLinkTwitter) return replygcxeon('Already activated')
 ntilinkall.push(from)
 fs.writeFileSync('./database/antilinkall.json', JSON.stringify(ntilinkall))
 replygcxeon('Success in turning on all antilink in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send any link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send any link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkAll) return replygcxeon('Already deactivated')
 let off = ntilinkall.indexOf(from)
@@ -5185,13 +5745,13 @@ if (antiToxic) return replygcxeon('Already activated')
 nttoxic.push(from)
 fs.writeFileSync('./database/antitoxic.json', JSON.stringify(nttoxic))
 replygcxeon('Success in turning on antitoxic in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to use bad words in this group, one who uses will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to use bad words in this group, one who uses will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiToxic) return replygcxeon('Already deactivated')
 let off = nttoxic.indexOf(from)
@@ -5212,13 +5772,13 @@ if (antiWame) return replygcxeon('Already activated')
 ntwame.push(from)
 fs.writeFileSync('./database/antiwame.json', JSON.stringify(ntwame))
 replygcxeon('Success in turning on antiwame in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send wa.me in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send wa.me in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiWame) return replygcxeon('Already deactivated')
 let off = nttoxic.indexOf(from)
@@ -5239,13 +5799,13 @@ if (Antilinkgc) return replygcxeon('Already activated')
 ntlinkgc.push(from)
 fs.writeFileSync('./database/antilinkgc.json', JSON.stringify(ntlinkgc))
 replygcxeon('Success in turning on antiwame in this group')
-var groupe = await Kyuu.groupMetadata(from)
+var groupe = await bagus.groupMetadata(from)
 var members = groupe['participants']
 var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-Kyuu.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send group link in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+bagus.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send group link in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!Antilinkgc) return replygcxeon('Already deactivated')
 let off = ntlinkgc.indexOf(from)
@@ -5259,7 +5819,7 @@ await replygcxeon(`Please Type The Option\n\nExample: ${prefix + command} on\nEx
   break
    case 'leavegc': {
                 if (!isOwner) return replygcxeon(mess.owner)
-                await Kyuu.groupLeave(m.chat).then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+                await bagus.groupLeave(m.chat).then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
             }
             break
 case 'add': {
@@ -5267,7 +5827,7 @@ if (!m.isGroup) return replygcxeon(mess.group)
 if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
 let users = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-await Kyuu.groupParticipantsUpdate(m.chat, [users], 'add').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+await bagus.groupParticipantsUpdate(m.chat, [users], 'add').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
 }
 break
 case 'closetime': {
@@ -5289,7 +5849,7 @@ replygcxeon(`Close Time ${q} Starting from now`)
 setTimeout(() => {
 var nomor = m.participant
 const close = `*On time* Group Closed By Admin\nNow Only Admins Can Send Messages`
-Kyuu.groupSettingUpdate(from, 'announcement')
+bagus.groupSettingUpdate(from, 'announcement')
 replygcxeon(close)
 }, timer)
 }
@@ -5300,9 +5860,9 @@ break
                 if (!isAdmins) return replygcxeon(mess.admin)
                 if (!text) return replygcxeon('Enter the value enable/disable')
                 if (args[0] === 'enable') {
-                    await Kyuu.sendMessage(m.chat, { disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL }).then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+                    await bagus.sendMessage(m.chat, { disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL }).then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
                 } else if (args[0] === 'disable') {
-                    await Kyuu.sendMessage(m.chat, { disappearingMessagesInChat: false }).then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+                    await bagus.sendMessage(m.chat, { disappearingMessagesInChat: false }).then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
                 }
             }
             break
@@ -5310,14 +5870,14 @@ break
                 if (!m.quoted) throw false
                 let { chat, fromMe, id, isBaileys } = m.quoted
                 if (!isBaileys) return replygcxeon('The message was not sent by a bot!')
-                 Kyuu.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender } })
+                 bagus.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender } })
             }
             break
             case 'linkgroup': case 'linkgc': case 'gclink': case 'grouplink': {
                 if (!m.isGroup) return replygcxeon(mess.group)
                 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
-                let response = await Kyuu.groupInviteCode(m.chat)
-                Kyuu.sendText(m.chat, `https://chat.whatsapp.com/${response}\n\nGroup Link : ${groupMetadata.subject}`, m, { detectLink: true })
+                let response = await bagus.groupInviteCode(m.chat)
+                bagus.sendText(m.chat, `https://chat.whatsapp.com/${response}\n\nGroup Link : ${groupMetadata.subject}`, m, { detectLink: true })
             }
             break
 case 'opentime': {
@@ -5339,7 +5899,7 @@ replygcxeon(`Open Time ${q} Starting from now`)
 setTimeout(() => {
 var nomor = m.participant
 const open = `*On time* Group Opened By Admin\n Now Members Can Send Messages`
-Kyuu.groupSettingUpdate(from, 'not_announcement')
+bagus.groupSettingUpdate(from, 'not_announcement')
 replygcxeon(open)
 }, timer)
 }
@@ -5349,7 +5909,7 @@ if (!m.isGroup) return replygcxeon(mess.group)
 if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
 let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-await Kyuu.groupParticipantsUpdate(m.chat, [users], 'remove').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+await bagus.groupParticipantsUpdate(m.chat, [users], 'remove').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
 }
 break
     case 'setname': case 'setsubject': {
@@ -5357,7 +5917,7 @@ break
                 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
                 if (!isAdmins) return replygcxeon(mess.admin)
                 if (!text) return replygcxeon('Text ?')
-                await Kyuu.groupUpdateSubject(m.chat, text).then((res) => replygcxeon(mess.success)).catch((err) => replygcxeon(jsonformat(err)))
+                await bagus.groupUpdateSubject(m.chat, text).then((res) => replygcxeon(mess.success)).catch((err) => replygcxeon(jsonformat(err)))
             }
             break
           case 'setdesc': case 'setdesk': {
@@ -5365,7 +5925,7 @@ break
                 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
                 if (!isAdmins) return replygcxeon(mess.admin)
                 if (!text) return replygcxeon('Text ?')
-                await Kyuu.groupUpdateDescription(m.chat, text).then((res) => replygcxeon(mess.success)).catch((err) => replygcxeon(jsonformat(err)))
+                await bagus.groupUpdateDescription(m.chat, text).then((res) => replygcxeon(mess.success)).catch((err) => replygcxeon(jsonformat(err)))
             }
             break
 case 'setppgroup': case 'setgcpp': case 'setgrouppp': {
@@ -5375,10 +5935,10 @@ if (!isBotAdmins) return replygcxeon(mess.botAdmin)
 if (!quoted) return replygcxeon(`Where is the picture?`)
 if (!/image/.test(mime)) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
 if (/webp/.test(mime)) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
-var mediz = await Kyuu.downloadAndSaveMediaMessage(quoted, 'ppgc.jpeg')
+var mediz = await bagus.downloadAndSaveMediaMessage(quoted, 'ppgc.jpeg')
 if (args[0] == `/panjang`) {
 var { img } = await generateProfilePicture(mediz)
-await Kyuu.query({
+await bagus.query({
 tag: 'iq',
 attrs: {
 to: m.chat,
@@ -5396,7 +5956,7 @@ content: img
 fs.unlinkSync(mediz)
 replygcxeon(`Success`)
 } else {
-var memeg = await Kyuu.updateProfilePicture(m.chat, { url: mediz })
+var memeg = await bagus.updateProfilePicture(m.chat, { url: mediz })
 fs.unlinkSync(mediz)
 replygcxeon(`Success`)
 }
@@ -5407,7 +5967,7 @@ if (!m.isGroup) return replygcxeon(mess.group)
 if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
 let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-await Kyuu.groupParticipantsUpdate(m.chat, [users], 'promote').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+await bagus.groupParticipantsUpdate(m.chat, [users], 'promote').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
 }
 break
 case 'demote': {
@@ -5415,14 +5975,14 @@ if (!m.isGroup) return replygcxeon(mess.group)
 if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
 let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-await Kyuu.groupParticipantsUpdate(m.chat, [users], 'demote').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
+await bagus.groupParticipantsUpdate(m.chat, [users], 'demote').then((res) => replygcxeon(jsonformat(res))).catch((err) => replygcxeon(jsonformat(err)))
 }
 break
 case 'hidetag': {
 if (!m.isGroup) return replygcxeon(mess.group)
 if (!isAdmins && !isOwner) return replygcxeon(mess.admin)
 if (!isBotAdmins) return replygcxeon(mess.botAdmin)
-Kyuu.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
+bagus.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
 }
 break
 case 'tagall': {
@@ -5437,7 +5997,7 @@ let teks = `╚»˙·٠${themeemoji}●♥ Tag All ♥●${themeemoji}٠·˙«�
 for (let mem of participants) {
 teks += `${themeemoji} @${mem.id.split('@')[0]}\n`
 }
-Kyuu.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
+bagus.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
 }
 break
 case 'ebinary': {
@@ -5459,7 +6019,7 @@ break
 case 'fbdl': case 'facebook': {
 if (!q) return replygcxeon(`Where's the link??`)
 let anu = await fetchJson(`https://xeonapi.onrender.com/api/dowloader/fbdown?url=${q}&apikey=a565ddca`)
-Kyuu.sendMessage(m.chat, { video: { url: anu.result.HD }, caption: 'Here you go!.'}, {quoted: m})
+bagus.sendMessage(m.chat, { video: { url: anu.result.HD }, caption: 'Here you go!.'}, {quoted: m})
 }
 break
 case 'tiktok':{ 
@@ -5467,7 +6027,7 @@ if (!text) return replygcxeon( `Example : ${prefix + command} link`)
 if (!q.includes('tiktok')) return replygcxeon(`Link Invalid!!`)
 replygcxeon(mess.wait)
 require('./lib/tiktok').Tiktok(q).then( data => {
-Kyuu.sendMessage(m.chat, { caption: `Here you go!`, video: { url: data.watermark }}, {quoted:m})
+bagus.sendMessage(m.chat, { caption: `Here you go!`, video: { url: data.watermark }}, {quoted:m})
 })
 }
 break
@@ -5476,7 +6036,7 @@ if (!text) return replygcxeon( `Example : ${prefix + command} link`)
 if (!q.includes('tiktok')) return replygcxeon(`Link Invalid!!`)
 replygcxeon(mess.wait)
 require('./lib/tiktok').Tiktok(q).then( data => {
-Kyuu.sendMessage(m.chat, { audio: { url: data.audio }, mimetype: 'audio/mp4' }, { quoted: m })
+bagus.sendMessage(m.chat, { audio: { url: data.audio }, mimetype: 'audio/mp4' }, { quoted: m })
 })
 }
 break
@@ -5485,7 +6045,7 @@ if (!q) return replygcxeon(`Where is the link?`)
 if (!isUrl(args[0]) && !args[0].includes('mediafire.com')) return replygcxeon('The link you sent is not a mediafire link or the link is invalid!')
 replygcxeon(mess.wait)
 let medfr = await scp1.mediafire(q)
-await Kyuu.sendMessage(from, {document:{url:medfr.link},jpegThumbnail : defaultpp, fileName:`Downloaded By ${m.pushName}.${medfr.mime}`, mimetype:`application/${mime}`},{quoted:m})
+await bagus.sendMessage(from, {document:{url:medfr.link},jpegThumbnail : defaultpp, fileName:`Downloaded By ${m.pushName}.${medfr.mime}`, mimetype:`application/${mime}`},{quoted:m})
 break
 case 'google': {
 if (!q) return replygcxeon(`Example : ${prefix + command} ${botname}`)
@@ -5527,7 +6087,7 @@ Result : ${rain.hasil_nya}
 Degree of difficulty : ${rain.tingkat_kesulitan}
 Material :
 ${rain.bahan_nya}`
-Kyuu.sendMessage(m.chat,{
+bagus.sendMessage(m.chat,{
 image:{
 url:rain.thumb_nya},
 caption:dty,
@@ -5545,7 +6105,7 @@ case 'yts': case 'ytsearch': {
                 for (let i of search.all) {
                     teks += `${themeemoji} No : ${no++}\n${themeemoji} Type : ${i.type}\n${themeemoji} Video ID : ${i.videoId}\n${themeemoji} Title : ${i.title}\n${themeemoji} Views : ${i.views}\n${themeemoji} Duration : ${i.timestamp}\n${themeemoji} Uploaded : ${i.ago}\n${themeemoji} Url : ${i.url}\n\n─────────────────\n\n`
                 }
-                Kyuu.sendMessage(m.chat, { image: { url: search.all[0].thumbnail },  caption: teks }, { quoted: m })
+                bagus.sendMessage(m.chat, { image: { url: search.all[0].thumbnail },  caption: teks }, { quoted: m })
             }
             break
 case 'xxxxplay':{
@@ -5567,7 +6127,7 @@ Channel : ${anu.author.url}
 Link : ${anu.url}
 
 Copy the link above and type the .ytmp3 link for audio and the .ytmp4 link for video`
-Kyuu.sendMessage(m.chat, { image : eek, caption: ngen }, { quoted: m})
+bagus.sendMessage(m.chat, { image : eek, caption: ngen }, { quoted: m})
 }
 break
 case 'play':  case 'song': case 'ytmp3': {
@@ -5578,10 +6138,10 @@ let yts = require("youtube-yts")
         let search = await yts(text)
         let anup3k = search.videos[0]
 const pl= await xeonplaymp3.mp3(anup3k.url)
-await Kyuu.sendMessage(m.chat,{
+await bagus.sendMessage(m.chat,{
     audio: fs.readFileSync(pl.path),
     fileName: anup3k.title + '.mp3',
-    mimetype: 'audio/mp4', ptt: true,
+    mimetype: 'audio/mp4', ptt: false,
     contextInfo:{
         externalAdReply:{
             title:anup3k.title,
@@ -5605,7 +6165,7 @@ const ytc=`
 *${themeemoji}Date:* ${vid.date}
 *${themeemoji}Duration:* ${vid.duration}
 *${themeemoji}Quality:* ${vid.quality}`
-await Kyuu.sendMessage(m.chat,{
+await bagus.sendMessage(m.chat,{
     video: {url:vid.videoUrl},
     caption: ytc
 },{quoted:m})
@@ -5626,7 +6186,7 @@ break
 case 'getcase':
 if (!isOwner) return replygcxeon(mess.owner)
 const getCase = (cases) => {
-return "case"+`'${cases}'`+fs.readFileSync("XeonCheems7.js").toString().split('case \''+cases+'\'')[1].split("break")[0]+"break"
+return "case"+`'${cases}'`+fs.readFileSync("case.js").toString().split('case \''+cases+'\'')[1].split("break")[0]+"break"
 }
 replygcxeon(`${getCase(q)}`)
 break
@@ -5634,7 +6194,7 @@ case 'addprem':
 if (!isOwner) return replygcxeon(mess.owner)
 if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
 prrkek = q.split("|")[0].replace(/[^0-9]/g, '')+`@s.whatsapp.net`
-let ceknya = await Kyuu.onWhatsApp(prrkek)
+let ceknya = await bagus.onWhatsApp(prrkek)
 if (ceknya.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
 prem.push(prrkek)
 fs.writeFileSync('./database/premium.json', JSON.stringify(prem))
@@ -5648,7 +6208,7 @@ var ppt = quoted
 var ptv = generateWAMessageFromContent(from, proto.Message.fromObject({
 	"ptvMessage": ppt
 }), { userJid: from, quoted:m})
-Kyuu.relayMessage(from, ptv.message, { messageId: ptv.key.id })
+bagus.relayMessage(from, ptv.message, { messageId: ptv.key.id })
 }
 }
 break
@@ -5693,7 +6253,7 @@ case 'addvideo':{
 if (!isOwner) return replygcxeon(mess.owner)
 if (args.length < 1) return replygcxeon('Whats the video name?')
 if (VideoXeon.includes(q)) return replygcxeon("The name is already in use")
-let delb = await Kyuu.downloadAndSaveMediaMessage(quoted)
+let delb = await bagus.downloadAndSaveMediaMessage(quoted)
 VideoXeon.push(q)
 await fsx.copy(delb, `./XeonMedia/video/${q}.mp4`)
 fs.writeFileSync('./XeonMedia/database/xeonvideo.json', JSON.stringify(VideoXeon))
@@ -5725,7 +6285,7 @@ case 'addimage':{
 if (!isOwner) return replygcxeon(mess.owner)
 if (args.length < 1) return replygcxeon('Whats the image name?')
 if (ImageXeon.includes(q)) return replygcxeon("The name is already in use")
-let delb = await Kyuu.downloadAndSaveMediaMessage(quoted)
+let delb = await bagus.downloadAndSaveMediaMessage(quoted)
 ImageXeon.push(q)
 await fsx.copy(delb, `./XeonMedia/image/${q}.jpg`)
 fs.writeFileSync('./XeonMedia/database/xeonimage.json', JSON.stringify(ImageXeon))
@@ -5757,7 +6317,7 @@ case 'addsticker':{
 if (!isOwner) return replygcxeon(mess.owner)
 if (args.length < 1) return replygcxeon('Whats the sticker name?')
 if (StickerXeon.includes(q)) return replygcxeon("The name is already in use")
-let delb = await Kyuu.downloadAndSaveMediaMessage(quoted)
+let delb = await bagus.downloadAndSaveMediaMessage(quoted)
 StickerXeon.push(q)
 await fsx.copy(delb, `./XeonMedia/sticker/${q}.webp`)
 fs.writeFileSync('./XeonMedia/database/xeonsticker.json', JSON.stringify(StickerXeon))
@@ -5789,7 +6349,7 @@ case 'addvn':{
 if (!isOwner) return replygcxeon(mess.owner)
 if (args.length < 1) return replygcxeon('Whats the audio name?')
 if (VoiceNoteXeon.includes(q)) return replygcxeon("The name is already in use")
-let delb = await Kyuu.downloadAndSaveMediaMessage(quoted)
+let delb = await bagus.downloadAndSaveMediaMessage(quoted)
 VoiceNoteXeon.push(q)
 await fsx.copy(delb, `./XeonMedia/audio/${q}.mp3`)
 fs.writeFileSync('./XeonMedia/database/xeonvn.json', JSON.stringify(VoiceNoteXeon))
@@ -5821,7 +6381,7 @@ case 'addowner':
 if (!isOwner) return replygcxeon(mess.owner)
 if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} ${ownernumber}`)
 bnnd = q.split("|")[0].replace(/[^0-9]/g, '')
-let ceknye = await Kyuu.onWhatsApp(bnnd)
+let ceknye = await bagus.onWhatsApp(bnnd)
 if (ceknye.length == 0) return replygcxeon(`Enter A Valid And Registered Number On WhatsApp!!!`)
 owner.push(bnnd)
 fs.writeFileSync('./database/owner.json', JSON.stringify(owner))
@@ -5838,11 +6398,11 @@ replygcxeon(`The Numbrr ${ya} Has been deleted from owner list by the owner!!!`)
 break
 case 'listpremium': case 'listprem':
 teks = '*Premium List*\n\n'
-for (let Kyuu of prem) {
-teks += `- ${Kyuu}\n`
+for (let bagus of prem) {
+teks += `- ${bagus}\n`
 }
 teks += `\n*Total : ${prem.length}*`
-Kyuu.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quoted: m, contextInfo: { "mentionedJid": prem } })
+bagus.sendMessage(m.chat, { text: teks.trim() }, 'extendedTextMessage', { quoted: m, contextInfo: { "mentionedJid": prem } })
 break
 case 'setexif': {
                if (!isOwner) return replygcxeon(mess.owner)
@@ -5857,10 +6417,10 @@ if (!isOwner) return replygcxeon(mess.owner)
 if (!quoted) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
 if (!/image/.test(mime)) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
 if (/webp/.test(mime)) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
-var medis = await Kyuu.downloadAndSaveMediaMessage(quoted, 'ppbot.jpeg')
+var medis = await bagus.downloadAndSaveMediaMessage(quoted, 'ppbot.jpeg')
 if (args[0] == `/panjang`) {
 var { img } = await generateProfilePicture(medis)
-await Kyuu.query({
+await bagus.query({
 tag: 'iq',
 attrs: {
 to: botNumber,
@@ -5878,7 +6438,7 @@ content: img
 fs.unlinkSync(medis)
 replygcxeon(`Success`)
 } else {
-var memeg = await Kyuu.updateProfilePicture(botNumber, { url: medis })
+var memeg = await bagus.updateProfilePicture(botNumber, { url: medis })
 fs.unlinkSync(medis)
 replygcxeon(`Success`)
 }
@@ -5888,8 +6448,8 @@ case 'creategc': case 'creategroup': {
 if (!isOwner) return replygcxeon(mess.owner)
 if (!args.join(" ")) return replygcxeon(`Use ${prefix+command} groupname`)
 try {
-let cret = await Kyuu.groupCreate(args.join(" "), [])
-let response = await Kyuu.groupInviteCode(cret.id)
+let cret = await bagus.groupCreate(args.join(" "), [])
+let response = await bagus.groupInviteCode(cret.id)
 teks = `     「 Create Group 」
 
 ▸ Name : ${cret.subject}
@@ -5898,7 +6458,7 @@ teks = `     「 Create Group 」
 
 https://chat.whatsapp.com/${response}
        `
-Kyuu.sendMessage(m.chat, { text:teks, mentions: await Kyuu.parseMention(teks)}, {quoted:m})
+bagus.sendMessage(m.chat, { text:teks, mentions: await bagus.parseMention(teks)}, {quoted:m})
 } catch {
 replygcxeon("Error!")
 }
@@ -5907,8 +6467,8 @@ break
 case 'snobg': {
 if (!quoted) return replygcxeon(`Send/Reply Images/Videos/Gifs With Captions ${prefix+command}\nVideo Duration 1-9 Seconds`)
 if (/image/.test(mime)) {
-let media = await Kyuu.downloadAndSaveMediaMessage(quoted)
-let encmedia = await Kyuu.sendImageAsSticker(m.chat, await rmbg(media), m, { packname: global.packname, author: global.author })
+let media = await bagus.downloadAndSaveMediaMessage(quoted)
+let encmedia = await bagus.sendImageAsSticker(m.chat, await rmbg(media), m, { packname: global.packname, author: global.author })
 await fs.unlinkSync(encmedia)
 } else {
 replygcxeon(`Send/Reply Images With Captions ${prefix+command}`)
@@ -5921,10 +6481,9 @@ case 'wink': case 'poke': case 'nom': case 'slap': case 'smile':
 case 'wave': case 'awoo': case 'blush': case 'smug': case 'glomp': 
 case 'happy': case 'dance': case 'cringe': case 'cuddle': case 'highfive': 
 case 'shinobu': case 'handhold': {
-if (!isPrem) return replyprem(mess.group)
 axios.get(`https://api.waifu.pics/sfw/${command}`)
 .then(({data}) => {
-Kyuu.sendImageAsSticker(from, data.url, m, { packname: global.packname, author: global.author })
+bagus.sendImageAsSticker(from, data.url, m, { packname: global.packname, author: global.author })
 })
 }
 break
@@ -5933,9 +6492,9 @@ case 'tomp4': case 'tovideo': {
                 if (!/webp/.test(mime)) return replygcxeon(`reply sticker with caption *${prefix + command}*`)
                 replygcxeon(mess.wait)
 		        let { webp2mp4File } = require('./lib/uploader')
-                let media = await Kyuu.downloadAndSaveMediaMessage(quoted)
+                let media = await bagus.downloadAndSaveMediaMessage(quoted)
                 let webpToMp4 = await webp2mp4File(media)
-                await Kyuu.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' } }, { quoted: m })
+                await bagus.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' } }, { quoted: m })
                 await fs.unlinkSync(media)
             }
             break
@@ -5946,9 +6505,52 @@ case 'tomp4': case 'tovideo': {
             let media = await quoted.download()
             let { toAudio } = require('./lib/converter')
             let audio = await toAudio(media, 'mp4')
-            Kyuu.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
+            bagus.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
             }
             break
+            case 'skiter': {
+                if (!quoted) return reply(`Reply to Video/Image With Caption ${prefix + command}`)
+                if (/image/.test(mime)) {
+                    let media = await quoted.download()
+                    let encmedia = await bagus.sendImageAsSticker(m.chat, media, m, {
+                        
+                        author: global.author
+                    })
+                    await fs.unlinkSync(encmedia)
+                } else if (isVideo || /video/.test(mime)) {
+                    if ((quoted.msg || quoted).seconds > 11) return reply('Maximum 10 seconds!')
+                    let media = await quoted.download()
+                    let encmedia = await bagus.sendVideoAsSticker(m.chat, media, m, {
+                        packname: global.stickername,
+                       
+                    })
+                    await fs.unlinkSync(encmedia)
+                } else {
+                    return reply(`Send Images/Videos With Captions ${prefix + command}\nVideo Duration 1-9 Seconds`)
+                }
+            }
+            break
+case "aimage":
+try {
+if (global.keyopenai === '') return replygcxeon("Apikey limit exceeded");
+if (!q) return replygcxeon(`Generate image from AI.\n\nExample:\n${prefix + command} man riding horse`)
+const { Configuration, OpenAIApi } = require('openai')
+const configuration = new Configuration({
+apiKey: global.keyopenai,
+});
+const openai = new OpenAIApi(configuration);
+const response = await openai.createImage({
+prompt: text,
+n: 1,
+size: "512x512",
+});
+//console.log(response.data.data[0].url)
+bagus.sendImage(from, response.data.data[0].url, text, m);
+} catch (err) {
+console.log(err);
+replygcxeon("Sorry, there seems to be an error :"+ err);
+}
+break
             case 'tomp3': {
             if (/document/.test(mime)) return replygcxeon(`Send/Reply Video/Audio You Want to Convert into MP3 With Caption ${prefix + command}`)
             if (!/video/.test(mime) && !/audio/.test(mime)) return replygcxeon(`Send/Reply Video/Audio You Want to Convert into MP3 With Caption ${prefix + command}`)
@@ -5957,7 +6559,7 @@ case 'tomp4': case 'tovideo': {
             let media = await quoted.download()
             let { toAudio } = require('./lib/converter')
             let audio = await toAudio(media, 'mp4')
-            Kyuu.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `Convert By ${Kyuu.user.name}.mp3`}, { quoted : m })
+            bagus.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: mess.asuu+'.mp3'}, { quoted : m })
             }
             break
             case 'tovn': case 'toptt': {
@@ -5967,7 +6569,7 @@ case 'tomp4': case 'tovideo': {
             let media = await quoted.download()
             let { toPTT } = require('./lib/converter')
             let audio = await toPTT(media, 'mp4')
-            Kyuu.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
+            bagus.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
             }
             break
             case 'togif': {
@@ -5975,12 +6577,13 @@ case 'tomp4': case 'tovideo': {
                 if (!/webp/.test(mime)) return replygcxeon(`reply sticker with caption *${prefix + command}*`)
                 replygcxeon(mess.wait)
 		let { webp2mp4File } = require('./lib/uploader')
-                let media = await Kyuu.downloadAndSaveMediaMessage(quoted)
+                let media = await bagus.downloadAndSaveMediaMessage(quoted)
                 let webpToMp4 = await webp2mp4File(media)
-                await Kyuu.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
+                await bagus.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
                 await fs.unlinkSync(media)
             }
             break
+
             case 'toqr':{
   if (!q) return replygcxeon(' Please include link or text!')
    const QrCode = require('qrcode-reader')
@@ -5990,194 +6593,195 @@ case 'tomp4': case 'tovideo': {
    let buff = getRandom('.jpg')
    await fs.writeFileSync('./'+buff, data)
    let medi = fs.readFileSync('./' + buff)
-  await Kyuu.sendMessage(from, { image: medi, caption:"Here you go!"}, { quoted: m })
+  await bagus.sendMessage(from, { image: medi, caption:"Here you go!"}, { quoted: m })
    setTimeout(() => { fs.unlinkSync(buff) }, 10000)
   }
   break
   case 'dare':
-              const dare =[
-    "eat 2 tablespoons of rice without any side dishes, if it's dragging you can drink",
-    "spill people who make you pause",
-    "call crush/pickle now and send ss",
-    "drop only emote every time you type on gc/pc for 1 day.",
-    "say Welcome to Who Wants To Be a Millionaire! to all the groups you have",
-    "call ex saying miss",
-    "sing the chorus of the last song you played",
-    "vn your ex/crush/girlfriend, says hi (name), wants to call, just a moment. I missðŸ¥ºðŸ‘‰ðŸ¼ðŸ‘ˆðŸ¼",
-	"Bang on the table (which is at home) until you get scolded for being noisy",
-    "Tell random people _I was just told I was your twin first, we separated, then I had plastic surgery. And this is the most ciyusss_ thing",
-    "mention ex's name",
-    "make 1 rhyme for the members!",
-    "send ur whatsapp chat list",
-    "chat random people with gheto language then ss here",
-    "tell your own version of embarrassing things",
-    "tag the person you hate",
-    "Pretending to be possessed, for example: possessed by dog, possessed by grasshoppers, possessed by refrigerator, etc.",
-    "change name to *I AM DONKEY* for 24 hours",
-    "shout *ma chuda ma chuda ma chuda* in front of your house",
-    "snap/post boyfriend photo/crush",
-    "tell me your boyfriend type!",
-    "say *i hv crush on you, do you want to be my girlfriend?* to the opposite sex, the last time you chatted (submit on wa/tele), wait for him to reply, if you have, drop here",
-    "record ur voice that read *titar ke age do titar, titar ke piche do titar*",
-    "prank chat ex and say *i love u, please come back.* without saying dare!",
-    "chat to contact wa in the order according to your battery %, then tell him *i am lucky to hv you!*",
-    "change the name to *I am a child of randi* for 5 hours",
-    "type in bengali 24 hours",
-    "Use selmon bhoi photo for 3 days",
-    "drop a song quote then tag a suitable member for that quote",
-    "send voice note saying can i call u baby?",
-    "ss recent call whatsapp",
-    "Say *YOU ARE SO BEAUTIFUL DON'T LIE* to guys!",
-    "pop to a group member, and say fuck you",
-    "Act like a chicken in front of ur parents",
-    "Pick up a random book and read one page out loud in vn n send it here",
-    "Open your front door and howl like a wolf for 10 seconds",
-    "Take an embarrassing selfie and paste it on your profile picture",
-    "Let the group choose a word and a well known song. You have to sing that song and send it in voice note",
-    "Walk on your elbows and knees for as long as you can",
-    "sing national anthem in voice note",
-    "Breakdance for 30 seconds in the sitting roomðŸ˜‚",
-    "Tell the saddest story you know",
-    "make a twerk dance video and put it on status for 5mins",
-    "Eat a raw piece of garlic",
-    "Show the last five people you texted and what the messages said",
-    "put your full name on status for 5hrs",
-    "make a short dance video without any filter just with a music and put it on ur status for 5hrs",
-    "call ur bestie, bitch",
-    "put your photo without filter on ur status for 10mins",
-    "say i love oli london in voice noteðŸ¤£ðŸ¤£",
-    "Send a message to your ex and say I still like you",
-    "call Crush/girlfriend/bestie now and screenshot here",
-    "pop to one of the group member personal chat and Say you ugly bustard",
-    "say YOU ARE BEAUTIFUL/HANDSOME to one of person who is in top of ur pinlist or the first person on ur chatlist",
-    "send voice notes and say, can i call u baby, if u r boy tag girl/if girl tag boy",
-    "write i love you (random grup member name, who is online) in personal chat, (if u r boy write girl name/if girl write boy name) take a snap of the pic and send it here",
-    "use any bollywood actor photo as ur pfp for 3 days",
-    "put your crush photo on status with caption, this is my crush",
-    "change name to I AM GAY for 5 hours",
-    "chat to any contact in whatsapp and say i will be ur bf/gf for 5hours",
-    "send voice note says i hv crush on you, want to be my girlfriend/boyfriend or not? to any random person from the grup(if u girl choose boy, if boy choose girl",
-    "slap ur butt hardly send the sound of slap through voice noteðŸ˜‚",
-    "state ur gf/bf type and send the photo here with caption, ugliest girl/boy in the world",
-    "shout bravooooooooo and send here through voice note",
-    "snap your face then send it here",
-    "Send your photo with a caption, i am lesbian",
-    "shout using harsh words and send it here through vn",
-    "shout you bastard in front of your mom/papa",
-    "change the name to i am idiot for 24 hours",
-    "slap urself firmly and send the sound of slap through voice noteðŸ˜‚",
-    "say i love the bot owner xeon through voice note",
-    "send your gf/bf pic here",
-    "make any tiktok dance challenge video and put it on status, u can delete it after 5hrs",
-    "breakup with your best friend for 5hrs without telling him/her that its a dare",
-     "tell one of your frnd that u love him/her and wanna marry him/her, without telling him/her that its a dare",
-     "say i love depak kalal through voice note",
-     "write i am feeling horny and put it on status, u can delete it only after 5hrs",
-     "write i am lesbian and put it on status, u can delete only after 5hrs",
-     "kiss your mommy or papa and say i love youðŸ˜Œ",
-     "put your father name on status for 5hrs",
-     "send abusive words in any grup, excepting this grup, and send screenshot proof here"
+  const dare =[
+     "makanlah 2 sendok makan nasi tanpa lauk apa pun, kalau seret boleh diminum",
+     "tumpahkan orang yang membuatmu terdiam",
+     "telepon naksir/acar sekarang dan kirim ss",
+     "jatuhkan emote saja setiap kali mengetik di gc/pc selama 1 hari.",
+     "ucapkan Selamat Datang di Siapa yang Ingin Menjadi Jutawan! kepada semua grup yang Anda miliki",
+     "telepon mantan bilang rindu",
+     "nyanyikan bagian refrain dari lagu terakhir yang kamu mainkan",
+     "vn mantan/gebetan/pacarmu, sapa (nama), mau telpon, tunggu sebentar. Aku kangenðŸ¥ºðŸ‘‰ðŸ¼ðŸ‘ˆðŸ¼",
+"Gdor meja (yang ada di rumah) sampai dimarahi karena berisik",
+     "Bilang sembarangan ke orang _aku baru di bilang aku kembaranmu dulu, kita pisah, lalu aku operasi plastik. Dan ini yang paling ciyusss_",
+     "sebutkan nama mantan",
+     "buatlah 1 pantun untuk para anggota!",
+     "kirim daftar obrolan whatsappmu",
+     "ngobrol sembarangan orang dengan bahasa gheto lalu ss di sini",
+     "ceritakan hal memalukan menurut versimu sendiri",
+     "tandai orang yang kamu benci",
+     "pura-pura kesurupan, misalnya: kesurupan anjing, kesurupan belalang, kesurupan kulkas, dsb",
+     "ganti nama menjadi *I AM DONKEY* selama 24 jam",
+     "teriak *ma chuda ma chuda ma chuda* di depan rumahmu",
+     "jepret/posting foto pacar/naksir",
+     "beri tahu aku tipe pacarmu!",
+     "bilang *aku naksir kamu, kamu mau jadi pacarku?* ke lawan jenis, terakhir kali kamu ngobrol (kirim di wa/tele), tunggu dia balas, kalau sudah mampir kesini",
+     "rekam suaramu yang berbunyi *titar ke age do titar, titar ke piche do titar*",
+     "prank chat mantan dan bilang *i love u, silahkan kembali.* tanpa bilang berani!",
+     "chat ke kontak wa sesuai urutan % baterai kamu, lalu bilang ke dia *aku beruntung sama kamu!*",
+     "ganti nama menjadi *saya anak randi* selama 5 jam",
+     "ketik dalam bahasa bengali 24 jam",
+     "Gunakan foto selmon bhoi selama 3 hari",
+     "jatuhkan kutipan lagu lalu tag anggota yang cocok dengan kutipan itu",
+     "kirim pesan suara yang mengatakan bisakah aku meneleponmu sayang?",
+     "ss panggilan terakhir whatsapp",
+     "Katakan *KAMU CANTIK sekali, JANGAN BERBOHONG* pada kawan-kawan!",
+     "pop ke anggota grup, dan katakan persetan",
+     "Bertingkahlah seperti ayam di depan orang tuamu",
+     "Ambil buku acak dan baca satu halaman dengan lantang di vn dan kirimkan ke sini",
+     "Buka pintu depanmu dan melolong seperti serigala selama 10 detik",
+     "Ambil selfie yang memalukan dan tempelkan di foto profilmu",
+     "Biarkan kelompok memilih sebuah kata dan lagu yang terkenal. Kalian harus menyanyikan lagu itu dan mengirimkannya dalam voice note",
+     "Berjalanlah dengan siku dan lutut selama mungkin",
+     "nyanyikan lagu kebangsaan di voice note",
+     "Breakdance selama 30 detik di ruang dudukðŸ˜‚",
+     "Ceritakan kisah paling menyedihkan yang kamu tahu",
+     "buat video twerk dance dan pasang statusnya selama 5 menit",
+     "Makanlah sepotong bawang putih mentah",
+     "Tunjukkan lima orang terakhir yang kamu kirimi SMS dan isi pesannya",
+     "cantumkan nama lengkapmu di status selama 5 jam",
+     "buat video dance pendek tanpa filter apa pun hanya dengan musik dan pasang di status Anda selama 5 jam",
+     "panggil sahabatmu, jalang",
+     "letakkan fotomu tanpa filter pada statusmu selama 10 menit",
+     "katakan aku suka oli london di voice noteðŸ¤£ðŸ¤£",
+     "Kirim pesan ke mantanmu dan katakan aku masih menyukaimu",
+     "hubungi Crush/pacar/bestie sekarang dan screenshot di sini",
+     "Pop ke salah satu obrolan pribadi anggota grup dan katakan kamu bustard jelek",
+     "katakan KAMU CANTIK/GANGGUAN kepada salah satu orang yang berada di puncak pinlistmu atau orang pertama di chatlistmu",
+     "kirim catatan suara dan katakan, bolehkah aku meneleponmu sayang, jika kamu laki-laki tag perempuan/jika perempuan tag laki-laki",
+     "tulis aku mencintaimu (nama anggota grup acak, yang sedang online) di obrolan pribadi, (jika laki-laki tulis nama perempuan/jika perempuan tulis nama laki-laki) ambil fotonya dan kirimkan ke sini",
+     "gunakan foto aktor bollywood mana pun sebagai pfp Anda selama 3 hari",
+     "letakkan foto gebetanmu di status dengan caption, ini gebetanku",
+     "ganti nama menjadi I AM GAY selama 5 jam",
+     "ngobrol dengan kontak mana pun di whatsapp dan katakan saya akan menjadi pacarmu selama 5 jam",
+     "kirim pesan suara bilang aku suka kamu, mau jadi pacarku atau tidak? ke sembarang orang di grup (jika kamu perempuan pilih laki-laki, jika laki-laki pilih perempuan",
+     "tamparan pantatmu hampir tidak mengirimkan suara tamparan melalui catatan suaraðŸ˜‚",
+     "sebutkan tipe pacar/bfmu dan kirimkan fotonya ke sini dengan keterangan, perempuan/laki-laki paling jelek di dunia",
+     "teriak bravooooooooo dan kirim kesini lewat voice note",
+     "jepret wajahmu lalu kirimkan ke sini",
+     "Kirimkan fotomu dengan caption, aku lesbian",
+     "berteriak menggunakan kata-kata kasar dan kirimkan ke sini melalui vn",
+     "teriak kamu bajingan di depan ibu/papamu",
+     "ganti nama menjadi aku idiot selama 24 jam",
+     "tampar dirimu dengan kuat dan kirimkan suara tamparan itu melalui voice noteðŸ˜‚",
+     "katakan aku suka pemilik bot xeon melalui voice note",
+     "kirim foto pacar/bfmu ke sini",
+     "buat video tantangan tari tiktok apa saja dan pasang di status, kamu dapat menghapusnya setelah 5 jam",
+     "putus dengan sahabatmu selama 5 jam tanpa memberitahunya bahwa itu sebuah tantangan",
+      "katakan pada salah satu temanmu bahwa kamu mencintainyaeh dan ingin menikah dengannya, tanpa memberitahunya bahwa itu sebuah tantangan",
+      "katakan aku cinta depak kalal melalui voice note",
+      "tulis aku merasa terangsang dan letakkan di status, kamu hanya dapat menghapusnya setelah 5 jam",
+      "tulis saya lesbian dan masukkan ke status, Anda hanya dapat menghapusnya setelah 5 jam",
+      "cium ibu atau ayahmu dan katakan aku mencintaimuðŸ˜Œ",
+      "cantumkan nama ayahmu di status selama 5 jam",
+      "kirim kata-kata kasar di grup mana pun, kecuali grup ini, dan kirimkan bukti screenshot di sini"
 ]
+              
               const xeondare = dare[Math.floor(Math.random() * dare.length)]
               bufferdare = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
-              Kyuu.sendMessage(from, { image: bufferdare, caption: '_You choose DARE_\n'+ xeondare }, {quoted:m})
+              bagus.sendMessage(from, { image: bufferdare, caption: '_You choose DARE_\n'+ xeondare }, {quoted:m})
               break
                             break
        case 'truth':
               const truth =[
-    "Have you ever liked anyone? How long?",
-    "If you can or if you want, which gc/outside gc would you make friends with? (maybe different/same type)",
-    "apa ketakutan terbesar kamu?",
-    "Have you ever liked someone and felt that person likes you too?",
-    "What is the name of your friend's ex-girlfriend that you used to secretly like?",
-    "Have you ever stolen money from your father or mom? The reason?",
-    "What makes you happy when you're sad?",
-    "Ever had a one sided love? if so who? how does it feel bro?", 
-    "been someone's mistress?",
-    "the most feared thing",
-    "Who is the most influential person in your life?",
-    "what proud thing did you get this year", 
-    "Who is the person who can make you awesome", 
-    "Who is the person who has ever made you very happy?", 
-    "Who is closest to your ideal type of partner here", 
-    "Who do you like to play with??", 
-    "Have you ever rejected people? the reason why?",
-    "Mention an incident that made you hurt that you still remember", 
-    "What achievements have you got this year??",
-    "What's your worst habit at school??",
-    "What song do you sing most in the shower",
-    "Have you ever had a near-death experience",
-    "When was the last time you were really angry. Why?",
-    "Who is the last person who called you",
-    "Do you have any hidden talents, What are they",
-    "What word do you hate the most?",
-    "What is the last YouTube video you watched?",
-    "What is the last thing you Googled",
-    "Who in this group would you want to swap lives with for a week",
-    "What is the scariest thing thats ever happened to you",
-    "Have you ever farted and blamed it on someone else",
-    "When is the last time you made someone else cry",
-    "Have you ever ghosted a friend",
-    "Have you ever seen a dead body",
-    "Which of your family members annoys you the most and why",
-    "If you had to delete one app from your phone, which one would it be",
-    "What app do you waste the most time on",
-    "Have you ever faked sick to get home from school",
-    "What is the most embarrassing item in your room",
-    "What five items would you bring if you got stuck on a desert island",
-    "Have you ever laughed so hard you peed your pants",
-    "Do you smell your own farts",
-    "have u ever peed on the bed while sleeping ??",
-    "What is the biggest mistake you have ever made",
-    "Have you ever cheated in an exam",
-    "What is the worst thing you have ever done",
-    "When was the last time you cried",
-    "whom do you love the most among ur parents", 
-    "do u sometimes put ur finger in ur nosetril?", 
-    "who was ur crush during the school days",
-    "tell honestly, do u like any boy in this grup",
-    "have you ever liked anyone? how long?",
-    "do you have gf/bf','what is your biggest fear?",
-    "have you ever liked someone and felt that person likes you too?",
-    "What is the name of your ex boyfriend of your friend that you once liked quietly?",
-    "ever did you steal your mothers money or your fathers money",
-    "what makes you happy when you are sad",
-    "do you like someone who is in this grup? if you then who?",
-    "have you ever been cheated on by people?",
-    "who is the most important person in your life",
-    "what proud things did you get this year",
-    "who is the person who can make you happy when u r sad",
-    "who is the person who ever made you feel uncomfortable",
-    "have you ever lied to your parents",
-    "do you still like ur ex",
-    "who do you like to play together with?",
-    "have you ever stolen big thing in ur life? the reason why?",
-    "Mention the incident that makes you hurt that you still remember",
-    "what achievements have you got this year?",
-    "what was your worst habit at school?",
-    "do you love the bot creator, xeon?ðŸ¤£",
-    "have you ever thought of taking revenge from ur teacher?",
-    "do you like current prime minister of ur country",
-    "you non veg or veg",
-    "if you could be invisible, what is the first thing you would do",
-    "what is a secret you kept from your parents",
-    "Who is your secret crush",
-    "whois the last person you creeped on social media",
-    "If a genie granted you three wishes, what would you ask for",
-    "What is your biggest regret",
-    "What animal do you think you most look like",
-    "How many selfies do you take a day",
-    "What was your favorite childhood show",
-    "if you could be a fictional character for a day, who would you choose",
-    "whom do you text the most",
-    "What is the biggest lie you ever told your parents",
-    "Who is your celebrity crush",
-    "Whats the strangest dream you have ever had",
-    "do you play pubg, if you then send ur id number"
+     "Apakah kamu pernah menyukai seseorang? Berapa lama?",
+     "Kalau bisa atau kalau mau, gc/luar gc mana yang akan kamu jadikan teman? (mungkin berbeda/tipenya sama)",
+     "apa ketakutan terbesarmu?",
+     "Pernahkah kamu menyukai seseorang dan merasa orang itu juga menyukaimu?",
+     "Siapa nama mantan pacar temanmu yang diam-diam kamu sukai?",
+     "Apakah kamu pernah mencuri uang ayah atau ibumu? Alasannya?",
+     "Apa yang membuatmu bahagia saat sedih?",
+     "Pernah cinta bertepuk sebelah tangan? kalau iya siapa? bagaimana rasanya gan?",
+     "menjadi simpanan seseorang?",
+     "hal yang paling ditakuti",
+     "Siapa orang yang paling berpengaruh dalam hidupmu?",
+     "hal membanggakan apa yang kamu dapatkan tahun ini",
+     "Siapakah orang yang bisa membuatmu hebat",
+     "Siapakah orang yang pernah membuatmu sangat bahagia?",
+     "Siapa yang paling dekat dengan tipe pasangan idamanmu di sini",
+     "Kamu suka bermain dengan siapa??",
+     "Apakah kamu pernah menolak orang? alasannya kenapa?",
+     "Sebutkan kejadian yang membuatmu terluka yang masih kamu ingat",
+     "Prestasi apa yang kamu dapatkan tahun ini??",
+     "Apa kebiasaan terburukmu di sekolah??",
+     "Lagu apa yang paling sering kamu nyanyikan saat mandi",
+     "Apakah anda pernah mengalami pengalaman mendekati kematian",
+     "Kapan terakhir kali kamu benar-benar marah. Kenapa?",
+     "Siapa orang terakhir yang menelponmu",
+     "Apakah kamu mempunyai bakat terpendam, Apa saja",
+     "Kata apa yang paling kamu benci?",
+     "Apa video YouTube terakhir yang kamu tonton?",
+     "Apa hal terakhir yang kamu cari di Google",
+     "Dengan siapa di grup ini kamu ingin bertukar kehidupan selama seminggu",
+     "Apa hal paling menakutkan yang pernah terjadi padamu",
+     "Pernahkah kamu kentut dan menyalahkan orang lain",
+     "Kapan terakhir kali kamu membuat orang lain menangis",
+     "Apakah kamu pernah membuat teman menjadi hantu",
+     "pernahkah kamu melihat mayat",
+     "Anggota keluargamu yang mana yang paling membuatmu kesal dan kenapa",
+     "Jika Anda harus menghapus satu aplikasi dari ponsel Anda, aplikasi mana yang akan Anda hapus",
+     "Aplikasi apa yang paling banyak membuang waktumu",
+     "Pernahkah kamu berpura-pura sakit saat pulang sekolah",
+     "Barang apa yang paling memalukan di kamarmu",
+     "Lima barang apa yang akan kamu bawa jika kamu terjebak di pulau terpencil",
+     "Pernahkah kamu tertawa terbahak-bahak hingga kencing di celana",
+     "Apakah kamu mencium kentutmu sendiri",
+     "pernahkah kamu pipis di kasur saat tidur??",
+     "Apa kesalahan terbesar yang pernah kamu lakukan",
+     "Apakah kamu pernah menyontek saat ujian",
+     "Apa hal terburuk yang pernah kamu lakukan",
+     "Kapan terakhir kali kamu menangis",
+     "siapa yang paling kamu cintai di antara orang tuamu",
+     "apakah kamu terkadang memasukkan jarimu ke dalam lubang hidungmu?",
+     "siapa orang yang kamu sukai semasa sekolah",
+     "katakan sejujurnya, apakah kamu menyukai cowok mana pun di grup ini",
+     "pernahkah kamu menyukai seseorang? berapa lama?",
+     "apakah kamu punya pacar/bf','apa ketakutan terbesarmu?",
+     "pernahkah kamu menyukai seseorang dan merasa orang itu juga menyukaimu?",
+     "Siapa nama mantan pacar temanmu yang diam-diam kamu sukai?",
+     "pernahkah kamu mencuri uang ibumu atau uang ayahmu",
+     "apa yang membuatmu bahagia saat kamu sedih",
+     "kamu suka sama orang yang ada di grup ini? kalau kamu lalu siapa?",
+     "apakah kamu pernah ditipu orang?",
+     "siapa orang yang paling penting dalam hidupmu",
+     "hal membanggakan apa yang kamu dapatkan tahun ini",
+     "siapa orang yang bisa membuatmu bahagia saat kamu sedih",
+     "siapa orang yang pernah membuatmu merasa tidak nyaman",
+     "pernahkah kamu membohongi orang tuamu",
+     "apakah kamu masih menyukai mantanmu",
+     "kamu suka bermain bersama dengan siapa?",
+     "Apakah kamu pernah mencuri barang besar dalam hidupmu? Alasannya kenapa?",
+     "Sebutkan kejadian yang membuatmu terluka yang masih kamu ingat",
+     "Prestasi apa yang kamu dapatkan tahun ini?",
+     "apa kebiasaan terburukmu di sekolah?",
+     "apakah kamu menyukai pembuat bot, xeon?ðŸ¤£",
+     "pernahkah kamu berpikir untuk membalas dendam pada gurumu?",
+     "apakah kamu menyukai perdana menteri negaramu saat ini",
+     "kamu bukan vegetarian atau vegetarian",
+     "jika kamu bisa menjadi tidak terlihat, apa hal pertama yang akan kamu lakukan",
+     "rahasia apa yang kamu sembunyikan dari orang tuamu",
+     "Siapa gebetan rahasiamu",
+     "siapa orang terakhir yang kamu takuti di media sosial",
+     "jika jin mengabulkan tiga permintaanmu, apa yang akan kamu minta",
+     "Apa penyesalan terbesarmu",
+     "Menurutmu, hewan apa yang paling mirip denganmu",
+     "Berapa banyak selfie yang kamu ambil dalam sehari",
+     "Apa acara masa kecil favoritmu",
+     "Jika kamu bisa menjadi karakter fiksi untuk sehari, siapa yang akan kamu pilih",
+     "siapa yang paling sering kamu kirimi pesan",
+     "Apa kebohongan terbesar yang pernah kamu sampaikan kepada orang tuamu",
+     "Siapa selebritis naksirmu",
+     "Mimpi teraneh apa yang pernah kamu alami",
+     "kamu main pubg, kalau begitu kirimkan nomor id kamu"
 ]
               const xeontruth = truth[Math.floor(Math.random() * truth.length)]
               buffertruth = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
-              Kyuu.sendMessage(from, { image: buffertruth, caption: '_You choose TRUTH_\n'+ xeontruth }, {quoted:m})
+              bagus.sendMessage(from, { image: buffertruth, caption: '_You choose TRUTH_\n'+ xeontruth }, {quoted:m})
               break
 case 'checkme':
 					neme = args.join(" ")
@@ -6221,17 +6825,17 @@ case 'checkme':
 
 *≡═══《 CHECK PROPERTIES 》═══≡*`
 					buff = await getBuffer(ppuser)
-Kyuu.sendMessage(from, { image: buff, caption: profile, mentions: [bet]},{quoted:m})
+bagus.sendMessage(from, { image: buff, caption: profile, mentions: [bet]},{quoted:m})
 break
 case 'toimg': {
 if (!/webp/.test(mime)) return replygcxeon(`balas stiker dengan caption *${prefix+command}*`)
-let media = await Kyuu.downloadAndSaveMediaMessage(quoted)
+let media = await bagus.downloadAndSaveMediaMessage(quoted)
 let ran = await getRandom('.png')
 exec(`ffmpeg -i ${media} ${ran}`, (err) => {
 fs.unlinkSync(media)
 if (err) return replygcxeon(err)
 let buffer = fs.readFileSync(ran)
-Kyuu.sendMessage(m.chat, { image: buffer, jpegThumbnail: defaultpp }, { quoted: m })
+bagus.sendMessage(m.chat, { image: buffer, jpegThumbnail: defaultpp }, { quoted: m })
 fs.unlinkSync(ran)
 })
 }
@@ -6243,33 +6847,33 @@ const swn = args.join(" ")
 const pcknm = swn.split("|")[0];
 const atnm = swn.split("|")[1];
 if (m.quoted.isAnimated === true) {
-Kyuu.downloadAndSaveMediaMessage(quoted, "gifee")
-Kyuu.sendMessage(from, {sticker:fs.readFileSync("gifee.webp")},{quoted:m})
+bagus.downloadAndSaveMediaMessage(quoted, "gifee")
+bagus.sendMessage(from, {sticker:fs.readFileSync("gifee.webp")},{quoted:m})
 } else if (/image/.test(mime)) {
 let media = await quoted.download()
-let encmedia = await Kyuu.sendImageAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
+let encmedia = await bagus.sendImageAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
 } else if (/video/.test(mime)) {
 if ((quoted.msg || quoted).seconds > 11) return replygcxeon('Maximum 10 Seconds!')
 let media = await quoted.download()
-let encmedia = await Kyuu.sendVideoAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
+let encmedia = await bagus.sendVideoAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
 await fs.unlinkSync(encmedia)
 } else {
 replygcxeon(`Photo/Video?`)
 }
 }
 break
-case 'sticker': 
-case 's': {
+case 's': case 'sticker': case 'stiker': {
+	
 if (!quoted) return replygcxeon(`Send/Reply Images/Videos/Gifs With Captions ${prefix+command}\nVideo Duration 1-9 Seconds`)
 if (/image/.test(mime)) {
 let media = await quoted.download()
-let encmedia = await Kyuu.sendImageAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
-await fs.unlinkSync(encmedia)
+let encmedia = await bagus.sendImageAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
+
 } else if (/video/.test(mime)) {
 if ((quoted.msg || quoted).seconds > 11) return replygcxeon('Send/Reply Images/Videos/Gifs With Captions ${prefix+command}\nVideo Duration 1-9 Seconds')
 let media = await quoted.download()
-let encmedia = await Kyuu.sendVideoAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
-await fs.unlinkSync(encmedia)
+let encmedia = await bagus.sendVideoAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
+
 } else {
 replygcxeon(`Send/Reply Images/Videos/Gifs With Captions ${prefix+command}\nVideo Duration 1-9 Seconds`)
 }
@@ -6362,7 +6966,7 @@ case 'stupid':
 if (!m.isGroup) return replygcxeon(mess.group)
 let member = participants.map((u) => u.id)
 let org = member[Math.floor(Math.random() * member.length)]
-Kyuu.sendMessage(m.chat,
+bagus.sendMessage(m.chat,
 { text: `The Most ${command} Here Is @${org.split('@')[0]}`,
 contextInfo:{
 mentionedJid:[org],
@@ -6389,20 +6993,22 @@ case 'handsomecheck':
 				if (!text) return replygcxeon(`Tag Someone, Example : ${prefix + command} @Xeon`)
 					const gan = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const teng = gan[Math.floor(Math.random() * gan.length)]
-Kyuu.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${teng}%*` }, { quoted: m })
+bagus.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${teng}%*` }, { quoted: m })
 					break
-case 'beautifulcheck':
-				if (!text) return replygcxeon(`Tag Someone, Example : ${prefix + command} @Xeon`)
-					const can = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
-					const tik = can[Math.floor(Math.random() * can.length)]
-Kyuu.sendMessage(from, { text: `*${command}*\n\nNama : ${q}\nAnswer : *${tik}%*` }, { quoted: m })
-					break
-					case 'charactercheck':
-					if (!text) return replygcxeon(`Tag Someone, Example : ${prefix + command} @Xeon`)
-					const xeony =['Compassionate','Generous','Grumpy','Forgiving','Obedient','Good','Simp','Kind-Hearted','patient','UwU','top, anyway','Helpful']
-					const taky = xeony[Math.floor(Math.random() * xeony.length)]
-					Kyuu.sendMessage(from, { text: `Character Check : ${q}\nAnswer : *${taky}*` }, { quoted: m })
-				     break
+
+					
+case 'pintercek':
+case 'cekpinter':
+case 'cekgoblok':
+case 'goblokcek':
+case 'cantikcek':
+case 'cekcantik':
+case 'sangecek':
+case 'ceksange':
+case 'gaycek':
+case 'cekgay':
+case 'lesbicek':
+case 'ceklesbi':
 case 'awesomecheck':
   case 'greatcheck':
     case 'gaycheck':
@@ -6415,14 +7021,14 @@ case 'awesomecheck':
                       case 'uglycheck':
 if (!m.isGroup) return replygcxeon(mess.group)
 const cex = body.slice(0)
-const cek1 = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
+const cek1 = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','5000002','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','800000','81','82','83','84','85','86','87','88','89','90','91','92','999993','94','95','96','97','98','99999999999','100']
 const cek2 = cek1[Math.floor(Math.random() * cek1.length)]
 if (mentionByReply) {
-Kyuu.sendMessage(from, { text: 'Question : *' + cex + '*\nChecker : ' + `@${mentionByReply.split('@')[0]}` + '\nAnswer : ' + cek2 + '%', mentions: [mentionByReply] }, { quoted: m })
+bagus.sendMessage(from, { text: ' : *' + cex + '*\nChecker : ' + `@${mentionByReply.split('@')[0]}` + '\nAnswer : ' + cek2 + '%', mentions: [mentionByReply] }, { quoted: m })
 } else if (mentionByTag[0] && isGroup) {
-Kyuu.sendMessage(from, { text: 'Question : *' + cex + '*\nChecker : ' + `@${mentionByTag[0].split('@')[0]}` + '\nAnswer : ' + cek2 + '%', mentions: [mentionByTag[0]] }, { quoted: m })
+bagus.sendMessage(from, { text: 'Question : *' + cex + '*\nChecker : ' + `@${mentionByTag[0].split('@')[0]}` + '\nAnswer : ' + cek2 + '%', mentions: [mentionByTag[0]] }, { quoted: m })
 } else if (!mentionByReply && !mentionByTag[0]) {
-Kyuu.sendMessage(from, { text: 'Question : *' + cex + '*\nChecker : ' + `@${sender.split('@')[0]}` + '\nAnswer : ' + cek2 + '%', mentions: [sender] }, { quoted: m })
+bagus.sendMessage(from, { text: 'Question : *' + cex + '*\nChecker : ' + `@${sender.split('@')[0]}` + '\nAnswer : ' + cek2 + '%', mentions: [sender] }, { quoted: m })
 }
 break
 /*case 'obfus': case 'obfuscate':{
@@ -6501,7 +7107,7 @@ case 'glue':
 case '1917': 
 case 'leaves': {
 if (!isPrem) return replyprem(mess.premium)
-if (!q) return replygcxeon(`Example : ${prefix+command} Kyuu`) 
+if (!q) return replygcxeon(`Example : ${prefix+command} bagus`) 
 replygcxeon(mess.wait)
 let link
 if (/candy/.test(command)) link = 'https://textpro.me/create-christmas-candy-cane-text-effect-1056.html'
@@ -6562,7 +7168,7 @@ if (/glue/.test(command)) link = 'https://textpro.me/create-3d-glue-text-effect-
 if (/1917/.test(command)) link = 'https://textpro.me/1917-style-text-effect-online-980.html'
 if (/leaves/.test(command)) link = 'https://textpro.me/natural-leaves-text-effect-931.html'
 let anu = await textpro.textpro(link, q)
-Kyuu.sendMessage(m.chat, { image: { url: anu }, caption: `${mess.success}` }, { quoted: m })
+bagus.sendMessage(m.chat, { image: { url: anu }, caption: `${mess.success}` }, { quoted: m })
 }
 break
 case 'glitchtext':
@@ -6596,7 +7202,7 @@ case 'freecreate':
 case 'galaxystyle':
 case 'lighteffects':{
 if (!isPrem) return replyprem(mess.premium)
-if (!q) return replygcxeon(`Example : ${prefix+command} Kyuu`) 
+if (!q) return replygcxeon(`Example : ${prefix+command} bagus`) 
 replygcxeon(mess.wait)
 let link
 if (/glitchtext/.test(command)) link = 'https://en.ephoto360.com/create-digital-glitch-text-effects-online-767.html'
@@ -6630,7 +7236,7 @@ if (/freecreate/.test(command)) link = 'https://en.ephoto360.com/free-create-a-3
 if (/galaxystyle/.test(command)) link = 'https://en.ephoto360.com/create-galaxy-style-free-name-logo-438.html'
 if (/lighteffects/.test(command)) link = 'https://en.ephoto360.com/create-light-effects-green-neon-online-429.html'
 let haldwhd = await ephoto(link, q)
-Kyuu.sendMessage(m.chat, { image: { url: haldwhd }, caption: `${mess.success}` }, { quoted: m })
+bagus.sendMessage(m.chat, { image: { url: haldwhd }, caption: `${mess.success}` }, { quoted: m })
 }
 break
 case 'shadow': 
@@ -6661,7 +7267,7 @@ case 'naturetypography':
 case 'quotesunder':
 case 'shinetext':{
 if (!isPrem) return replyprem(mess.premium)
-if (!q) return replygcxeon(`Example : ${prefix+command} Kyuu`) 
+if (!q) return replygcxeon(`Example : ${prefix+command} bagus`) 
 replygcxeon(mess.wait)
 let link
 if (/stonetext/.test(command)) link = 'https://photooxy.com/online-3d-white-stone-text-effect-utility-411.html'
@@ -6692,248 +7298,248 @@ if (/metalliceffect/.test(command)) link = 'https://photooxy.com/logo-and-text-e
 if (/embroiderytext/.test(command)) link = 'https://photooxy.com/logo-and-text-effects/create-embroidery-text-online-191.html'
 if (/flamingtext/.test(command)) link = 'https://photooxy.com/logo-and-text-effects/realistic-flaming-text-effect-online-197.html'
 let dehe = await photooxy.photoOxy(link, q)
-Kyuu.sendMessage(m.chat, { image: { url: dehe }, caption: `${mess.success}` }, { quoted: m })
+bagus.sendMessage(m.chat, { image: { url: dehe }, caption: `${mess.success}` }, { quoted: m })
 }
 break
 case 'tiktokgirl':
 replygcxeon(mess.wait)
 var asupan = JSON.parse(fs.readFileSync('./HostMedia/tiktokvids/tiktokgirl.json'))
 var hasil = pickRandom(asupan)
-Kyuu.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
 break
 case 'tiktokghea':
 replygcxeon(mess.wait)
 var gheayubi = JSON.parse(fs.readFileSync('./HostMedia/tiktokvids/gheayubi.json'))
 var hasil = pickRandom(gheayubi)
-Kyuu.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
 break
 case 'tiktokbocil':
 replygcxeon(mess.wait)
 var bocil = JSON.parse(fs.readFileSync('./HostMedia/tiktokvids/bocil.json'))
 var hasil = pickRandom(bocil)
-Kyuu.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
 break
 case 'tiktoknukhty':
 replygcxeon(mess.wait)
 var ukhty = JSON.parse(fs.readFileSync('./HostMedia/tiktokvids/ukhty.json'))
 var hasil = pickRandom(ukhty)
-Kyuu.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
 break
 case 'tiktoksantuy':
 replygcxeon(mess.wait)
 var santuy = JSON.parse(fs.readFileSync('./HostMedia/tiktokvids/santuy.json'))
 var hasil = pickRandom(santuy)
-Kyuu.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
 break
 case 'tiktokkayes':
 replygcxeon(mess.wait)
 var kayes = JSON.parse(fs.readFileSync('./HostMedia/tiktokvids/kayes.json'))
 var hasil = pickRandom(kayes)
-Kyuu.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
 break
 case 'tiktokpanrika':
 replygcxeon(mess.wait)
 var rikagusriani = JSON.parse(fs.readFileSync('./HostMedia/tiktokvids/panrika.json'))
 var hasil = pickRandom(rikagusriani)
-Kyuu.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
 break
 case 'tiktoknotnot':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokvids/notnot.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, video: { url: hasil.url }}, { quoted: m })
 break
 case 'chinese':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/china.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'hijab':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/hijab.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'indo':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/indonesia.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'japanese':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/japan.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'korean':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/korea.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'malay':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/malaysia.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'randomgirl':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/random.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'randomboy':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/random2.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'thai':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/thailand.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'vietnamese':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/tiktokpics/vietnam.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'aesthetic':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/aesthetic.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'antiwork':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/antiwork.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'blackpink':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/blackpink.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'bike':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/bike.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'boneka':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/boneka.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'cosplay':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/cosplay.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'cat':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/cat.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'doggo':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/doggo.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'justina':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/justina.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'kayes':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/kayes.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'kpop':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/kpop.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'notnot':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/notnot.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'car':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/car.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'couplepic':case 'couplepicture':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/ppcouple.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'profilepic':  case 'profilepicture':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/profile.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'pubg':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/pubg.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'rose':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/rose.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'ryujin':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/ryujin.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'ulzzangboy':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/ulzzangboy.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'ulzzanggirl':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/ulzzanggirl.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'wallml': case 'wallpaperml':case 'mobilelegend':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/wallml.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'wallpaperphone': case 'wallphone':
 replygcxeon(mess.wait)
 var notnot = JSON.parse(fs.readFileSync('./HostMedia/randompics/wallhp.json'))
 var hasil = pickRandom(notnot)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
             case 'kuismath':
             case 'math': {
@@ -6944,7 +7550,7 @@ break
                 } = require('./database/math')
                 if (!text) return reply(`Mode: ${Object.keys(modes).join(' | ')}\nContoh penggunaan: ${prefix}math medium`)
                 let result = await genMath(text.toLowerCase())
-                Kyuu.sendText(m.chat, `*Berapa hasil dari: ${result.soal.toLowerCase()}*?\n\nWaktu: ${(result.waktu / 1000).toFixed(2)} detik`, m).then(() => {
+                bagus.sendText(m.chat, `*Berapa hasil dari: ${result.soal.toLowerCase()}*?\n\nWaktu: ${(result.waktu / 1000).toFixed(2)} detik`, m).then(() => {
                     kuismath[m.sender.split('@')[0]] = result.jawaban
                 })
                 await sleep(result.waktu)
@@ -6960,7 +7566,7 @@ break
                     if (tebakgambar.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakgambar.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendMessage(m.chat, {
+                    bagus.sendMessage(m.chat, {
                         image: {
                             url: result.img
                         },
@@ -6973,66 +7579,66 @@ break
                     await sleep(60000)
                     if (tebakgambar.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakgambar[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakgambar[m.sender.split('@')[0]]}`, m)
                         delete tebakgambar[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'kata') {
                     if (tebakkata.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakkata.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\n${result.soal}\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\n${result.soal}\nWaktu : 60s`, m).then(() => {
                         tebakkata[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebakkata.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakkata[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakkata[m.sender.split('@')[0]]}`, m)
                         delete tebakkata[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'kalimat') {
                     if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakkalimat.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\n${result.soal}\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\n${result.soal}\nWaktu : 60s`, m).then(() => {
                         tebakkalimat[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakkalimat[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakkalimat[m.sender.split('@')[0]]}`, m)
                         delete tebakkalimat[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'lirik') {
                     if (tebaklirik.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaklirik.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Ini Adalah Lirik Dari Lagu? : *${result.soal}*?\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Ini Adalah Lirik Dari Lagu? : *${result.soal}*?\nWaktu : 60s`, m).then(() => {
                         tebaklirik[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebaklirik.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaklirik[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaklirik[m.sender.split('@')[0]]}`, m)
                         delete tebaklirik[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'tebakan') {
                     if (tebaktebakan.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaktebakan.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Jawablah Pertanyaan Berikut : *${result.soal}*?\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Jawablah Pertanyaan Berikut : *${result.soal}*?\nWaktu : 60s`, m).then(() => {
                         tebaktebakan[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebaktebakan.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaktebakan[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaktebakan[m.sender.split('@')[0]]}`, m)
                         delete tebaktebakan[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'bendera') {
                     if (tebakbendera.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakbendera.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendMessage(m.chat, {
+                    bagus.sendMessage(m.chat, {
                         image: {
                             url: result.img
                         },
@@ -7045,14 +7651,14 @@ break
                     await sleep(60000)
                     if (tebakbendera.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.name)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakbendera[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakbendera[m.sender.split('@')[0]]}`, m)
                         delete tebakbendera[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'bendera2') {
                     if (tebakbendera2.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakbendera2.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendMessage(m.chat, {
+                    bagus.sendMessage(m.chat, {
                         image: {
                             url: result.img
                         },
@@ -7065,85 +7671,85 @@ break
                     await sleep(60000)
                     if (tebakbendera2.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.name)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakbendera2[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakbendera2[m.sender.split('@')[0]]}`, m)
                         delete tebakbendera2[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'kabupaten') {
                     if (tebakkabupaten.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakkabupaten.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendImage(m.chat, result.url, `Silahkan Jawab Gambar Berikut\n\nWaktu : 60s`, m).then(() => {
+                    bagus.sendImage(m.chat, result.url, `Silahkan Jawab Gambar Berikut\n\nWaktu : 60s`, m).then(() => {
                         tebakkabupaten[m.sender.split('@')[0]] = result.title.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebakkabupaten.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.title)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakkabupaten[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakkabupaten[m.sender.split('@')[0]]}`, m)
                         delete tebakkabupaten[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'kimia') {
                     if (tebakkimia.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakkimia.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nUnsur : ${result.unsur}\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nUnsur : ${result.unsur}\nWaktu : 60s`, m).then(() => {
                         tebakkimia[m.sender.split('@')[0]] = result.lambang.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebakkimia.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.lambang)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakkimia[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakkimia[m.sender.split('@')[0]]}`, m)
                         delete tebakkimia[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'asahotak') {
                     if (tebakasahotak.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/asahotak.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nSoal : ${result.soal}\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nSoal : ${result.soal}\nWaktu : 60s`, m).then(() => {
                         tebakasahotak[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebakasahotak.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakasahotak[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebakasahotak[m.sender.split('@')[0]]}`, m)
                         delete tebakasahotak[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'siapakahaku') {
                     if (tebaksiapakahaku.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/siapakahaku.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nSoal : ${result.soal}\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nSoal : ${result.soal}\nWaktu : 60s`, m).then(() => {
                         tebaksiapakahaku[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebaksiapakahaku.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaksiapakahaku[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaksiapakahaku[m.sender.split('@')[0]]}`, m)
                         delete tebaksiapakahaku[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'susunkata') {
                     if (tebaksusunkata.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/susunkata.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nSoal : ${result.soal}\nTipe : ${result.tipe}\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nSoal : ${result.soal}\nTipe : ${result.tipe}\nWaktu : 60s`, m).then(() => {
                         tebaksusunkata[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebaksusunkata.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaksusunkata[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaksusunkata[m.sender.split('@')[0]]}`, m)
                         delete tebaksusunkata[m.sender.split('@')[0]]
                     }
                 } else if (args[0] === 'tekateki') {
                     if (tebaktekateki.hasOwnProperty(m.sender.split('@')[0])) return reply("Masih Ada Sesi Yang Belum Diselesaikan!")
                     let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tekateki.json')
                     let result = anu[Math.floor(Math.random() * anu.length)]
-                    Kyuu.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nSoal : ${result.soal}\nWaktu : 60s`, m).then(() => {
+                    bagus.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\nSoal : ${result.soal}\nWaktu : 60s`, m).then(() => {
                         tebaktekateki[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
                     if (tebaktekateki.hasOwnProperty(m.sender.split('@')[0])) {
                         console.log("Jawaban: " + result.jawaban)
-                        Kyuu.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaktekateki[m.sender.split('@')[0]]}`, m)
+                        bagus.sendText(m.chat, `Waktu Habis\nJawaban:  ${tebaktekateki[m.sender.split('@')[0]]}`, m)
                         delete tebaktekateki[m.sender.split('@')[0]]
                     }
                 }
@@ -7160,7 +7766,7 @@ case 'meow':
 case 'tickle':
 replygcxeon(mess.wait)						
  waifudd = await axios.get(`https://nekos.life/api/v2/img/${command}`)
-            await Kyuu.sendMessage(m.chat,{ caption: mess.success, image: {url:waifudd.data.url} },{ quoted:m }).catch(err => {
+            await bagus.sendMessage(m.chat,{ caption: mess.success, image: {url:waifudd.data.url} },{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -7169,7 +7775,7 @@ case 'animewallpaper2': case 'animewall2': {
 		let { wallpaper } = require('./lib/scraperW')
                 anu = await wallpaper(args)
                 result = anu[Math.floor(Math.random() * anu.length)]
-                Kyuu.sendMessage(m.chat, { caption: `Title : ${result.title}\nCategory : ${result.type}\nDetail : ${result.source}\nMedia Url : ${result.image[2] || result.image[1] || result.image[0]}`, image: { url: result.image[0] } } , { quoted: m })
+                bagus.sendMessage(m.chat, { caption: `Title : ${result.title}\nCategory : ${result.type}\nDetail : ${result.source}\nMedia Url : ${result.image[2] || result.image[1] || result.image[0]}`, image: { url: result.image[0] } } , { quoted: m })
             }
             break
 case 'animewall': case 'animewallpaper':
@@ -7183,13 +7789,12 @@ const wall = new AnimeWallpaper();
             .getAnimeWall4({ title: q, type: "sfw", page: pages })
             .catch(() => null);
 const i = Math.floor(Math.random() * wallpaper.length);     
-            await Kyuu.sendMessage(m.chat, { caption: `*Query :* ${q}`, image: {url:wallpaper[i].image} }, { quoted: m} ).catch(err => {
+            await bagus.sendMessage(m.chat, { caption: `*Query :* ${q}`, image: {url:wallpaper[i].image} }, { quoted: m} ).catch(err => {
                     return('Error!')
                 })
-//Kyuu.sendMessage(m.chat,{image:{url:wallpaper[i].image},caption:`*Query :* ${q}`})            
+//bagus.sendMessage(m.chat,{image:{url:wallpaper[i].image},caption:`*Query :* ${q}`})            
 break
-case 'akira': case 'akiyama': case 'ana': case 'art': case 'asuna': case 'ayuzawa': case 'boruto': case 'bts': case 'chiho': case 'chitoge': case 'cosplay': case 'cosplayloli': case 'cosplaysagiri': case 'cyber': case 'deidara': case 'doraemon': case 'elaina': case 'emilia': case 'erza': case 'exo':  case 'gamewallpaper': case 'gremory': case 'hacker': case 'hestia': case 'hinata': case 'husbu': case 'inori': case 'islamic': case 'isuzu': case 'itachi': case 'itori': case 'jennie': case 'jiso': case 'justina': case 'kaga': case 'kagura': case 'kakasih': case 'kaori': case 'cartoon': case 'shortquote': case 'keneki': case 'kotori': case 'kurumi': case 'lisa': case 'loli': case 'madara': case 'megumin': case 'mikasa': case 'mikey': case 'miku': case 'minato': case 'mountain': case 'naruto': case 'neko': case 'neko2': case 'nekonime': case 'nezuko': case 'onepiece': case 'pentol': case 'pokemon': case 'programming':  case 'randomnime': case 'randomnime2': case 'rize': case 'rose': case 'sagiri': case 'sakura': case 'sasuke': case 'satanic': case 'shina': case 'shinka': case 'shinomiya': case 'shizuka': case 'shota': case 'space': case 'technology': case 'tejina': case 'toukachan': case 'tsunade': case 'waifu': case 'yotsuba': case 'yuki': case 'yulibocil': case 'yumeko':{
-if (!isPrem) return replyprem(mess.premium)
+case 'akira': case 'akiyama': case 'ana': case 'art': case 'asuna': case 'ayuzawa': case 'boruto': case 'bts': case 'chiho': case 'chitoge': case 'cosplay': case 'cosplayloli': case 'cosplaysagiri': case 'cyber': case 'deidara': case 'doraemon': case 'elaina': case 'emilia': case 'erza': case 'exo':  case 'gamewallpaper': case 'gremory': case 'hacker': case 'hestia': case 'hinata': case 'husbu': case 'inori': case 'islamic': case 'isuzu': case 'itachi': case 'itori': case 'jennie': case 'jiso': case 'justina': case 'kaga': case 'kagura': case 'kakasih': case 'kaori': case 'cartoon': case 'shortquote': case 'keneki': case 'kotori': case 'kurumi': case 'lisa': case 'loli': case 'madara': case 'megumin': case 'mikasa': case 'mikey': case 'miku': case 'minato': case 'mountain': case 'naruto': case 'netko': case 'neko2': case 'nekonime': case 'nezuko': case 'onepiece': case 'pentol': case 'pokemon': case 'programming':  case 'randomnime': case 'randomnime2': case 'rize': case 'rose': case 'sagiri': case 'sakura': case 'sasuke': case 'satanic': case 'shina': case 'shinka': case 'shinomiya': case 'shizuka': case 'shota': case 'space': case 'technology': case 'tejina': case 'toukachan': case 'tsunade': case 'waifu': case 'yotsuba': case 'yuki': case 'yulibocil': case 'yumeko':{
 replygcxeon(mess.wait)
 let heyy
 if (/akira/.test(command)) heyy = await fetchJson('https://raw.githubusercontent.com/DGXeon/XeonMedia/master/akira.json')
@@ -7294,7 +7899,7 @@ if (/yuki/.test(command)) heyy = await fetchJson('https://raw.githubusercontent.
 if (/yulibocil/.test(command)) heyy = await fetchJson('https://raw.githubusercontent.com/DGXeon/XeonMedia/master/yulibocil.json')
 if (/yumeko/.test(command)) heyy = await fetchJson('https://raw.githubusercontent.com/DGXeon/XeonMedia/master/yumeko.json')
 let yeha = heyy[Math.floor(Math.random() * heyy.length)];
-Kyuu.sendMessage(m.chat, { image: { url: yeha }, caption : mess.success }, { quoted: m })
+bagus.sendMessage(m.chat, { image: { url: yeha }, caption : mess.success }, { quoted: m })
 }
 break
 case '>':
@@ -7401,8 +8006,171 @@ let res = await axios({
   }
 
 })
+reply(`Wait 1-24 Jam an untuk proses banned dari bot dan tunggu ±30 Detik an untuk melihat balasan email dari WhatsApp tuanku🥺🙏`)
+await loading(180000)
+let payload = String(res.data)
+if (payload.includes(`"payload":true`)) {
+replygcxeon(`##- WhatsApp Support -##
 
-replygcxeon(util.format(JSON.parse(res.data.replace("for (;;);", ""))))
+Sepertinya Anda menggunakan atau mengajukan pertanyaan mengenai versi WhatsApp yang tidak resmi.
+
+Untuk memastikan Anda memiliki akses ke WhatsApp, verifikasi ulang nomor telepon Anda menggunakan aplikasi resmi kami yang dapat diunduh dari situs web kami: www.whatsapp.com/download
+
+Aplikasi tidak resmi membahayakan keamanan dan keselamatan Anda, dan kami tidak mendukungnya.
+
+Berikut yang mungkin terjadi jika Anda menggunakannya:
+
+Tidak ada jaminan bahwa pesan atau data Anda seperti lokasi Anda atau file yang Anda bagikan akan bersifat privat dan aman.
+
+Akun mungkin akan diblokir karena penggunaan aplikasi WhatsApp yang tidak resmi bertentangan dengan Ketentuan Layanan kami.
+
+Berikut adalah ketentuan layanan WhatsApp:
+
+Ketentuan Layanan WhatsApp
+
+1. Penggunaan Aplikasi
+
+Anda setuju untuk menggunakan aplikasi WhatsApp ("Aplikasi") hanya untuk tujuan yang sah dan sesuai dengan hukum yang berlaku. Anda tidak diizinkan untuk menggunakan Aplikasi untuk tujuan ilegal atau melanggar hak-hak pihak ketiga. Anda juga setuju untuk tidak menggunakan Aplikasi untuk mengirimkan, menerima, atau menyimpan informasi yang melanggar hukum atau melanggar hak-hak pihak ketiga.
+
+2. Hak Cipta dan Merek Dagang
+
+Anda setuju bahwa semua hak cipta, merek dagang, dan hak milik lainnya yang terkait dengan Aplikasi adalah milik WhatsApp, Inc. dan/atau afiliasinya. Anda tidak diizinkan untuk menggunakan atau memodifikasi hak cipta, merek dagang, atau hak milik lainnya tanpa izin tertulis dari WhatsApp, Inc. atau afiliasinya.
+
+3. Privasi dan Keamanan Data
+WhatsApp berjanji untuk melindungi privasi dan keamanan data Anda. Kami akan memproses data Anda sesuai dengan Kebijakan Privasi kami yang dapat diakses di https://www.whatsapp.com/legal/#privacy-policy. Dengan menggunakan Aplikasi, Anda setuju dengan Kebijakan Privasi kami dan memberikan persetujuan Anda untuk memproses data Anda sesuai dengan Kebijakan Privasi kami. 
+
+4. Pembatasan Tanggung Jawab 
+WhatsApp tidak bertanggung jawab atas kerugian apapun yang disebabkan oleh penggunaan Aplikasi oleh Anda atau pihak ketiga lainnya, termasuk namun tidak terbatas pada kerugian yang disebabkan oleh kegagalan teknis atau kerusakan peralatan, kehilangan data, kerusakan properti, atau kerugian finansial lainnya. 
+
+5. Perubahan Ketentuan Layanan 
+WhatsApp berhak untuk mengubah Ketentuan Layanan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Dengan melanjutkan penggunaan Aplikasi setelah perubahan Ketentuan Layanan ini berlaku, Anda setuju untuk terikat oleh versi terbaru dari Ketentuan Layanan ini.`)
+} else if (payload.includes(`"payload":false`)) {
+replygcxeon(`##- WhatsApp Support -##
+
+Terima kasih telah menghubungi kami. Kami akan menghubungi Anda kembali melalui email, dan itu mungkin memerlukan waktu hingga tiga hari kerja.`)
+} 
+
+
+
+}
+
+break
+    case 'baned': {
+
+if (!isOwner) return 
+
+if (!text) return replygcxeon(`Where's the number?`)
+
+let ntah = await axios.get("https://www.whatsapp.com/contact/noclient/")
+
+let email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=10")
+
+let cookie = ntah.headers["set-cookie"].join("; ")
+
+let $ = cheerio.load(ntah.data)
+
+let $form = $("form");
+
+let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
+
+let form = new URLSearchParams()
+
+form.append("jazoest", $form.find("input[name=jazoest]").val())
+
+form.append("lsd", $form.find("input[name=lsd]").val())
+
+form.append("step", "submit")
+
+form.append("country_selector", "ID")
+
+form.append("phone_number", text)
+
+form.append("email", email.data[0])
+
+form.append("email_confirm", email.data[0])
+
+form.append("platform", "ANDROID")
+
+form.append("your_message", `Buenas noches Ocupo que desactiven mi numero por asunto de robo/extraviado [+62 XXX-XXXX-XXXX] porque tiene datos muy personales mios, por asuntos de trabajo, y porque contiene cuentas com numeros de cuentas muy secretas Por favor desactiven el numero Buenas dias/noches, gracia : ${text}`)
+
+form.append("__user", "0")
+
+form.append("__a", "1")
+
+form.append("__csr", "")
+
+form.append("__req", "8")
+
+form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
+
+form.append("dpr", "1")
+
+form.append("__ccg", "UNKNOWN")
+
+form.append("__rev", "1006630858")
+
+form.append("__comment_req", "0")
+
+let res = await axios({
+
+  url,
+
+  method: "POST",
+
+  data: form,
+
+  headers: {
+
+    cookie
+
+  }
+
+})
+reply(`Wait 1-24 Jam an untuk proses banned dari bot dan tunggu ±30 Detik an untuk melihat balasan email dari WhatsApp tuanku🥺🙏`)
+await sleep(180000)
+let payload = String(res.data)
+if (payload.includes(`"payload":true`)) {
+replygcxeon(`##- WhatsApp Support -##
+
+Sepertinya Anda menggunakan atau mengajukan pertanyaan mengenai versi WhatsApp yang tidak resmi.
+
+Untuk memastikan Anda memiliki akses ke WhatsApp, verifikasi ulang nomor telepon Anda menggunakan aplikasi resmi kami yang dapat diunduh dari situs web kami: www.whatsapp.com/download
+
+Aplikasi tidak resmi membahayakan keamanan dan keselamatan Anda, dan kami tidak mendukungnya.
+
+Berikut yang mungkin terjadi jika Anda menggunakannya:
+
+Tidak ada jaminan bahwa pesan atau data Anda seperti lokasi Anda atau file yang Anda bagikan akan bersifat privat dan aman.
+
+Akun mungkin akan diblokir karena penggunaan aplikasi WhatsApp yang tidak resmi bertentangan dengan Ketentuan Layanan kami.
+
+Berikut adalah ketentuan layanan WhatsApp:
+
+Ketentuan Layanan WhatsApp
+
+1. Penggunaan Aplikasi
+
+Anda setuju untuk menggunakan aplikasi WhatsApp ("Aplikasi") hanya untuk tujuan yang sah dan sesuai dengan hukum yang berlaku. Anda tidak diizinkan untuk menggunakan Aplikasi untuk tujuan ilegal atau melanggar hak-hak pihak ketiga. Anda juga setuju untuk tidak menggunakan Aplikasi untuk mengirimkan, menerima, atau menyimpan informasi yang melanggar hukum atau melanggar hak-hak pihak ketiga.
+
+2. Hak Cipta dan Merek Dagang
+
+Anda setuju bahwa semua hak cipta, merek dagang, dan hak milik lainnya yang terkait dengan Aplikasi adalah milik WhatsApp, Inc. dan/atau afiliasinya. Anda tidak diizinkan untuk menggunakan atau memodifikasi hak cipta, merek dagang, atau hak milik lainnya tanpa izin tertulis dari WhatsApp, Inc. atau afiliasinya.
+
+3. Privasi dan Keamanan Data
+WhatsApp berjanji untuk melindungi privasi dan keamanan data Anda. Kami akan memproses data Anda sesuai dengan Kebijakan Privasi kami yang dapat diakses di https://www.whatsapp.com/legal/#privacy-policy. Dengan menggunakan Aplikasi, Anda setuju dengan Kebijakan Privasi kami dan memberikan persetujuan Anda untuk memproses data Anda sesuai dengan Kebijakan Privasi kami. 
+
+4. Pembatasan Tanggung Jawab 
+WhatsApp tidak bertanggung jawab atas kerugian apapun yang disebabkan oleh penggunaan Aplikasi oleh Anda atau pihak ketiga lainnya, termasuk namun tidak terbatas pada kerugian yang disebabkan oleh kegagalan teknis atau kerusakan peralatan, kehilangan data, kerusakan properti, atau kerugian finansial lainnya. 
+
+5. Perubahan Ketentuan Layanan 
+WhatsApp berhak untuk mengubah Ketentuan Layanan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Dengan melanjutkan penggunaan Aplikasi setelah perubahan Ketentuan Layanan ini berlaku, Anda setuju untuk terikat oleh versi terbaru dari Ketentuan Layanan ini.`)
+} else if (payload.includes(`"payload":false`)) {
+replygcxeon(`##- WhatsApp Support -##
+
+Terima kasih telah menghubungi kami. Kami akan menghubungi Anda kembali melalui email, dan itu mungkin memerlukan waktu hingga tiga hari kerja.`)
+} 
+
+
 
 }
 
@@ -7414,7 +8182,7 @@ case 'pushcontact': {
     let mem = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
     replygcxeon(`Success in pushing the message to contacts`)
     for (let pler of mem) {
-    Kyuu.sendMessage(pler, { text: q})
+    bagus.sendMessage(pler, { text: q})
      }  
      replygcxeon(`Done`)
       }
@@ -7429,7 +8197,7 @@ case 'pushcontact': {
 		if (!emoji2) return replygcxeon(`Example : ${prefix + command} 😅+🤔`)
 		let anumojimix = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`)
 		for (let res of anumojimix.results) {
-		    let encmedia = await Kyuu.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, author: global.author, categories: res.tags })
+		    let encmedia = await bagus.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, author: global.author, categories: res.tags })
 		    await fs.unlinkSync(encmedia)
 		}
 	    }
@@ -7441,7 +8209,7 @@ if (!AntiNsfw) return m.reply(mess.nsfw)
 replygcxeon(mess.wait)
 sbe = await hentaivid()
 cejd = sbe[Math.floor(Math.random(), sbe.length)]
-Kyuu.sendMessage(m.chat, { video: { url: cejd.video_1 }, 
+bagus.sendMessage(m.chat, { video: { url: cejd.video_1 }, 
 caption: `⭔ Title : ${cejd.title}
 ⭔ Category : ${cejd.category}
 ⭔ Mimetype : ${cejd.type}
@@ -7458,7 +8226,7 @@ if (!AntiNsfw) return m.reply(mess.nsfw)
                 const { hentai } = require('./lib/scraper.js')
                 anu = await hentai()
                 result912 = anu[Math.floor(Math.random(), anu.length)]
-                Kyuu.sendMessage(m.chat, { video: { url: result912.video_1 }, caption: `${themeemoji} Title : ${result912.title}\n${themeemoji} Category : ${result912.category}\n${themeemoji} Mimetype : ${result912.type}\n${themeemoji} Views : ${result912.views_count}\n${themeemoji} Shares : ${result912.share_count}\n${themeemoji} Source : ${result912.link}\n${themeemoji} Media Url : ${result912.video_1}` }, { quoted: m })
+                bagus.sendMessage(m.chat, { video: { url: result912.video_1 }, caption: `${themeemoji} Title : ${result912.title}\n${themeemoji} Category : ${result912.category}\n${themeemoji} Mimetype : ${result912.type}\n${themeemoji} Views : ${result912.views_count}\n${themeemoji} Shares : ${result912.share_count}\n${themeemoji} Source : ${result912.link}\n${themeemoji} Media Url : ${result912.video_1}` }, { quoted: m })
             }
             break
 case 'trap' :
@@ -7466,14 +8234,14 @@ if (!m.isGroup) return replygcxeon(mess.group)
 if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
  waifudd = await axios.get(`https://waifu.pics/api/nsfw/${command}`)       
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url:waifudd.data.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url:waifudd.data.url } }, { quoted: m })
 break
 case 'hentai-neko' :
 case 'hneko' :
 if (!m.isGroup) return replygcxeon(mess.group)
 if (!AntiNsfw) return replygcxeon(mess.nsfw)
     waifudd = await axios.get(`https://waifu.pics/api/nsfw/neko`)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url:waifudd.data.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url:waifudd.data.url } }, { quoted: m })
 break
 case 'hentai-waifu' :
 case 'nwaifu' :
@@ -7481,239 +8249,217 @@ if (!m.isGroup) return replygcxeon(mess.group)
 if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
     waifudd = await axios.get(`https://waifu.pics/api/nsfw/waifu`)         
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url:waifudd.data.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url:waifudd.data.url } }, { quoted: m })
 break
 case 'gasm':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)						
  waifudd = await axios.get(`https://nekos.life/api/v2/img/${command}`)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url:waifudd.data.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { caption: mess.success, image: { url:waifudd.data.url } }, { quoted: m })
 break  
 case 'milf':
 if (!m.isGroup) return replygcxeon(mess.group)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/milf.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break 
-case 'animespank':
-if (!m.isGroup) return m.reply(mess.group)
-if (!AntiNsfw) return m.reply(mess.nsfw)
-m.reply(mess.wait)						
- waifudd = await axios.get(`https://nekos.life/api/v2/img/spank`)     
-            await Kyuu.sendMessage(m.chat, { caption:  `Here you go!`, image: {url:waifudd.data.url} },{ quoted:m }).catch(err => {
-                    return('Error!')
-                })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
+
 case 'ahegao':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/ahegao.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'ass':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/ass.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'bdsm':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/bdsm.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'blowjob':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/blowjob.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'cuckold':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/cuckold.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'cum':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/cum.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'eba':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/eba.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'ero':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/ero.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'femdom':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/femdom.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'foot':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/foot.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'gangbang':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/gangbang.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'glasses':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/glasses.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
+case 'hentai': 
+replygcxeon(`Dalam Alquran pun jelas ditegaskan untuk tidak mencoba-coba mendekati perbuatan zina. Dalam Surat Al Isra ayat 32, Allah SWT berfirman: 
+
+وَلَا تَقْرَبُوا الزِّنٰىٓ اِنَّهٗ كَانَ فَاحِشَةً ۗوَسَاۤءَ سَبِيْلًا
+
+Latin: Walaa taqrabu zinaa innahuu kaana faakhisyatan wasaaa a sabiilaa.
+
+Artinya: Dan janganlah kamu mendekati zina; sesungguhnya zina itu adalah suatu perbuatan yang keji. Dan suatu jalan yang buruk. (QS. Al Isra: 32).
+
+Dalam ayat ini, Allah swt melarang para hamba-Nya mendekati perbuatan zina. Maksudnya ialah melakukan perbuatan yang membawa pada perzinaan, seperti pergaulan bebas tanpa kontrol antara laki-laki dan perempuan, membaca bacaan yang merangsang, menonton film yang mengumbar sensualitas perempuan, dan merebaknya pornografi dan pornoaksi. 
+
+Larangan melakukan zina diungkapkan dengan larangan mendekati zina untuk memberikan kesan yang tegas, bahwa jika mendekati perbuatan zina saja sudah dilarang apalagi melakukannya. `)
 break
-case 'hentai':
+case 'henyytai':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/hentai.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'jahy':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/jahy.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'manga':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/manga.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'masturbation':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/masturbation.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'neko-hentai':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/neko.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'neko-hentai2':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/neko2.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'nsfwloli':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/nsfwloli.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'orgy':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/orgy.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'panties':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/panties.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'pussy':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/pussy.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'tentacles':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/tentacles.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'thights':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/thights.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'yuri':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/yuri.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'zettai':
 if (!m.isGroup) return replygcxeon(mess.group)
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/zettai.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
-Kyuu.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 case 'gifblowjob':
 if (!m.isGroup) return replygcxeon(mess.group)
 if (!AntiNsfw) return replygcxeon(mess.nsfw)
@@ -7721,7 +8467,7 @@ replygcxeon(mess.wait)
   let assss = await axios.get ("https://api.waifu.pics/nsfw/blowjob")
     var bobuff = await fetchBuffer(assss.data.url)
     var bogif = await buffergif(bobuff)
-    await Kyuu.sendMessage(m.chat,{video:bogif, gifPlayback:true },{quoted:m}).catch(err => {
+    await bagus.sendMessage(m.chat, { document:bogif, gifPlayback:true },{quoted:m}).catch(err => {
     })
     break
 case 'gifhentai':
@@ -7730,7 +8476,7 @@ if (!AntiNsfw) return replygcxeon(mess.nsfw)
 replygcxeon(mess.wait)
 var ahegaonsfw = JSON.parse(fs.readFileSync('./HostMedia/nsfw/gifs.json'))
 var xeonyresultx = pickRandom(ahegaonsfw)
-    await Kyuu.sendMessage(m.chat,{video:xeonyresultx, gifPlayback:true },{quoted:m}).catch(err => {
+    await bagus.sendMessage(m.chat, { document:xeonyresultx, gifPlayback:true },{quoted:m}).catch(err => {
     })
     break
     case 'gifs': case 'foot': {
@@ -7741,7 +8487,7 @@ let heyy
     let yeha = heyy[Math.floor(Math.random() * heyy.length)];
     if (/gifs/.test(command)) heyy = await fetchJson('https://raw.githubusercontent.com/DGXeon/XeonMedia/master/gifs.json')
     if (/foot/.test(command)) heyy = await fetchJson('https://raw.githubusercontent.com/DGXeon/XeonMedia/master/foot.json')
-Kyuu.sendMessage(m.chat, { image: { url: yeha }, caption : mess.success }, { quoted: m })
+bagus.sendMessage(m.chat, { document: { url:  xeonyresult.url }, fileName: command+'.png', mimetype: 'application/png' }, { quoted: m })
 }
 break
     case 'igemoji': 
@@ -7808,21 +8554,21 @@ break
 case 'emoji': {
 if (!args.join(" ")) return replygcxeon('Where is the emoji?')
 emoji.get(args.join(" ")).then(async(emoji) => {
-let mese = await Kyuu.sendMessage(m.chat, {image:{url:emoji.images[4].url}, caption: `Made by ${global.botname}`}, {quoted:m})
-await Kyuu.sendMessage(from, {text:"reply #s to this image to make sticker"}, {quoted:mese})
+let mese = await bagus.sendMessage(m.chat, {image:{url:emoji.images[4].url}, caption: `Made by ${global.botname}`}, {quoted:m})
+await bagus.sendMessage(from, {text:"reply #s to this image to make sticker"}, {quoted:mese})
 })
 }
 break
 case 'volume': {
 if (!args.join(" ")) return replygcxeon(`Example: ${prefix + command} 10`)
-media = await Kyuu.downloadAndSaveMediaMessage(quoted, "volume")
+media = await bagus.downloadAndSaveMediaMessage(quoted, "volume")
 if (isQuotedAudio) {
 rname = getRandom('.mp3')
 exec(`ffmpeg -i ${media} -filter:a volume=${args[0]} ${rname}`, (err, stderr, stdout) => {
 fs.unlinkSync(media)
 if (err) return replygcxeon('Error!')
 jadie = fs.readFileSync(rname)
-Kyuu.sendMessage(from, {audio:jadie, mimetype: 'audio/mp4', ptt: true}, {quoted: m})
+bagus.sendMessage(from, {audio:jadie, mimetype: 'audio/mp4', ptt: true}, {quoted: m})
 fs.unlinkSync(rname)
 })
 } else if (isQuotedVideo) {
@@ -7831,7 +8577,7 @@ exec(`ffmpeg -i ${media} -filter:a volume=${args[0]} ${rname}`, (err, stderr, st
 fs.unlinkSync(media)
 if (err) return m.reply('Error!')
 jadie = fs.readFileSync(rname)
-Kyuu.sendMessage(from, {video:jadie, mimetype: 'video/mp4'}, {quoted: m})
+bagus.sendMessage(from, {video:jadie, mimetype: 'video/mp4'}, {quoted: m})
 fs.unlinkSync(rname)
 })
 } else {
@@ -7859,7 +8605,7 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
     repo = repo.replace(/.git$/, '')
     let url = `https://api.github.com/repos/${user}/${repo}/zipball`
     let filename = (await fetch(url, {method: 'HEAD'})).headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
-    Kyuu.sendMessage(m.chat, { document: { url: url }, fileName: filename+'.zip', mimetype: 'application/zip' }, { quoted: m }).catch((err) => replygcxeon(mess.error))
+    bagus.sendMessage(m.chat, { document: { url: url }, fileName: filename+'.zip', mimetype: 'application/zip' }, { quoted: m }).catch((err) => replygcxeon(mess.error))
 break
 case 'spotify':
 if (!text) return replygcxeon(`Where is the link?`)
@@ -7871,9 +8617,9 @@ if (!text) return replygcxeon(`Where is the link?`)
         const details = `${themeemoji} *Title:* ${name || ''}\n${themeemoji} *Artists:* ${(artists || []).join(
             ','
         )}\n${themeemoji} *Album:* ${album_name}\n${themeemoji} *Release Date:* ${release_date || ''}`
-       const response = await Kyuu.sendMessage(m.chat, { image: { url: cover_url }, caption: details }, { quoted: m })
+       const response = await bagus.sendMessage(m.chat, { image: { url: cover_url }, caption: details }, { quoted: m })
         const bufferpotify = await spotify.download()
-        await Kyuu.sendMessage(m.chat, { audio: bufferpotify }, { quoted: response })
+        await bagus.sendMessage(m.chat, { audio: bufferpotify }, { quoted: response })
 break
 case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat': case 'nightcore': case 'reverse': case 'robot': case 'slow': case 'smooth': case 'squirrel':
                 try {
@@ -7892,13 +8638,13 @@ case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat':
                 if (/squirrel/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"'
                 if (/audio/.test(mime)) {
                 replygcxeon(mess.wait)
-                let media = await Kyuu.downloadAndSaveMediaMessage(quoted)
+                let media = await bagus.downloadAndSaveMediaMessage(quoted)
                 let ran = getRandom('.mp3')
                 exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
                 fs.unlinkSync(media)
                 if (err) return m.reply(err)
                 let buff = fs.readFileSync(ran)
-                Kyuu.sendMessage(m.chat, { audio: buff, mimetype: 'audio/mpeg' }, { quoted : m })
+                bagus.sendMessage(m.chat, { audio: buff, mimetype: 'audio/mpeg' }, { quoted : m })
                 fs.unlinkSync(ran)
                 })
                 } else replygcxeon(`Reply to the audio you want to change with a caption *${prefix + command}*`)
@@ -7919,7 +8665,7 @@ const reply = `
 *${themeemoji} Example:* ${targetfine.data.list[0].example
     .replace(/\[/g, "")
     .replace(/\]/g, "")}`
-   Kyuu.sendMessage(m.chat,{text:reply},{quoted:m})
+   bagus.sendMessage(m.chat,{text:reply},{quoted:m})
 } catch (err) {
     console.log(err)
     return replygcxeon(`*${q}* isn't a valid text`)
@@ -7995,14 +8741,14 @@ case 'waifucheck':
 cantik = body.slice(1)
 const okebnh1 =['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 const xeonkak = okebnh1[Math.floor(Math.random() * okebnh1.length)]
-Kyuu.sendMessage(m.chat, { text: xeonkak }, { quoted: m })
+bagus.sendMessage(m.chat, { text: xeonkak }, { quoted: m })
 break
             case 'soulmate': {
             if (!m.isGroup) throw mess.group
             let member = participants.map(u => u.id)
             let me = m.sender
             let jodoh = member[Math.floor(Math.random() * member.length)]
-Kyuu.sendMessage(m.chat,
+bagus.sendMessage(m.chat,
 { text: `👫Your Soulmate Is
 
 @${me.split('@')[0]} ❤️ @${jodoh.split('@')[0]}`,
@@ -8027,7 +8773,7 @@ isForwarded: true,
             let member = participants.map(u => u.id)
             let orang = member[Math.floor(Math.random() * member.length)]
             let jodoh = member[Math.floor(Math.random() * member.length)]
-Kyuu.sendMessage(m.chat,
+bagus.sendMessage(m.chat,
 { text: `@${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
 Cieeee, What's Going On❤️💖👀`,
 contextInfo:{
@@ -8047,7 +8793,7 @@ isForwarded: true,
             }
             break
                         case 'coffee': case 'kopi': {
-                Kyuu.sendMessage(m.chat, {caption: mess.success, image: { url: 'https://coffee.alexflipnote.dev/random' }}, { quoted: m })
+                bagus.sendMessage(m.chat, {caption: mess.success, image: { url: 'https://coffee.alexflipnote.dev/random' }}, { quoted: m })
             }
             break
             case 'wallpaper': {
@@ -8056,7 +8802,7 @@ isForwarded: true,
 		let { wallpaper } = require('./lib/scraper')
                 anuwallpep = await wallpaper(text)
                 result = anuwallpep[Math.floor(Math.random() * anuwallpep.length)]                
-                Kyuu.sendMessage(m.chat, {caption: `${themeemoji} Title : ${result.title}\n${themeemoji} Category : ${result.type}\n${themeemoji} Detail : ${result.source}\n${themeemoji} Media Url : ${result.image[2] || result.image[1] || result.image[0]}`, image: { url: result.image[0] }} , { quoted: m })
+                bagus.sendMessage(m.chat, {caption: `${themeemoji} Title : ${result.title}\n${themeemoji} Category : ${result.type}\n${themeemoji} Detail : ${result.source}\n${themeemoji} Media Url : ${result.image[2] || result.image[1] || result.image[0]}`, image: { url: result.image[0] }} , { quoted: m })
             }
             break
             case 'wikimedia': {
@@ -8065,7 +8811,7 @@ isForwarded: true,
 		let { wikimedia } = require('./lib/scraper')
                 let anumedia = await wikimedia(text)
                 result = anumedia[Math.floor(Math.random() * anumedia.length)]
-                Kyuu.sendMessage(m.chat, {caption: `${themeemoji} Title : ${result.title}\n${themeemoji} Source : ${result.source}\n${themeemoji} Media Url : ${result.image}`, image: { url: result.image }} , { quoted: m })
+                bagus.sendMessage(m.chat, {caption: `${themeemoji} Title : ${result.title}\n${themeemoji} Source : ${result.source}\n${themeemoji} Media Url : ${result.image}`, image: { url: result.image }} , { quoted: m })
             }
             break
 	//bug feature
@@ -8075,7 +8821,7 @@ if (!text) return replygcxeon(`Example : ${prefix + command} xeon bihari😂`)
 const { xeonorwot } = require('./kbug/virtex/ios2.js')
 let teks = `${text}`
 {
-Kyuu.relayMessage(from, { 
+bagus.relayMessage(from, { 
 requestPaymentMessage: { 
 Message: { extendedTextMessage: { 
 text: `${xeonorwot}`, 
@@ -8100,7 +8846,7 @@ break
 case 'bugreact':{
 if (!isOwner) return replygcxeon(mess.owner)
 let reactionMessage = proto.Message.ReactionMessage.create({ key: m.key, text: "" })
-Kyuu.relayMessage(m.chat, { reactionMessage }, { messageId: '🦄' })
+bagus.relayMessage(m.chat, { reactionMessage }, { messageId: '🦄' })
 }
 break
 
@@ -8156,14 +8902,14 @@ if (m.chat.endsWith('broadcast')) return
 if (m.isBaileys) return
 let msgs = global.db.database
 if (!(budy.toLowerCase() in msgs)) return
-Kyuu.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
+bagus.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 }
 }
 
 } catch (err) {
 console.log(util.format(err))
 let e = String(err)
-Kyuu.sendMessage("123123@s.whatsapp.net", { text: "Hello developer, there tyaa to be an error, please fix it " + util.format(e), 
+bagus.sendMessage("123123@s.whatsapp.net", { text: "Hello developer, there tyaa to be an error, please fix it " + util.format(e), 
 contextInfo:{
 forwardingScore: 9999999, 
 isForwarded: true

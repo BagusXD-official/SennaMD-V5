@@ -12,36 +12,41 @@ global.doc6 = 'application/vnd.android.package-archive'
 
 
 //if api key expire, u can generate one from here: https://beta.openai.com/account/api-keys
-global.keyopenai = "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"
-
-//batas
+global.keyopenai = "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"
 global.APIKeys = {
     'https://api.shinoa.xyz/docs': '451C1A14'
 }
+
+//false=disable and true=enable
+global.autoRecording = true //auto recording
+global.autoTyping = false //auto typing
+global.autoread = true //auto read messages
+global.anti212 = false
+
 
 //owmner v card
 global.owner = ['62895700121662'] //ur owner number
 global.ownernomer = "62895700121662" //ur owner number2
 global.ownername = "GussXD" //ur owner name
-global.namaku = "BagusXD"
+global.namaku = "TwilightXD"
 global.ytname = "-" //ur yt chanel name
 global.socialm = "jgn spam owner njg" //ur github or insta name
 global.location = "Bali, Indonesia " //ur location
 
 //new
-global.botname = "-"
+global.botname = "Senna-MD"
 global.ownernumber = '62895700121662'
-global.ownername = ' '
+global.ownername = 'Twilight'
 global.ownerNumber = ["62895700121662@s.whatsapp.net"]
 global.ownerweb = "https://www.youtube.com/@Ambiyah"
-global.websitex = "-"
-global.wagc = "https://chat.whatsapp.com/GxpCNxNd7w99fjSzHJwGL"
+global.websitex = "http://bagusxd.rf.gd"
+global.wagc = 'https://chat.whatsapp.com/E6xLKFKye5g7nHgyOwG9jH'
 global.themeemoji = 'ðŸš©'
-global.wm = "-\n"
-global.wmbot = "-"
+global.wm = "SENNA BOT"
+global.wmbot = "Senna-MD"
 global.botscript = 'Bokepppppp' //script link
-global.packname = "-"
-global.author = ""
+global.packname = "Senna-MD"
+global.author = "Created by BagusXD\nOwner Bot : 62895700121662\nNomer Bot : 6288989802238"
 global.creator = "62895700121662@s.whatsapp.net"
 global.prefa = ['','!','.','#','&']
 global.hituet = 0
@@ -81,7 +86,8 @@ global.rpg = {
 }
 //messages
 global.mess = {
-    success: 'Nih',
+	asuu: 'Coverted By Senna Bot',
+    success: 'Donee\n©Senna-MD',
     admin: 'This feature could be used by admins only!',
     botAdmin: 'Bot Must Be Admin First!',
     premime: 'Premium Special Features If You Want to Register Type Rent',
@@ -89,10 +95,10 @@ global.mess = {
     group: 'Features Used Only For Groups!',
     private: 'Features Used Only For Private Chat!',
     bot: 'This feature could be used by bot only',
-    wait: 'proses...',
+    wait: 'proses...\nKalo Ga ada berarti error',
     linkm: 'Where is the link?',
     endLimit: 'Your Daily Limit Has Expired, The Limit Will Be Reset Every 12 Hours',
-    nsfw: 'The nsfw feature has not been activated, please contact the admin to activate',
+    nsfw: 'Fitur Nsfw Di Nonaktifkan Karena Menyebabkan Nomor Bot Di Banned 100x',
 }
 
 let file = require.resolve(__filename)
