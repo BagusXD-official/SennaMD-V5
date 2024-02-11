@@ -1,6 +1,6 @@
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 <p align="center">
-    <img src="https://telegra.ph/file/37df69a78afb6e010282d.jpg" width="100%" style="margin-left: auto;margin-right: auto;display: block;">
+    <img src="https://i.ibb.co/y5SgbTp/thumbnail.jpg" width="100%" style="margin-left: auto;margin-right: auto;display: block;">
 </p>
 
 ## PENTING
@@ -8,35 +8,24 @@
 > **Warning**: Jangan Memperjual Belikan Script Ini.
 
 
-<h1 align="center">ElainaBOT - MD</h1>
+<h1 align="center">SennaBOT - MD</h1>
 
 <p align="center">
- <a href="#"><img title="ElainaBOT" src="https://img.shields.io/badge/Whatshapp BOT-green?colorA=%23ff0000&colorB=%23017e40&style=for-the-badge"></a>
+ <a href="#"><img title="SennaMD" src="https://img.shields.io/badge/Whatshapp BOT-green?colorA=%23ff0000&colorB=%23017e40&style=for-the-badge"></a>
 </p>
 <p align="center">
-<a href="https://github.com/ImYanXiao"><img title="Author" src="https://img.shields.io/badge/AUTHOR-ImYanXiao-green.svg?style=for-the-badge&logo=github"></a>
+<a href="https://github.com/BagusXD-official"><img title="Author" src="https://img.shields.io/badge/AUTHOR-bgreen.svg?style=for-the-badge&logo=github"></a>
 
 ---------
-
-### a little about this bot
-- ✔️ | Simple
-- ✔️ | Menfess
-- ✔️ | AntiCall
-- ✔️ | Nsfw 
-- ✔️ | Sticker 
-- ✔️ | Kerang Ajaib 
-- ✔️ | Quotes
-- ✔️ | Anime 
-- ✔️ | Premium 
-- ✔️ | Tools 
----------
+## ```JUMLAH FITUR```
+| 1200+
  
 ## ```USER RAILWAY```
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app)
 
 ## ```USER REPLIT```
-[![Run on Repl.it](https://repl.it/badge/github/ImYanXiao/Elaina-MultiDevice)](https://repl.it/github/ImYanXiao/Elaina-MultiDevice)
+[![Run on Repl.it](https://repl.it/badge/github/BagusXD-official/SennaMD-V5)](https://repl.it/badge/github/BagusXD-official/SennaMD-V5)
 
 ---------
 ## FOR WINDOWS/RDP USER 💻
@@ -62,8 +51,8 @@ Install this tool first before running the script
 ----------
 
 ```bash
-git clone https://github.com/ImYanXiao/Elaina-MultiDevice
-cd Elaina-MultiDevice
+git clone https://github.com/BagusXD/SennaMD-V5
+cd /SennaMD-V5
 npm install
 npm update
 ```
@@ -76,72 +65,7 @@ npm update
 node .
 ```
 
----------
-
-## ```Arguments node . [--options] [<session name>]```
-
-## `--pconly`
-* If that chat not from private bot, bot will ignore
-
-## `--gconly`
-* If that chat not from group, bot will ignore
-
-## `--swonly`
-* If that chat not from status, bot will ignore
-
-## `--prefix <prefixes>`
-* `prefixes` are seperated by each character
-Set prefix
-
-## `--server`
-* Used for [heroku](https://heroku.com/) or scan through website
-
-## `--restrict`
-* Enables restricted plugins (which can lead your number to be **banned** if used too often)
-* Group Administration `add, kick`
-
-## `--img`
-* Enable image inspector through terminal
-
-## `--autoread`
-* If enabled, all incoming messages will be marked as read
-
-## `--nyimak`
-* No bot, just print received messages and add users to database
-
-## `--test`
-* **Development** Testing Mode *
-
-## `--self`
-* **Only Owner & Bot** 
-
----------
-
-## ```How To Customise Message Display```
-```js
-// Syntax
-conn.sendButton(
-      jid, // jid of the user to send the message to
-      text, // text to send
-      foooter, // footer to send
-      buffer, // buffer to send (optional), if you want to send button image, location, etc
-      buttons, // buttons to send, example [['text1', 'id1'], ['text2', 'id2']]
-      quoted, // quoted message to send (optional)
-      options // options to send, example { asLocation: true }
-)
-
-// example 
-conn.sendButton(m.chat, 'Hello world!', '@BochilGaming', null, [
-      ['Hello', 'hello'], ['Bye', 'bye']
-])
-// example button location
-conn.sendButton(m.chat, 'Hello world!', '@BochilGaming', 'https://github.com/BochilGaming', 
-      [['Hello', 'hello'], ['Bye', 'bye']], 
-      null, { asLocation: true }
-)
-```
----------
-
+------
 ### 📮 S&K
 1. Not For Sale
 2. Don't forget give star this repo
